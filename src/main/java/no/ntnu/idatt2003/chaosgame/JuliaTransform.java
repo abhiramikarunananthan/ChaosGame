@@ -1,8 +1,20 @@
 package no.ntnu.idatt2003.chaosgame;
 
 public class JuliaTransform implements Transform2D{
+
+    private Complex point;
+    private int sign;
+
+
+    public JuliaTransform(Complex point, int sign) {
+        this.point = point;
+        this.sign = sign;
+    }
+
     @Override
     public Vector2D transform(Vector2D point) {
-        return null;
+        Complex z = (Complex) this.point.subtract(point);
+        return z.sqrt();
     }
+
 }

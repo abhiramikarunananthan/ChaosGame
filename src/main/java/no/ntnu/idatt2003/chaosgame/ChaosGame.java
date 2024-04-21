@@ -25,7 +25,8 @@ public class ChaosGame {
             int randomNum = random.nextInt(description.getTransforms().size());
             Transform2D transformation = description.getTransforms().get(randomNum);
             currentPoint = transformation.transform(currentPoint);
-            canvas.putPixel(currentPoint);
+            Vector2D point = new Vector2D(currentPoint.getX0() * description.getMaxCoords().getX0(), currentPoint.getX1() * description.getMaxCoords().getX1());
+            canvas.putPixel(point);
         }
     }
 }

@@ -22,11 +22,11 @@ public class ChaosCanvas {
     }
 
     public int getPixel(Vector2D point){
-        return canvas[(int) translate(point).getX0()][(int) translate(point).getX1()];
+        return canvas[Math.abs((int) translate(point).getX0())][Math.abs((int) translate(point).getX1())];
     }
 
     public void putPixel(Vector2D point){
-        canvas[(int) translate(point).getX0()][(int) translate(point).getX1()] = 1;
+        canvas[Math.abs((int) translate(point).getX0())][Math.abs((int) translate(point).getX1())] = 1;
     }
 
     public int[][] getCanvasArray() {
@@ -48,7 +48,7 @@ public class ChaosCanvas {
                 ,((width-1)* minCoords.getX0()) / (minCoords.getX0()- maxCoords.getX0()));
 
         //TODO: Optimize the use of the field variable
-        this.transformCoordsToIndices = new AffineTransform2D(a, b);
-        return transformCoordsToIndices.transform(point);
+        AffineTransform2D affineTransform2D = new AffineTransform2D(a, b);
+        return affineTransform2D.transform(point);
     }
 }

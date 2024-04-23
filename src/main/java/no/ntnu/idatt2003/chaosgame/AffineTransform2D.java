@@ -17,4 +17,9 @@ public class AffineTransform2D implements Transform2D {
         return aX.add(this.vector);
     }
 
+
+    @Override
+    public String toString() {
+        return matrix.toString() + "," + vector.getX0() + "," + vector.getX1();
+    }
 }

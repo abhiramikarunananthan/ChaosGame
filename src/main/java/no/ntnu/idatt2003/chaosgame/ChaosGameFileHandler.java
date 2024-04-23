@@ -4,25 +4,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-public class ChaosGameFileHandler extends ChaosGameDescription {
+public class ChaosGameFileHandler {
 
 
-    public ChaosGameFileHandler(List<Transform2D> transforms, Vector2D minCoords, Vector2D maxCoords) {
-        super(transforms, minCoords, maxCoords);
-    }
 
-    public ChaosGameDescription readFromFile(String path) throws FileNotFoundException {
+
+    public static ChaosGameDescription readFromFile(String path) throws FileNotFoundException {
         File file = new File(path);
         Scanner reader = new Scanner(file);
+        reader.useLocale(Locale.ENGLISH);
         List<String> stringList = new ArrayList<>();
 
+
+
         while(reader.hasNextLine()){
-            stringList.add(reader.nextLine());
+            stringList.add(reader.nextLine().replaceAll("\\s", ""));
         }
         reader.close();
 
@@ -33,8 +31,9 @@ public class ChaosGameFileHandler extends ChaosGameDescription {
 
         List<Transform2D> transformationsList = new ArrayList<>();
 
+
         String[] minCoordsStringLine = minCoordsString.split(",");
-        String[] maxCoordsStringLine = minCoordsString.split(",");
+        String[] maxCoordsStringLine = maxCoordsString.split(",");
 
 
 
@@ -70,7 +69,7 @@ public class ChaosGameFileHandler extends ChaosGameDescription {
 
     }
 
-    public void writeToFile(ChaosGameDescription description, String path) throws IOException {
+    public static void writeToFile(ChaosGameDescription description, String path) throws IOException {
         File file = new File(path);
 
         FileWriter fileWriter = new FileWriter(file);

@@ -81,11 +81,17 @@ public class ChaosGameFileHandler extends ChaosGameDescription {
         lineList.add((description.getMaxCoords().getX0() + "," + description.getMaxCoords().getX1()));
 
         for (int i = 0; i < description.getTransforms().size(); i++) {
-           // lineList.add(description.getTransforms());
+            AffineTransform2D affineTransform2D = (AffineTransform2D) description.getTransforms().get(i);
+            lineList.add(affineTransform2D.toString());
+        }
+        String finalString = "";
+
+        for(String s: lineList){
+            finalString += s;
+            finalString += "\n";
         }
 
-
-
-
+        fileWriter.write(finalString);
+        fileWriter.close();
     }
 }

@@ -4,6 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import no.ntnu.idatt2003.chaosgame.components.ChaosGame;
+import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
+import no.ntnu.idatt2003.chaosgame.data.ChaosGameFileHandler;
+import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 
 import java.io.IOException;
 import java.util.Scanner;

@@ -1,4 +1,7 @@
-package no.ntnu.idatt2003.chaosgame;
+package no.ntnu.idatt2003.chaosgame.transforms;
+
+import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
+import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 
 public class AffineTransform2D implements Transform2D {
 

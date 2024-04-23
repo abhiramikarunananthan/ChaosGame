@@ -1,4 +1,7 @@
-package no.ntnu.idatt2003.chaosgame;
+package no.ntnu.idatt2003.chaosgame.transforms;
+
+import no.ntnu.idatt2003.chaosgame.tensors.Complex;
+import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 
 public class JuliaTransform implements Transform2D{
 

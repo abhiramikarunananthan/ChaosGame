@@ -1,4 +1,4 @@
-package no.ntnu.idatt2003.chaosgame;
+package no.ntnu.idatt2003.chaosgame.tensors;
 
 public class Vector2D {
     private double x0;

@@ -1,4 +1,7 @@
-package no.ntnu.idatt2003.chaosgame;
+package no.ntnu.idatt2003.chaosgame.components;
+
+import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
+import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
 
 import java.util.List;
 

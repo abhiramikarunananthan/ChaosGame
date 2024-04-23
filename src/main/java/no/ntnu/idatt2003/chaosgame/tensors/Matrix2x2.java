@@ -1,4 +1,4 @@
-package no.ntnu.idatt2003.chaosgame;
+package no.ntnu.idatt2003.chaosgame.tensors;
 
 public class Matrix2x2 {
     private double a00;

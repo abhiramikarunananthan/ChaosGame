@@ -1,6 +1,8 @@
-package no.ntnu.idatt2003.chaosgame;
+package no.ntnu.idatt2003.chaosgame.components;
 
-import java.util.Vector;
+import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
+import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
+import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
 
 public class ChaosCanvas {
 

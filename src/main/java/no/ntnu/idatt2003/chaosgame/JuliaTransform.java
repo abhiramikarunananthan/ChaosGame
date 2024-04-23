@@ -17,4 +17,8 @@ public class JuliaTransform implements Transform2D{
         return z.sqrt();
     }
 
+    @Override
+    public String toString() {
+        return sign + "" + point.getX0() + ", " + point.getX1();
+    }
 }

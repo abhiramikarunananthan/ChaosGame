@@ -19,36 +19,67 @@ public class ChaosGameMain extends Application {
     }
 
     public static void main(String[] args) {
-        //launch();
-        System.out.println("Input file path");
-        Scanner userInput = new Scanner(System.in);
-        String filePath = userInput.nextLine();
+
         ChaosGameDescription description = null;
-        try{
-            description = ChaosGameFileHandler.readFromFile(filePath);
-        }catch (Exception e){
-            System.out.println("You did enter correct path format");
-        }
+        while (true){
 
-        System.out.println("How many iterations do you want?");
-        int iterations = userInput.nextInt();
 
-        ChaosGame chaosGame = new ChaosGame(description, (int) description.getMaxCoords().getX0(), (int) description.getMaxCoords().getX1());
-        chaosGame.runSteps(iterations);
+            System.out.println("Choose one of the following options you would like to perform:");
+            System.out.println("[1] Import file");
+            System.out.println("[2] Export file");
+            Scanner userInput = new Scanner(System.in);
+            int chosenOption = userInput.nextInt();
+            userInput.nextLine();
+            switch (chosenOption){
+                case (1):
+                    System.out.println("Input file path");
+                    String filePathRead = userInput.nextLine();
 
-        for (int i = (int) description.getMaxCoords().getX1(); i >= 0; i--) {
-            for (int j = 0; j < description.getMaxCoords().getX0(); j++) {
-                Vector2D vector = new Vector2D(j, i);
-                int point = chaosGame.getCanvas().getPixel(vector);
+                    try{
+                        description = ChaosGameFileHandler.readFromFile(filePathRead);
+                    }catch (Exception e){
+                        System.out.println("You did enter correct path format");
+                    }
 
-                if (point == 0) {
-                    System.out.print(" ");
-                } else {
-                    System.out.print("X");
-                }
+                    System.out.println("How many iterations do you want?");
+                    int iterations = userInput.nextInt();
+                    userInput.nextLine();
+
+                    ChaosGame chaosGame = new ChaosGame(description, (int) description.getMaxCoords().getX0(), (int) description.getMaxCoords().getX1());
+                    chaosGame.runSteps(iterations);
+
+                    for (int i = (int) description.getMaxCoords().getX1(); i >= 0; i--) {
+                        for (int j = 0; j < description.getMaxCoords().getX0(); j++) {
+                            Vector2D vector = new Vector2D(j, i);
+                            int point = chaosGame.getCanvas().getPixel(vector);
+
+                            if (point == 0) {
+                                System.out.print(" ");
+                            } else {
+                                System.out.print("X");
+                            }
+
+                        }
+                        System.out.println();
+                    }
+                    break;
+
+                case (2):
+                    System.out.println("Input file path");
+                    String filePathWrite = userInput.nextLine();
+                    try{
+                        ChaosGameFileHandler.writeToFile(description, filePathWrite);
+                    } catch (Exception e ){
+                        System.out.println("Path not found");
+                    }
+                    break;
 
             }
-            System.out.println();
+
+
+
+
+
         }
 
 

@@ -19,4 +19,9 @@ public class Matrix2x2 {
         double newX1= this.a10* vector.getX0() + this.a11* vector.getX1();
         return new Vector2D(newX0, newX1);
     }
+
+    @Override
+    public String toString() {
+        return a00 + "," + a01 + "," + a10 + "," + a11;
+    }
 }

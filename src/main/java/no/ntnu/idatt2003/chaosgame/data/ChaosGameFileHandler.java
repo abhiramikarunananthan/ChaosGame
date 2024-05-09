@@ -27,7 +27,10 @@ public class ChaosGameFileHandler {
 
 
         while(reader.hasNextLine()){
-            stringList.add(reader.nextLine().replaceAll("\\s", ""));
+            String newLine = reader.nextLine();
+            String[] newLineSeperated = newLine.split("#");
+
+            stringList.add(newLineSeperated[0].replaceAll("\\s", ""));
         }
         reader.close();
 
@@ -99,5 +102,10 @@ public class ChaosGameFileHandler {
 
         fileWriter.write(finalString);
         fileWriter.close();
+
     }
+
+
+
+
 }

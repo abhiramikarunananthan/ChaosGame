@@ -24,7 +24,12 @@ public class ChaosGameMain extends Application {
 
     public static void main(String[] args) {
 
+
+
         ChaosGameDescription description = null;
+        int width = 500;
+        int height = 500;
+
         while (true){
 
 
@@ -49,23 +54,22 @@ public class ChaosGameMain extends Application {
                     int iterations = userInput.nextInt();
                     userInput.nextLine();
 
-                    ChaosGame chaosGame = new ChaosGame(description, (int) description.getMaxCoords().getX0(), (int) description.getMaxCoords().getX1());
+                    ChaosGame chaosGame = new ChaosGame(description, height,width);
                     chaosGame.runSteps(iterations);
+                    int[][] canvasArray = chaosGame.getCanvas().getCanvasArray();
 
-                    for (int i = (int) description.getMaxCoords().getX1(); i >= 0; i--) {
-                        for (int j = 0; j < description.getMaxCoords().getX0(); j++) {
-                            Vector2D vector = new Vector2D(j, i);
-                            int point = chaosGame.getCanvas().getPixel(vector);
-
-                            if (point == 0) {
-                                System.out.print(" ");
-                            } else {
-                                System.out.print("X");
+                    for (int i = 0; i < width; i++) {
+                        for (int j = 0; j < height; j++) {
+                            if (canvasArray[i][j] == 0){
+                                System.out.println(" ");
+                            }  else {
+                                System.out.println("X");
                             }
-
                         }
                         System.out.println();
                     }
+
+
                     break;
 
                 case (2):
@@ -77,12 +81,7 @@ public class ChaosGameMain extends Application {
                         System.out.println("Path not found");
                     }
                     break;
-
             }
-
-
-
-
 
         }
 

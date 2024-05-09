@@ -21,36 +21,46 @@ public class ChaosCanvas {
         this.maxCoords = maxCoords;
 
         this.canvas = new int[height][width];
+
+        this.transformCoordsToIndices =
+                new AffineTransform2D(
+                        new Matrix2x2(
+                                0,
+                                (double) (this.height-1) / (this.minCoords.getX1()-this.maxCoords.getX1()),
+                                (double) (this.width-1) / (this.maxCoords.getX0()-this.minCoords.getX0()),
+                                0),
+                        new Vector2D((this.height - 1)
+                        * this.maxCoords.getX1()
+                        / (this.maxCoords.getX1() -this.minCoords.getX1()),
+                                (this.width -1)
+                        * this.minCoords.getX0()
+                        /(this.maxCoords.getX0()-this.minCoords.getX0())));
+
+
+
     }
 
     public int getPixel(Vector2D point){
-        return canvas[Math.abs((int) translate(point).getX0())][Math.abs((int) translate(point).getX1())];
+        Vector2D indices = transformCoordsToIndices.transform((point));
+        int i = (int) Math.round(indices.getX0());
+        int j = (int) Math.round(indices.getX1());
+        return this.canvas[i][j];
     }
 
     public void putPixel(Vector2D point){
-        canvas[Math.abs((int) translate(point).getX0())][Math.abs((int) translate(point).getX1())] = 1;
+        Vector2D indices = transformCoordsToIndices.transform((point));
+        int i = (int) Math.round(indices.getX0());
+        int j = (int) Math.round(indices.getX1());
+        if(i >= 0 && i < width && j >= 0 && j < height){
+        this.canvas[i][j] = 1;
+        }
     }
 
     public int[][] getCanvasArray() {
         return canvas;
     }
     public void clear(){
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                canvas[i][j] = 0;
-            }
-        }
+      this.canvas = new int[width][height];
     }
-    public Vector2D translate(Vector2D point){
-        Matrix2x2 a = new Matrix2x2(0
-                , (height-1)/(minCoords.getX1()-maxCoords.getX1())
-                ,(width-1)/(maxCoords.getX0()- minCoords.getX0())
-                , 0 );
-        Vector2D b = new Vector2D(((height-1)* maxCoords.getX1())/ (maxCoords.getX1()- minCoords.getX1())
-                ,((width-1)* minCoords.getX0()) / (minCoords.getX0()- maxCoords.getX0()));
 
-        //TODO: Optimize the use of the field variable
-        AffineTransform2D affineTransform2D = new AffineTransform2D(a, b);
-        return affineTransform2D.transform(point);
-    }
 }

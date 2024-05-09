@@ -61,9 +61,9 @@ public class ChaosGameMain extends Application {
                     for (int i = 0; i < width; i++) {
                         for (int j = 0; j < height; j++) {
                             if (canvasArray[i][j] == 0){
-                                System.out.println(" ");
+                                System.out.print(" ");
                             }  else {
-                                System.out.println("X");
+                                System.out.print("X");
                             }
                         }
                         System.out.println();

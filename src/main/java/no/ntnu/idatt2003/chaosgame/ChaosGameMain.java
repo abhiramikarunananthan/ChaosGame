@@ -3,6 +3,9 @@ package no.ntnu.idatt2003.chaosgame;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGame;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
@@ -15,16 +18,30 @@ import java.util.Scanner;
 public class ChaosGameMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ChaosGameMain.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+
+        Text title = new Text("ChaosGame");
+        Text infoBox = new Text("This is a chaos game");
+        Button playButton = new Button("Play");
+
+        playButton.setOnAction(actionEvent -> {
+            SceneController sceneController = new SceneController(stage);
+            sceneController.switchScene(1);
+        });
+
+
+        VBox root = new VBox(title, infoBox, playButton);
+
+
+        Scene scene = new Scene(root, 600, 600);
+
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {
 
-
+        launch(args);
 
         ChaosGameDescription description = null;
         int width = 500;

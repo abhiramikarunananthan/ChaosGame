@@ -28,19 +28,19 @@ public class CanvasScene {
         VBox inputFieldsVBox = new VBox();
         switch (transformation){
             case AFFINE2D -> {
-                Text matrixText = new Text("Skriv inn tallene for matrisen");
+                Text matrixText = new Text("Write the numbers wanted for the matrix");
                 TextField matrixInputFieldA00 = new TextField();
                 TextField matrixInputFieldA01 = new TextField();
                 TextField matrixInputFieldA10 = new TextField();
                 TextField matrixInputFieldA11 = new TextField();
-                Text vectorText = new Text("Skriv inn tallene for vektoren");
+                Text vectorText = new Text("Write the numbers wanted for the vector");
                 TextField vectorInputFieldB0 = new TextField();
                 TextField vectorInputFieldB1 = new TextField();
                 inputFieldsVBox.getChildren().addAll(matrixText, matrixInputFieldA00, matrixInputFieldA01, matrixInputFieldA10, matrixInputFieldA11, vectorText, vectorInputFieldB0, vectorInputFieldB1);
 
             }
             case JULIA -> {
-                Text constantText = new Text("Skriv inn konstanten C");
+                Text constantText = new Text("Write the constant C");
                 TextField constantInputField = new TextField();
                 inputFieldsVBox.getChildren().addAll(constantText, constantInputField);
             }
@@ -48,6 +48,7 @@ public class CanvasScene {
         Text iterationText = new Text("Input amount of iterations");
         TextField iterationInputField = new TextField();
         Button runButton = new Button("Run");
+        Button backButton = new Button("Back");
         Canvas canvas = new Canvas(600.0f, 600.0f);
 
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
@@ -74,11 +75,15 @@ public class CanvasScene {
                     }
                 }
         });
+        backButton.setOnAction(actionEvent -> {
+            SceneController sceneController = new SceneController(stage);
+            sceneController.switchScene(2);
+        });
 
         iterationInputField.setMinWidth(50);
         runButton.setMinWidth(50);
 
-        VBox inputFieldBox = new VBox(inputFieldsVBox, iterationText, iterationInputField, runButton);
+        VBox inputFieldBox = new VBox(inputFieldsVBox, iterationText, iterationInputField, runButton, backButton);
         HBox container = new HBox(inputFieldBox, canvas);
 
 

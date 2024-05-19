@@ -14,6 +14,8 @@ import no.ntnu.idatt2003.chaosgame.SceneController;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGame;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.data.ChaosGameFileHandler;
+import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
+import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 import java.io.FileNotFoundException;
 
@@ -21,9 +23,30 @@ public class CanvasScene {
 
     private Scene scene;
 
-    public CanvasScene(Stage stage){
+    public CanvasScene(Stage stage, ChaosGameDescription chaosGameDescription, Transformations transformation){
 
-        TextField iterationInputField = new TextField("Choose iterations");
+        VBox inputFieldsVBox = new VBox();
+        switch (transformation){
+            case AFFINE2D -> {
+                Text matrixText = new Text("Skriv inn tallene for matrisen");
+                TextField matrixInputFieldA00 = new TextField();
+                TextField matrixInputFieldA01 = new TextField();
+                TextField matrixInputFieldA10 = new TextField();
+                TextField matrixInputFieldA11 = new TextField();
+                Text vectorText = new Text("Skriv inn tallene for vektoren");
+                TextField vectorInputFieldB0 = new TextField();
+                TextField vectorInputFieldB1 = new TextField();
+                inputFieldsVBox.getChildren().addAll(matrixText, matrixInputFieldA00, matrixInputFieldA01, matrixInputFieldA10, matrixInputFieldA11, vectorText, vectorInputFieldB0, vectorInputFieldB1);
+
+            }
+            case JULIA -> {
+                Text constantText = new Text("Skriv inn konstanten C");
+                TextField constantInputField = new TextField();
+                inputFieldsVBox.getChildren().addAll(constantText, constantInputField);
+            }
+        }
+        Text iterationText = new Text("Input amount of iterations");
+        TextField iterationInputField = new TextField();
         Button runButton = new Button("Run");
         Canvas canvas = new Canvas(600.0f, 600.0f);
 
@@ -40,10 +63,6 @@ public class CanvasScene {
 
 
         runButton.setOnAction(actionEvent -> {
-            try{
-
-                ChaosGameDescription chaosGameDescription = ChaosGameFileHandler.readFromFile("barnsley.txt");
-
                 ChaosGame chaosGame = new ChaosGame(chaosGameDescription, 600,600);
                 chaosGame.runSteps(Integer.parseInt(iterationInputField.getText()));
                 int[][] canvasArray = chaosGame.getCanvas().getCanvasArray();
@@ -54,16 +73,12 @@ public class CanvasScene {
                         }
                     }
                 }
-            }catch (FileNotFoundException fileNotFoundException){
-
-            }
-
         });
 
         iterationInputField.setMinWidth(50);
         runButton.setMinWidth(50);
 
-        VBox inputFieldBox = new VBox(iterationInputField, runButton);
+        VBox inputFieldBox = new VBox(inputFieldsVBox, iterationText, iterationInputField, runButton);
         HBox container = new HBox(inputFieldBox, canvas);
 
 

@@ -20,6 +20,7 @@ public class StartScene {
         Button sierpinskiButton = new Button("Sierpinski triangle");
         Button barnsleyButton = new Button("Barnsley fern");
         Button juliaButton = new Button("Julia set");
+        Button backButton = new Button("Back");
 
         sierpinskiButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
@@ -39,9 +40,13 @@ public class StartScene {
             sceneController.setTransformations(Transformations.JULIA);
             sceneController.switchScene(3);
         });
+        backButton.setOnAction(actionEvent -> {
+            SceneController sceneController = new SceneController(stage);
+            sceneController.switchScene(1);
+        });
 
 
-        VBox root = new VBox(title, infoBox, sierpinskiButton, barnsleyButton, juliaButton);
+        VBox root = new VBox(title, infoBox, sierpinskiButton, barnsleyButton, juliaButton, backButton);
 
 
         scene = new Scene(root, 600, 600);

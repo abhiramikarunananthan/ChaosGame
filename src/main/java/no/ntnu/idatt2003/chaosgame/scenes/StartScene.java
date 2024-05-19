@@ -6,6 +6,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.SceneController;
+import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescriptionFactory;
+import no.ntnu.idatt2003.chaosgame.components.Fractals;
+import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 public class StartScene {
     private Scene scene;
@@ -20,8 +23,23 @@ public class StartScene {
 
         sierpinskiButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
+            sceneController.setGameDescription(new ChaosGameDescriptionFactory().createGameDescription(Fractals.SIERPINSKI));
+            sceneController.setTransformations(Transformations.AFFINE2D);
             sceneController.switchScene(3);
         });
+        barnsleyButton.setOnAction(actionEvent -> {
+            SceneController sceneController = new SceneController(stage);
+            sceneController.setGameDescription(new ChaosGameDescriptionFactory().createGameDescription(Fractals.BARNSLEY));
+            sceneController.setTransformations(Transformations.AFFINE2D);
+            sceneController.switchScene(3);
+        });
+        juliaButton.setOnAction(actionEvent -> {
+            SceneController sceneController = new SceneController(stage);
+            sceneController.setGameDescription(new ChaosGameDescriptionFactory().createGameDescription(Fractals.JULIASET));
+            sceneController.setTransformations(Transformations.JULIA);
+            sceneController.switchScene(3);
+        });
+
 
         VBox root = new VBox(title, infoBox, sierpinskiButton, barnsleyButton, juliaButton);
 

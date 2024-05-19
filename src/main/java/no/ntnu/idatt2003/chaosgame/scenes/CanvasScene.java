@@ -18,6 +18,7 @@ import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 public class CanvasScene {
 
@@ -52,9 +53,9 @@ public class CanvasScene {
         Canvas canvas = new Canvas(600.0f, 600.0f);
 
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-
-        graphicsContext.setStroke(Color.PURPLE);
         graphicsContext.setLineWidth(1.0);
+
+        int[][] vistedPoints = new int[600][600];
 
         graphicsContext.save();
         graphicsContext.translate(300, 300);
@@ -63,17 +64,31 @@ public class CanvasScene {
 
 
 
-        runButton.setOnAction(actionEvent -> {
+                runButton.setOnAction(actionEvent -> {
                 ChaosGame chaosGame = new ChaosGame(chaosGameDescription, 600,600);
                 chaosGame.runSteps(Integer.parseInt(iterationInputField.getText()));
                 int[][] canvasArray = chaosGame.getCanvas().getCanvasArray();
                 for (int i = 0; i < canvasArray.length; i++) {
                     for (int j = 0; j < canvasArray.length; j++) {
-                        if(canvasArray[i][j] == 1){
-                            graphicsContext.strokeLine(i,j, i, j);
+                        if(canvasArray[i][j] >= 1){
+                            vistedPoints[i][j] += canvasArray[i][j];
+                            Color color = Color.RED;
+
+
+                                for (int k = 0; k < vistedPoints[i][j]; k++) {
+                                    color = Color.hsb(color.getHue() + 30, color.getSaturation(), color.getBrightness());
+                                }
+
+                                graphicsContext.setStroke(color);
+                                graphicsContext.strokeLine(i,j, i, j);
+
+
+
+
                         }
                     }
                 }
+
         });
         backButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);

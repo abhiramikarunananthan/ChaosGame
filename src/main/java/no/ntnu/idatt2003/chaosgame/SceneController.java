@@ -3,6 +3,7 @@ package no.ntnu.idatt2003.chaosgame;
 import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.scenes.CanvasScene;
+import no.ntnu.idatt2003.chaosgame.scenes.CreateFractal;
 import no.ntnu.idatt2003.chaosgame.scenes.MenuScene;
 import no.ntnu.idatt2003.chaosgame.scenes.StartScene;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
@@ -14,7 +15,7 @@ public class SceneController {
     private final int MENU_SCENE = 1;
     private final int START_SCENE = 2;
     private final int CANVAS_SCENE = 3;
-
+    private final int CREATE_FRACTAL = 4;
 
 
     public SceneController(Stage stage){
@@ -44,6 +45,11 @@ public class SceneController {
             case CANVAS_SCENE -> {
                 CanvasScene canvasScene = new CanvasScene(stage, chaosGameDescription, transformations);
                 stage.setScene(canvasScene.getScene());
+                break;
+            }
+            case CREATE_FRACTAL -> {
+                CreateFractal createFractal = new CreateFractal(stage);
+                stage.setScene(createFractal.getScene());
                 break;
             }
         }

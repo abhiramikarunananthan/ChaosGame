@@ -12,10 +12,6 @@ import no.ntnu.idatt2003.chaosgame.components.Fractals;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 public class StartScene {
-    private Scene scene;
-
-    private Text title;
-    private Text infoBox;
     private Button sierpinskiButton;
     private Button barnsleyButton;
     private Button juliaButton;
@@ -43,8 +39,8 @@ public class StartScene {
     }
 
     private void createAndLayoutControls(){
-        title = new Text("Games");
-        infoBox = new Text("Chose which fractal you want to display");
+        Text title = new Text("Games");
+        Text infoBox = new Text("Chose which fractal you want to display");
         sierpinskiButton = new Button("Sierpinski triangle");
         barnsleyButton = new Button("Barnsley fern");
         juliaButton = new Button("Julia set");

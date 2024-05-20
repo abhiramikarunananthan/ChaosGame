@@ -1,12 +1,12 @@
 package no.ntnu.idatt2003.chaosgame.Controller;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
@@ -36,6 +36,9 @@ public class CreateFractalController {
 
     private List<TextField> constantInputFields;
     private List<TextField> coordsInputFields;
+
+    ListView<AffineTransform2D> affineTransform2DListView;
+
 
     private Button saveButton;
     private MenuButton menuButton;
@@ -138,9 +141,10 @@ public class CreateFractalController {
     private void updateContents(VBox inputFieldsVBox){
         inputFieldsVBox.getChildren().clear();
         this.coordsInputFields = new ArrayList<>();
-
         switch (currentTransformation){
             case AFFINE2D -> {
+                ObservableList<AffineTransform2D> affineTransform2DObservableList = FXCollections.observableArrayList();
+                affineTransform2DListView.setVisible(true);
 
                 Text matrixText = new Text("Write the numbers wanted for the matrix");
                 TextField matrixInputFieldA00 = new TextField();
@@ -152,19 +156,28 @@ public class CreateFractalController {
                 TextField vectorInputFieldB1 = new TextField();
                 Button addToListButton = new Button("Add to list");
 
+                HBox matrixTopRow = new HBox(matrixInputFieldA00, matrixInputFieldA01);
+                HBox matrixBottomRow = new HBox(matrixInputFieldA10, matrixInputFieldA11);
+
                 addToListButton.setOnAction(actionEvent -> {
-                    transform2DList.add(new AffineTransform2D(
+                    AffineTransform2D affineTransform2D = new AffineTransform2D(
                             new Matrix2x2(Double.parseDouble(matrixInputFieldA00.getText()), Double.parseDouble(matrixInputFieldA01.getText()), Double.parseDouble(matrixInputFieldA10.getText()), Double.parseDouble(matrixInputFieldA11.getText()))
-                            , new Vector2D(Double.parseDouble(vectorInputFieldB0.getText()), Double.parseDouble(vectorInputFieldB1.getText()))));
+                            ,new Vector2D(Double.parseDouble(vectorInputFieldB0.getText()), Double.parseDouble(vectorInputFieldB1.getText())));
+
+                    transform2DList.add(affineTransform2D);
+                    affineTransform2DObservableList.add(affineTransform2D);
+                    affineTransform2DListView.setItems(affineTransform2DObservableList);
                 });
 
-                inputFieldsVBox.getChildren().addAll(matrixText,matrixInputFieldA00,matrixInputFieldA01,matrixInputFieldA10,matrixInputFieldA11,
+                inputFieldsVBox.getChildren().addAll(matrixText,matrixTopRow,matrixBottomRow,
                         vectorText,vectorInputFieldB0,vectorInputFieldB1, addToListButton);
 
 
 
             }
             case JULIA -> {
+                affineTransform2DListView.setItems(null);
+                affineTransform2DListView.setVisible(false);
                 this.constantInputFields = new ArrayList<>();
 
                 Text constantCText = new Text("Write the constant C");
@@ -210,5 +223,9 @@ public class CreateFractalController {
 
     public void setInputFieldVBox(VBox inputFieldVBox) {
         this.inputFieldVBox = inputFieldVBox;
+    }
+
+    public void setAffineTransform2DListView(ListView<AffineTransform2D> affineTransform2DListView) {
+        this.affineTransform2DListView = affineTransform2DListView;
     }
 }

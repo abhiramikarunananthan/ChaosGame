@@ -4,9 +4,8 @@ import no.ntnu.idatt2003.chaosgame.tensors.Complex;
 import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
-import no.ntnu.idatt2003.chaosgame.transforms.JuliaTransform;
+import no.ntnu.idatt2003.chaosgame.transforms.JuliaTransform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
-import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,13 +42,13 @@ public class ChaosGameDescriptionFactory {
             }
             case JULIASET -> {
                 List<Transform2D> transform2DList = new ArrayList<>();
-                Transform2D juliaTransformationOne = new JuliaTransform(new Complex(0.4, 0.2), 1);
-                Transform2D juliaTransformationTwo = new JuliaTransform(new Complex(0.4, 0.2), -1);
+                Transform2D juliaTransformationOne = new JuliaTransform2D(new Complex(0.5, 0.5), 1);
+                Transform2D juliaTransformationTwo = new JuliaTransform2D(new Complex(0.5, 0.5), -1);
 
                 transform2DList.add(juliaTransformationOne);
                 transform2DList.add(juliaTransformationTwo);
 
-                return new ChaosGameDescription(transform2DList, new Vector2D(-1, -1), new Vector2D(1,1));
+                return new ChaosGameDescription(transform2DList, new Vector2D(0, 0), new Vector2D(1.6,1.6));
             }
             default->{
                 return null;

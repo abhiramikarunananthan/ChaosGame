@@ -22,8 +22,12 @@ public class JuliaTransform2D implements Transform2D{
         return new Complex(sign * z.getX0(), sign * z.getX1());
     }
 
+    public Complex getConstant() {
+        return constant;
+    }
+
     @Override
     public String toString() {
-        return sign + "" + constant.getX0() + ", " + constant.getX1();
+        return constant.getX0() + ", " + constant.getX1();
     }
 }

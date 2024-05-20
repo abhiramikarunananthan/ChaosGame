@@ -70,6 +70,7 @@ public class CanvasController implements ChaosGameObserver {
 
         runButton.setOnAction(actionEvent -> {
             updateChaosGameDescription();
+            graphicsContext.clearRect(0,0,600,600);
             chaosGame = new ChaosGame(chaosGameDescription, 600,600);
             chaosGame.runSteps(Integer.parseInt(iterationInputField.getText()), this);
         });
@@ -86,19 +87,19 @@ public class CanvasController implements ChaosGameObserver {
                 matrixInputFields = new ArrayList<>();
                 vectorInputFields = new ArrayList<>();
                 coordsInputFields = new ArrayList<>();
-                for (Transform2D ignored : chaosGameDescription.getTransforms()) {
+                for (Transform2D transform2D : chaosGameDescription.getTransforms()) {
                     Text matrixText = new Text("Write the numbers wanted for the matrix");
-
-                    TextField matrixInputFieldA00 = new TextField();
-                    TextField matrixInputFieldA01 = new TextField();
-                    TextField matrixInputFieldA10 = new TextField();
-                    TextField matrixInputFieldA11 = new TextField();
+                    AffineTransform2D affineTransform2D = (AffineTransform2D) transform2D;
+                    TextField matrixInputFieldA00 = new TextField(String.valueOf(affineTransform2D.getMatrix().getA00()));
+                    TextField matrixInputFieldA01 = new TextField(String.valueOf(affineTransform2D.getMatrix().getA01()));
+                    TextField matrixInputFieldA10 = new TextField(String.valueOf(affineTransform2D.getMatrix().getA10()));
+                    TextField matrixInputFieldA11 = new TextField(String.valueOf(affineTransform2D.getMatrix().getA11()));
 
                     HBox matrixTopRow = new HBox(matrixInputFieldA00, matrixInputFieldA01);
                     HBox matrixBottomRow = new HBox(matrixInputFieldA10, matrixInputFieldA11);
                     Text vectorText = new Text("Write the numbers wanted for the vector");
-                    TextField vectorInputFieldB0 = new TextField();
-                    TextField vectorInputFieldB1 = new TextField();
+                    TextField vectorInputFieldB0 = new TextField(String.valueOf(affineTransform2D.getVector().getX0()));
+                    TextField vectorInputFieldB1 = new TextField(String.valueOf(affineTransform2D.getVector().getX1()));
 
                     inputFieldsVBox.getChildren().addAll(matrixText, matrixTopRow,matrixBottomRow, vectorText,
                             vectorInputFieldB0, vectorInputFieldB1);
@@ -114,14 +115,14 @@ public class CanvasController implements ChaosGameObserver {
 
                 }
                 Text minCoordsText = new Text("Write the numbers wanted for the minimum vector");
-                TextField minCoordX = new TextField();
-                TextField minCoordY = new TextField();
+                TextField minCoordX = new TextField(String.valueOf(chaosGameDescription.getMinCoords().getX0()));
+                TextField minCoordY = new TextField(String.valueOf(chaosGameDescription.getMinCoords().getX1()));
 
                 HBox minCoordHBox = new HBox(minCoordX, minCoordY);
 
                 Text maxCoordsText = new Text("Write the numbers wanted for the maximum vector");
-                TextField maxCoordX = new TextField();
-                TextField maxCoordY = new TextField();
+                TextField maxCoordX = new TextField(String.valueOf(chaosGameDescription.getMaxCoords().getX0()));
+                TextField maxCoordY = new TextField(String.valueOf(chaosGameDescription.getMaxCoords().getX1()));
 
                 HBox maxCoordHBox = new HBox(maxCoordX, maxCoordY);
 
@@ -135,9 +136,11 @@ public class CanvasController implements ChaosGameObserver {
             }
             case JULIA -> {
                 coordsInputFields = new ArrayList<>();
+                JuliaTransform2D juliaTransform2D = (JuliaTransform2D) chaosGameDescription.getTransforms().get(0);
+
                 Text constantText = new Text("Write the constant C");
-                TextField constantInputFieldReal = new TextField();
-                TextField constantInputFieldImaginary = new TextField();
+                TextField constantInputFieldReal = new TextField(String.valueOf(juliaTransform2D.getConstant().getX0()));
+                TextField constantInputFieldImaginary = new TextField(String.valueOf(juliaTransform2D.getConstant().getX1()));
 
                 constantInputFields = new ArrayList<>();
                 constantInputFields.add(constantInputFieldReal);
@@ -146,14 +149,14 @@ public class CanvasController implements ChaosGameObserver {
 
 
                 Text minCoordsText = new Text("Write the numbers wanted for the minimum vector");
-                TextField minCoordX = new TextField();
-                TextField minCoordY = new TextField();
+                TextField minCoordX = new TextField(String.valueOf(chaosGameDescription.getMinCoords().getX0()));
+                TextField minCoordY = new TextField(String.valueOf(chaosGameDescription.getMinCoords().getX1()));
 
                 HBox minCoordHBox = new HBox(minCoordX, minCoordY);
 
                 Text maxCoordsText = new Text("Write the numbers wanted for the maximum vector");
-                TextField maxCoordX = new TextField();
-                TextField maxCoordY = new TextField();
+                TextField maxCoordX = new TextField(String.valueOf(chaosGameDescription.getMaxCoords().getX0()));
+                TextField maxCoordY = new TextField(String.valueOf(chaosGameDescription.getMaxCoords().getX1()));
 
                 HBox maxCoordHBox = new HBox(maxCoordX, maxCoordY);
 
@@ -217,8 +220,6 @@ public class CanvasController implements ChaosGameObserver {
                 chaosGameDescription.setMaxCoords(new Vector2D(Double.parseDouble(coordsInputFields.get(2).getText()),Double.parseDouble(coordsInputFields.get(3).getText())));
 
             }
-
-            graphicsContext.clearRect(0,0,600,600);
 
         }catch (NullPointerException | NumberFormatException e){
 

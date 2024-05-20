@@ -34,7 +34,7 @@ public class ChaosGameFileHandler {
         }
         reader.close();
 
-        String transformationString = stringList.getFirst();
+        String transformationString = stringList.get(0);
         String minCoordsString =  stringList.get(1);
         String maxCoordsString =  stringList.get(2);
 

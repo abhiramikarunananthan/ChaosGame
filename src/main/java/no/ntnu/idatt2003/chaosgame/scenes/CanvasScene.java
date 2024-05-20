@@ -1,7 +1,6 @@
 package no.ntnu.idatt2003.chaosgame.scenes;
 
 import javafx.geometry.Orientation;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -11,15 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.Controller.CanvasController;
-import no.ntnu.idatt2003.chaosgame.Controller.ChaosGameController;
-import no.ntnu.idatt2003.chaosgame.Controller.SceneController;
-import no.ntnu.idatt2003.chaosgame.components.ChaosGame;
-import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
-import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 public class CanvasScene {
     private VBox inputFieldsVBox;
@@ -108,6 +100,12 @@ public class CanvasScene {
         HBox container = new HBox(inputFieldBox, stackPane);
 
         root = new VBox(container);
+
+        scrollPaneTop.getStyleClass().add("scrollPaneTop");
+        scrollPaneBottom.getStyleClass().add("scrollPaneBottom");
+        backButton.getStyleClass().add("back");
+        iterationInputField.getStyleClass().add("iteration");
+        inputFieldBox.getStyleClass().add("leftSide");
 
     }
 

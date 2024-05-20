@@ -2,86 +2,119 @@ package no.ntnu.idatt2003.chaosgame.scenes;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import no.ntnu.idatt2003.chaosgame.Controller.CreateFractalController;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.data.ChaosGameFileHandler;
 import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
+import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreateFractalScene {
+    private Text matrixText;
+    private VBox inputFieldsVBox;
+    private TextField matrixInputFieldA00;
+    private TextField matrixInputFieldA01;
+    private TextField matrixInputFieldA10;
+    private TextField matrixInputFieldA11;
+    private Text vectorText;
+    private TextField vectorInputFieldB0;
+    private TextField vectorInputFieldB1;
+    private Button addToListButton;
+    private Text constantCText;
+    private TextField constantCInputFieldReal;
+    private TextField constantCInputFieldImaginary;
+    private Text coordsMinText;
+    private TextField minCoordsX;
+    private TextField minCoordsY;
+    private Text coordsMaxText;
+    private TextField maxCoordsX;
+    private TextField maxCoordsY;
+    private Button saveButton;
+    private MenuButton menuButton;
+    private Button backButton;
 
-    private Scene scene;
+    private VBox root;
+    private CreateFractalController createFractalController;
 
+    public CreateFractalScene(CreateFractalController createFractalController){
+        this.createFractalController = createFractalController;
+        createAndLayoutControls();
 
+        createFractalController.setMatrixText(matrixText);
+        createFractalController.setMatrixInputFieldA00(matrixInputFieldA00);
+        createFractalController.setMatrixInputFieldA01(matrixInputFieldA01);
+        createFractalController.setMatrixInputFieldA10(matrixInputFieldA10);
+        createFractalController.setMatrixInputFieldA11(matrixInputFieldA11);
 
+        createFractalController.setVectorText(vectorText);
+        createFractalController.setVectorInputFieldB0(vectorInputFieldB0);
+        createFractalController.setVectorInputFieldB1(vectorInputFieldB1);
 
-    public CreateFractalScene(Stage stage){
+        createFractalController.setConstantCText(constantCText);
+        createFractalController.setConstantCInputFieldReal(constantCInputFieldReal);
+        createFractalController.setConstantCInputFieldImaginary(constantCInputFieldImaginary);
 
-        VBox inputFieldsVBox = new VBox();
+        createFractalController.setCoordsMinText(coordsMinText);
+        createFractalController.setMinCoordsX(minCoordsX);
+        createFractalController.setMinCoordsY(minCoordsY);
+        createFractalController.setCoordsMaxText(coordsMaxText);
+        createFractalController.setMaxCoordsX(maxCoordsX);
+        createFractalController.setMaxCoordsY(maxCoordsY);
 
-        Text matrixText = new Text("Write the numbers wanted for the matrix");
-        TextField matrixInputFieldA00 = new TextField();
-        TextField matrixInputFieldA01 = new TextField();
-        TextField matrixInputFieldA10 = new TextField();
-        TextField matrixInputFieldA11 = new TextField();
-        Text vectorText = new Text("Write the numbers wanted for the vector");
-        TextField vectorInputFieldB0 = new TextField();
-        TextField vectorInputFieldB1 = new TextField();
-        Button addToListButton = new Button("Add to list");
-        Text coordsMinText = new Text("Write the numbers wanted for minimum coordinates");
-        TextField minCoordsX = new TextField();
-        TextField minCoordsY = new TextField();
-        Text coordsMaxText = new Text("Write the numbers wanted for maximum coordinates");
-        TextField maxCoordsX = new TextField();
-        TextField maxCoordsY = new TextField();
+        createFractalController.setAddToListButton(addToListButton);
+        createFractalController.setSaveButton(saveButton);
+        createFractalController.setBackButton(backButton);
 
-        Button saveButton = new Button("Save to file");
-        inputFieldsVBox.getChildren().addAll(matrixText, matrixInputFieldA00, matrixInputFieldA01, matrixInputFieldA10, matrixInputFieldA11, vectorText, vectorInputFieldB0, vectorInputFieldB1, addToListButton, coordsMinText, minCoordsX, minCoordsY, coordsMaxText, maxCoordsX, maxCoordsY, saveButton);
-        List<Transform2D> transform2DList = new ArrayList<>();
+        createFractalController.setMenuButton(menuButton);
+        createFractalController.populateMenuButton();
 
-        addToListButton.setOnAction(actionEvent -> {
-            transform2DList.add(new AffineTransform2D(
-                    new Matrix2x2(Double.parseDouble(matrixInputFieldA00.getText()), Double.parseDouble(matrixInputFieldA01.getText()), Double.parseDouble(matrixInputFieldA10.getText()), Double.parseDouble(matrixInputFieldA11.getText()))
-                    , new Vector2D(Double.parseDouble(vectorInputFieldB0.getText()), Double.parseDouble(vectorInputFieldB1.getText())))
-            );
-        });
-
-
-
-        saveButton.setOnAction(actionEvent ->{
-            ChaosGameDescription chaosGameDescription = new ChaosGameDescription(
-                transform2DList,
-                new Vector2D(Double.parseDouble(minCoordsX.getText()), Double.parseDouble(minCoordsY.getText())),
-                new Vector2D(Double.parseDouble(maxCoordsX.getText()), Double.parseDouble(maxCoordsY.getText())));
-
-
-
-
-            try {
-                ChaosGameFileHandler.writeToFile(chaosGameDescription, "C:\\Users\\k_nal\\Documents\\test.txt");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-        });
-
-        VBox root = new VBox(inputFieldsVBox);
-
-
-        scene = new Scene(root, 600, 600);
-
+        createFractalController.addButtonListeners();
 
     }
-    public Scene getScene() {
-        return scene;
+
+    public void displayScene(){
+        createFractalController.updateScene(root);
+    }
+
+    private void createAndLayoutControls(){
+        inputFieldsVBox = new VBox();
+        menuButton = new MenuButton("Transformation");
+        matrixText = new Text("Write the numbers wanted for the matrix");
+        matrixInputFieldA00 = new TextField();
+        matrixInputFieldA01 = new TextField();
+        matrixInputFieldA10 = new TextField();
+        matrixInputFieldA11 = new TextField();
+        vectorText = new Text("Write the numbers wanted for the vector");
+        vectorInputFieldB0 = new TextField();
+        vectorInputFieldB1 = new TextField();
+        addToListButton = new Button("Add to list");
+
+        constantCText = new Text("Write the constant C");
+        constantCInputFieldReal = new TextField();
+        constantCInputFieldImaginary = new TextField();
+
+        coordsMinText = new Text("Write the numbers wanted for minimum coordinates");
+        minCoordsX = new TextField();
+        minCoordsY = new TextField();
+        coordsMaxText = new Text("Write the numbers wanted for maximum coordinates");
+        maxCoordsX = new TextField();
+        maxCoordsY = new TextField();
+        saveButton = new Button("Save to file");
+        backButton = new Button("Back");
+
+        root = new VBox(menuButton, matrixText, matrixInputFieldA00, matrixInputFieldA01, matrixInputFieldA10, matrixInputFieldA11,
+                vectorText, vectorInputFieldB0, vectorInputFieldB1,addToListButton,constantCText,constantCInputFieldReal,constantCInputFieldImaginary,
+                coordsMinText, minCoordsX, minCoordsY, coordsMaxText, maxCoordsX, maxCoordsY, saveButton, backButton);
     }
 }

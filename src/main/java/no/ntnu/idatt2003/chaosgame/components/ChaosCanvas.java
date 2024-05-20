@@ -4,6 +4,14 @@ import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
 
+/**
+ * A class representing a canvas for different points in a
+ * 2x2 matrix, where the value 0 means the point is empty.
+ * The canvas has a defined width and height.
+ *
+ * @author      10052
+ * @version     1.0
+ */
 public class ChaosCanvas {
 
     private int[][] canvas;
@@ -35,12 +43,9 @@ public class ChaosCanvas {
                                 (this.width -1)
                         * this.minCoords.getX0()
                         /(this.maxCoords.getX0()-this.minCoords.getX0())));
-
-
-
     }
 
-    public int getPixel(Vector2D point){
+    public int getPixel(Vector2D point) throws IndexOutOfBoundsException{
         Vector2D indices = transformCoordsToIndices.transform((point));
         int i = (int) Math.round(indices.getX0());
         int j = (int) Math.round(indices.getX1());

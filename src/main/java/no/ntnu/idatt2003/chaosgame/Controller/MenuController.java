@@ -80,6 +80,9 @@ public class MenuController {
     public void updateScene(Parent root){
         Scene scene = new Scene(root, 600, 600);
 
+        String css = this.getClass().getResource("/MenuStylesheet.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
         stage.setScene(scene);
         stage.show();
     }

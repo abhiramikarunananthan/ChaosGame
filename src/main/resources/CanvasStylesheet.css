@@ -1,0 +1,71 @@
+.root{
+    -fx-background-color: rgba(138, 41, 138, 0.66);
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+
+.text-field{
+    -fx-background-color: #ecf0f1;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+    -fx-font-size: 16px;
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-prompt-text-fill: #95a5a6;
+    -fx-pref-width: 75px;
+    -fx-max-width: 75px;
+}
+
+.iteration{
+    -fx-pref-width: 100px;
+    -fx-max-width: 100px;
+}
+
+
+.label{
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+Text{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+.button{
+    -fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60);
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0.0, 2, 2);
+    -fx-cursor: hand;
+    -fx-pref-width: 90px;
+    -fx-pref-height: 20px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-alignment: center;
+    -fx-transition: background-color 0.3s, -fx-effect 0.3s;
+}
+
+.button:hover{
+    -fx-background-color: linear-gradient(to bottom, #27ae60, #2ecc71);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1.0), 6, 0.0, 4, 4);
+}
+
+.back{
+    -fx-background-color: linear-gradient(to bottom, #9f9f9f, #fcd6c2);
+}
+
+.scroll-pane{
+    -fx-pref-height: 50em;
+}
+
+.leftSide{
+    -fx-pref-width: 250px;
+    -fx-max-width: 250px;
+}

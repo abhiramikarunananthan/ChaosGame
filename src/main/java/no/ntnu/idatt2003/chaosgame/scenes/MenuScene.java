@@ -52,5 +52,9 @@ public class MenuScene {
         quitButton = new Button("Quit");
 
         root = new VBox(title, infoBox, startButton, importButton, createYourOwnButton, quitButton);
+
+        title.getStyleClass().add("title");
+        infoBox.getStyleClass().add("description");
+        quitButton.getStyleClass().add("quit");
     }
 }

@@ -67,15 +67,15 @@ public class CreateFractalController {
                             new Vector2D(Double.parseDouble(coordsInputFields.get(2).getText()),Double.parseDouble(coordsInputFields.get(3).getText())),
                             Transformations.AFFINE2D);
 
-                    DirectoryChooser directoryChooser = new DirectoryChooser();
-                    directoryChooser.setTitle("Save");
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Save");
 
                     File defaultDirectory = new File(System.getProperty("user.dir"));
-                    directoryChooser.setInitialDirectory(defaultDirectory);
+                    fileChooser.setInitialDirectory(defaultDirectory);
 
-                    File selectedDirectory = directoryChooser.showDialog(stage);
+                    File selectedDirectory = fileChooser.showSaveDialog(stage);
 
-                    ChaosGameFileHandler.writeToFile(chaosGameDescription, selectedDirectory.getPath() + "\\test.txt");
+                    ChaosGameFileHandler.writeToFile(chaosGameDescription, selectedDirectory.getPath());
 
                 }else if (currentTransformation == Transformations.JULIA){
                     List<Transform2D> transform2DList = new ArrayList<>();
@@ -127,6 +127,9 @@ public class CreateFractalController {
 
     public void updateScene(Parent root){
         Scene scene = new Scene(root, 600, 600);
+
+        String css = this.getClass().getResource("/CreateFractalStylesheet.css").toExternalForm();
+        scene.getStylesheets().add(css);
 
         stage.setScene(scene);
         stage.show();
@@ -204,7 +207,10 @@ public class CreateFractalController {
         coordsInputFields.add(maxCoordsX);
         coordsInputFields.add(maxCoordsY);
 
-        inputFieldsVBox.getChildren().addAll(coordsMinText,minCoordsX,minCoordsY, coordsMaxText,maxCoordsX,maxCoordsY);
+        HBox minCoordHBox = new HBox(minCoordsX, minCoordsY);
+        HBox maxCoordHBox = new HBox(maxCoordsX, maxCoordsY);
+
+        inputFieldsVBox.getChildren().addAll(coordsMinText,minCoordHBox, coordsMaxText,maxCoordHBox);
     }
 
 

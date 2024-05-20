@@ -75,6 +75,9 @@ public class StartController {
     public void updateScene(Parent root){
         Scene scene = new Scene(root, 600, 600);
 
+        String css = this.getClass().getResource("/StartStylesheet.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
         stage.setScene(scene);
         stage.show();
     }

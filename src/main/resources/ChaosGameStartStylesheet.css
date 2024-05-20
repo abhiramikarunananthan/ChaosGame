@@ -1,0 +1,53 @@
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #ff7e5f, #feb47b);
+    -fx-background-radius: 50px;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0.0, 2, 2);
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    -fx-pref-width: 260px;
+    -fx-pref-height: 170px;
+    -fx-shape: "M50,0 L100,50 L50,100 L0,50 Z";
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #feb47b, #ff7e5f);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1.0), 6, 0.0, 4, 4);
+}
+
+.root{
+    -fx-alignment: center;
+    -fx-padding: 10px;
+    -fx-background-color: rgba(138, 41, 138, 0.66);
+    -fx-spacing: 40px;
+}
+
+.title{
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0.0, 2, 2);
+    -fx-padding: 10px;
+    -fx-background-color: linear-gradient(to bottom, #333333, #111111);
+    -fx-background-radius: 10px;
+    -fx-border-color: #ff7e5f;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-alignment: center;
+}
+
+.info{
+    -fx-font-size: 16px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+
+}
+

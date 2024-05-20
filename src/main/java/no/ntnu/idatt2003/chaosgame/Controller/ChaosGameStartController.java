@@ -5,12 +5,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class ChaosGameController {
+public class ChaosGameStartController {
 
     private Stage stage;
     private Button playButton;
 
-    public ChaosGameController(Stage stage) {
+    public ChaosGameStartController(Stage stage) {
         this.stage = stage;
     }
 
@@ -27,6 +27,9 @@ public class ChaosGameController {
 
     public void updateScene(Parent root){
         Scene scene = new Scene(root, 600, 600);
+
+        String css = this.getClass().getResource("/ChaosGameStartStylesheet.css").toExternalForm();
+        scene.getStylesheets().add(css);
 
         stage.setScene(scene);
         stage.show();

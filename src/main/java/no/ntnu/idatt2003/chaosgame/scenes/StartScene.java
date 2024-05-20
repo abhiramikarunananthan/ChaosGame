@@ -47,5 +47,9 @@ public class StartScene {
         backButton = new Button("Back");
 
         root = new VBox(title, infoBox, sierpinskiButton, barnsleyButton, juliaButton, backButton);
+
+        title.getStyleClass().add("title");
+        infoBox.getStyleClass().add("description");
+        backButton.getStyleClass().add("back");
     }
 }

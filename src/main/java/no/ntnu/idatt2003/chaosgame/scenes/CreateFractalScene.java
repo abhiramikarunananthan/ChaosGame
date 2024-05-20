@@ -63,5 +63,6 @@ public class CreateFractalScene {
         VBox leftSideVBox = new VBox(menuButton, inputFieldsVBox, saveButton, backButton);
 
         root = new HBox(leftSideVBox, affineTransform2DListView);
+        backButton.getStyleClass().add("back");
     }
 }

@@ -7,8 +7,6 @@ import no.ntnu.idatt2003.chaosgame.Controller.ChaosGameController;
 
 public class ChaosGameScene {
 
-    private Text title;
-    private Text infoBox;
     private Button playButton;
     VBox root;
 
@@ -29,8 +27,8 @@ public class ChaosGameScene {
 
 
     private void createAndLayoutControls(){
-        title = new Text("ChaosGame");
-        infoBox = new Text("This is a chaos game");
+        Text title = new Text("ChaosGame");
+        Text infoBox = new Text("This is a chaos game");
         playButton = new Button("Play");
 
         root = new VBox(title, infoBox, playButton);

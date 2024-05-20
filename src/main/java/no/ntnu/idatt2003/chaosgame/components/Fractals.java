@@ -4,7 +4,6 @@ public enum Fractals {
 
     SIERPINSKI,
     BARNSLEY,
-
     JULIASET
 
 }

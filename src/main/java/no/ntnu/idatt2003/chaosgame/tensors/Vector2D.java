@@ -27,6 +27,14 @@ public class Vector2D {
         double newX1 = this.x1 - other.getX1();
         return new Vector2D(newX0, newX1);
     }
+
+    @Override
+    public String toString() {
+        return "Vector2D{" +
+                "x0=" + x0 +
+                ", x1=" + x1 +
+                '}';
+    }
 }
 
 

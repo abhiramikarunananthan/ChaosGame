@@ -9,13 +9,16 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.data.ChaosGameFileHandler;
+import no.ntnu.idatt2003.chaosgame.tensors.Complex;
 import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
+import no.ntnu.idatt2003.chaosgame.transforms.JuliaTransform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
@@ -28,24 +31,12 @@ import java.util.List;
 public class CreateFractalController {
 
     private Stage stage;
-    private Text matrixText;
-    private TextField matrixInputFieldA00;
-    private TextField matrixInputFieldA01;
-    private TextField matrixInputFieldA10;
-    private TextField matrixInputFieldA11;
-    private Text vectorText;
-    private TextField vectorInputFieldB0;
-    private TextField vectorInputFieldB1;
-    private Button addToListButton;
-    private Text constantCText;
-    private TextField constantCInputFieldReal;
-    private TextField constantCInputFieldImaginary;
-    private Text coordsMinText;
-    private TextField minCoordsX;
-    private TextField minCoordsY;
-    private Text coordsMaxText;
-    private TextField maxCoordsX;
-    private TextField maxCoordsY;
+    private List<TextField> matrixInputFields;
+    private List<TextField> vectorInputFields;
+
+    private List<TextField> constantInputFields;
+    private List<TextField> coordsInputFields;
+
     private Button saveButton;
     private MenuButton menuButton;
     private Button backButton;
@@ -57,22 +48,61 @@ public class CreateFractalController {
     public CreateFractalController(Stage stage) {
         this.stage = stage;
         this.transform2DList = new ArrayList<>();
-
+        this.matrixInputFields = new ArrayList<>();
+        this.vectorInputFields = new ArrayList<>();
+        this.constantInputFields = new ArrayList<>();
+        this.coordsInputFields = new ArrayList<>();
     }
 
     public void addButtonListeners(){
 
         saveButton.setOnAction(actionEvent ->{
-            ChaosGameDescription chaosGameDescription = new ChaosGameDescription(
-                    transform2DList,
-                    new Vector2D(Double.parseDouble(minCoordsX.getText()), Double.parseDouble(minCoordsY.getText())),
-                    new Vector2D(Double.parseDouble(maxCoordsX.getText()), Double.parseDouble(maxCoordsY.getText())), currentTransformation);
+            try{
+                if(currentTransformation == Transformations.AFFINE2D){
+                    ChaosGameDescription chaosGameDescription = new ChaosGameDescription(transform2DList,
+                            new Vector2D(Double.parseDouble(coordsInputFields.get(0).getText()),Double.parseDouble(coordsInputFields.get(1).getText())),
+                            new Vector2D(Double.parseDouble(coordsInputFields.get(2).getText()),Double.parseDouble(coordsInputFields.get(3).getText())),
+                            Transformations.AFFINE2D);
 
-            try {
-                ChaosGameFileHandler.writeToFile(chaosGameDescription, "C:\\Users\\k_nal\\Documents\\test.txt");
+                    DirectoryChooser directoryChooser = new DirectoryChooser();
+                    directoryChooser.setTitle("Save");
+
+                    File defaultDirectory = new File(System.getProperty("user.dir"));
+                    directoryChooser.setInitialDirectory(defaultDirectory);
+
+                    File selectedDirectory = directoryChooser.showDialog(stage);
+
+                    ChaosGameFileHandler.writeToFile(chaosGameDescription, selectedDirectory.getPath() + "\\test.txt");
+
+                }else if (currentTransformation == Transformations.JULIA){
+                    List<Transform2D> transform2DList = new ArrayList<>();
+
+                    transform2DList.add(new JuliaTransform2D(
+                            new Complex(Double.parseDouble(constantInputFields.get(0).getText()),
+                                    Double.parseDouble(constantInputFields.get(1).getText())), 1));
+
+                    ChaosGameDescription chaosGameDescription = new ChaosGameDescription(transform2DList,
+                            new Vector2D(Double.parseDouble(coordsInputFields.get(0).getText()),Double.parseDouble(coordsInputFields.get(1).getText())),
+                            new Vector2D(Double.parseDouble(coordsInputFields.get(2).getText()),Double.parseDouble(coordsInputFields.get(3).getText())),
+                            Transformations.JULIA);
+
+                    DirectoryChooser directoryChooser = new DirectoryChooser();
+                    directoryChooser.setTitle("Save");
+
+                    File defaultDirectory = new File(System.getProperty("user.dir"));
+                    directoryChooser.setInitialDirectory(defaultDirectory);
+
+                    File selectedDirectory = directoryChooser.showDialog(stage);
+
+                    ChaosGameFileHandler.writeToFile(chaosGameDescription, selectedDirectory.getPath() + "\\test.txt");
+                }
+
+            }catch (NullPointerException | NumberFormatException e){
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
 
         });
 
@@ -107,45 +137,61 @@ public class CreateFractalController {
 
     private void updateContents(VBox inputFieldsVBox){
         inputFieldsVBox.getChildren().clear();
+        this.coordsInputFields = new ArrayList<>();
+
         switch (currentTransformation){
             case AFFINE2D -> {
-                matrixText = new Text("Write the numbers wanted for the matrix");
-                matrixInputFieldA00 = new TextField();
-                matrixInputFieldA01 = new TextField();
-                matrixInputFieldA10 = new TextField();
-                matrixInputFieldA11 = new TextField();
-                vectorText = new Text("Write the numbers wanted for the vector");
-                vectorInputFieldB0 = new TextField();
-                vectorInputFieldB1 = new TextField();
-                addToListButton = new Button("Add to list");
 
-                addToListButton.setOnAction(actionEvent -> transform2DList.add(new AffineTransform2D(
-                        new Matrix2x2(Double.parseDouble(matrixInputFieldA00.getText()), Double.parseDouble(matrixInputFieldA01.getText()), Double.parseDouble(matrixInputFieldA10.getText()), Double.parseDouble(matrixInputFieldA11.getText()))
-                        , new Vector2D(Double.parseDouble(vectorInputFieldB0.getText()), Double.parseDouble(vectorInputFieldB1.getText())))
-                ));
+                Text matrixText = new Text("Write the numbers wanted for the matrix");
+                TextField matrixInputFieldA00 = new TextField();
+                TextField matrixInputFieldA01 = new TextField();
+                TextField matrixInputFieldA10 = new TextField();
+                TextField matrixInputFieldA11 = new TextField();
+                Text vectorText = new Text("Write the numbers wanted for the vector");
+                TextField vectorInputFieldB0 = new TextField();
+                TextField vectorInputFieldB1 = new TextField();
+                Button addToListButton = new Button("Add to list");
+
+                addToListButton.setOnAction(actionEvent -> {
+                    transform2DList.add(new AffineTransform2D(
+                            new Matrix2x2(Double.parseDouble(matrixInputFieldA00.getText()), Double.parseDouble(matrixInputFieldA01.getText()), Double.parseDouble(matrixInputFieldA10.getText()), Double.parseDouble(matrixInputFieldA11.getText()))
+                            , new Vector2D(Double.parseDouble(vectorInputFieldB0.getText()), Double.parseDouble(vectorInputFieldB1.getText()))));
+                });
 
                 inputFieldsVBox.getChildren().addAll(matrixText,matrixInputFieldA00,matrixInputFieldA01,matrixInputFieldA10,matrixInputFieldA11,
-                        vectorText,vectorInputFieldB0,vectorInputFieldB1,addToListButton);
+                        vectorText,vectorInputFieldB0,vectorInputFieldB1, addToListButton);
+
+
 
             }
             case JULIA -> {
-                constantCText = new Text("Write the constant C");
-                constantCInputFieldReal = new TextField();
-                constantCInputFieldImaginary = new TextField();
+                this.constantInputFields = new ArrayList<>();
+
+                Text constantCText = new Text("Write the constant C");
+                TextField constantCInputFieldReal = new TextField();
+                TextField constantCInputFieldImaginary = new TextField();
+
+                constantInputFields.add(constantCInputFieldReal);
+                constantInputFields.add(constantCInputFieldImaginary);
 
                 inputFieldsVBox.getChildren().addAll(constantCText,constantCInputFieldReal,constantCInputFieldImaginary);
             }
 
         }
 
-        coordsMinText = new Text("Write the numbers wanted for minimum coordinates");
-        minCoordsX = new TextField();
-        minCoordsY = new TextField();
-        coordsMaxText = new Text("Write the numbers wanted for maximum coordinates");
-        maxCoordsX = new TextField();
-        maxCoordsY = new TextField();
+        Text coordsMinText = new Text("Write the numbers wanted for minimum coordinates");
+        TextField minCoordsX = new TextField();
+        TextField minCoordsY = new TextField();
+        Text coordsMaxText = new Text("Write the numbers wanted for maximum coordinates");
+        TextField maxCoordsX = new TextField();
+        TextField maxCoordsY = new TextField();
 
-        inputFieldsVBox.getChildren().addAll(coordsMinText,minCoordsX,minCoordsY,coordsMaxText,maxCoordsX,maxCoordsY);
+        coordsInputFields.add(minCoordsX);
+        coordsInputFields.add(minCoordsY);
+        coordsInputFields.add(maxCoordsX);
+        coordsInputFields.add(maxCoordsY);
+
+        inputFieldsVBox.getChildren().addAll(coordsMinText,minCoordsX,minCoordsY, coordsMaxText,maxCoordsX,maxCoordsY);
     }
 
 

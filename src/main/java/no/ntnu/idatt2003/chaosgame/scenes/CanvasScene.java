@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -19,11 +20,7 @@ import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 public class CanvasScene {
-
-    private Scene scene;
-
     private VBox inputFieldsVBox;
-    private Text iterationText;
     private TextField iterationInputField ;
     private Button runButton;
     private Button backButton;
@@ -45,7 +42,6 @@ public class CanvasScene {
         canvasController.setRunButton(runButton);
         canvasController.setIterationInputField(iterationInputField);
         canvasController.setGraphicsContext(graphicsContext);
-        canvasController.setInputFieldBox(inputFieldBox);
 
         canvasController.addButtonListeners();
     }
@@ -70,7 +66,7 @@ public class CanvasScene {
 
     private void createAndLayoutControls(){
         inputFieldsVBox = new VBox();
-        iterationText = new Text("Input amount of iterations");
+        Text iterationText = new Text("Input amount of iterations");
         iterationInputField = new TextField();
         runButton = new Button("Run");
         backButton = new Button("Back");
@@ -81,7 +77,8 @@ public class CanvasScene {
 
         StackPane stackPane = new StackPane(canvas);
         stackPane.setStyle("-fx-background-color: black");
-        inputFieldBox = new VBox(inputFieldsVBox, iterationText, iterationInputField, runButton, backButton);
+        ScrollPane scrollPane = new ScrollPane(inputFieldsVBox);
+        inputFieldBox = new VBox(scrollPane, iterationText, iterationInputField, runButton, backButton);
         HBox container = new HBox(inputFieldBox, stackPane);
 
         root = new VBox(container);

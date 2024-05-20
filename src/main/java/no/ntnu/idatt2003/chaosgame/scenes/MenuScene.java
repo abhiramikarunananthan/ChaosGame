@@ -17,11 +17,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class MenuScene {
-
-    private Scene scene;
-
-    private Text title;
-    private Text infoBox;
     private Button startButton;
     private Button importButton;
     private Button createYourOwnButton;
@@ -49,8 +44,8 @@ public class MenuScene {
     }
 
     private void createAndLayoutControls(){
-        title = new Text("Menu");
-        infoBox = new Text("Chose one of the options below");
+        Text title = new Text("Menu");
+        Text infoBox = new Text("Chose one of the options below");
         startButton = new Button("START");
         importButton = new Button("Import your own fractal");
         createYourOwnButton = new Button("Create your own fractal");

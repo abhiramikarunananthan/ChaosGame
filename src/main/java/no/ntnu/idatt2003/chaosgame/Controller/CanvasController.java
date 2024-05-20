@@ -49,7 +49,7 @@ public class CanvasController implements ChaosGameObserver {
 
     private TextField canvasSizeInputFieldWidth;
     private TextField canvasSizeInputFieldHeight;
-    int[][] vistedPoints = new int[600][600];
+    int[][] vistedPoints;
 
     public CanvasController(Stage stage, Transformations transformation, ChaosGameDescription chaosGameDescription){
         this.stage = stage;
@@ -60,6 +60,7 @@ public class CanvasController implements ChaosGameObserver {
     public void addButtonListeners(){
 
         runButton.setOnAction(actionEvent -> {
+            this.vistedPoints = new int[(int) canvas.getWidth()][(int) canvas.getHeight()];
             updateChaosGameDescription();
             graphicsContext.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
             chaosGame = new ChaosGame(chaosGameDescription, (int) canvas.getWidth(), (int) canvas.getHeight());
@@ -76,10 +77,8 @@ public class CanvasController implements ChaosGameObserver {
             canvas.setHeight(Double.parseDouble(canvasSizeInputFieldHeight.getText()));
 
             Parent root = new VBox(stage.getScene().getRoot());
-            Scene scene = new Scene(root, Double.parseDouble(canvasSizeInputFieldWidth.getText()) + 250, Double.parseDouble(canvasSizeInputFieldHeight.getText()));
 
-            stage.setScene(scene);
-            stage.show();
+            updateScene(root,Double.parseDouble(canvasSizeInputFieldWidth.getText()) + 250, Double.parseDouble(canvasSizeInputFieldHeight.getText()));
         });
     }
 
@@ -182,6 +181,19 @@ public class CanvasController implements ChaosGameObserver {
     public void updateScene(Parent root){
         Scene scene = new Scene(root, 850, 600);
 
+        String css = this.getClass().getResource("/CanvasStylesheet.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void updateScene(Parent root, double width, double height){
+        Scene scene = new Scene(root, width, height);
+
+        String css = this.getClass().getResource("/CanvasStylesheet.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
         stage.setScene(scene);
         stage.show();
     }
@@ -239,10 +251,11 @@ public class CanvasController implements ChaosGameObserver {
     public void update(Vector2D point) {
 
         int[][] canvasArray = chaosGame.getCanvas().getCanvasArray();
+
         int i = (int) point.getX0();
         int j = (int) point.getX1();
 
-        if(i < 600 && i >= 0 && j < 600 && j >= 0){
+        if(i < canvas.getWidth() && i >= 0 && j < canvas.getHeight() && j >= 0){
 
             vistedPoints[i][j] += canvasArray[i][j];
             Color color = Color.RED;

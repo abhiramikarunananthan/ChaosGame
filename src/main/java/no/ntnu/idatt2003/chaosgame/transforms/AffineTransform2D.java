@@ -20,6 +20,13 @@ public class AffineTransform2D implements Transform2D {
         return aX.add(this.vector);
     }
 
+    public Matrix2x2 getMatrix() {
+        return matrix;
+    }
+
+    public Vector2D getVector() {
+        return vector;
+    }
 
     @Override
     public String toString() {

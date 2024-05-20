@@ -1,9 +1,11 @@
 package no.ntnu.idatt2003.chaosgame.Controller;
 
+import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -88,7 +90,7 @@ public class CanvasController implements ChaosGameObserver {
                 vectorInputFields = new ArrayList<>();
                 coordsInputFields = new ArrayList<>();
                 for (Transform2D transform2D : chaosGameDescription.getTransforms()) {
-                    Text matrixText = new Text("Write the numbers wanted for the matrix");
+                    Text matrixText = new Text("Matrix:");
                     AffineTransform2D affineTransform2D = (AffineTransform2D) transform2D;
                     TextField matrixInputFieldA00 = new TextField(String.valueOf(affineTransform2D.getMatrix().getA00()));
                     TextField matrixInputFieldA01 = new TextField(String.valueOf(affineTransform2D.getMatrix().getA01()));
@@ -97,12 +99,16 @@ public class CanvasController implements ChaosGameObserver {
 
                     HBox matrixTopRow = new HBox(matrixInputFieldA00, matrixInputFieldA01);
                     HBox matrixBottomRow = new HBox(matrixInputFieldA10, matrixInputFieldA11);
-                    Text vectorText = new Text("Write the numbers wanted for the vector");
+                    Text vectorText = new Text("Vector:");
                     TextField vectorInputFieldB0 = new TextField(String.valueOf(affineTransform2D.getVector().getX0()));
                     TextField vectorInputFieldB1 = new TextField(String.valueOf(affineTransform2D.getVector().getX1()));
 
+                    Separator separator = new Separator();
+                    separator.setOrientation(Orientation.HORIZONTAL);
+                    separator.setMinHeight(40);
+
                     inputFieldsVBox.getChildren().addAll(matrixText, matrixTopRow,matrixBottomRow, vectorText,
-                            vectorInputFieldB0, vectorInputFieldB1);
+                            vectorInputFieldB0, vectorInputFieldB1, separator);
 
                     matrixInputFields.add(matrixInputFieldA00);
                     matrixInputFields.add(matrixInputFieldA01);
@@ -114,13 +120,13 @@ public class CanvasController implements ChaosGameObserver {
 
 
                 }
-                Text minCoordsText = new Text("Write the numbers wanted for the minimum vector");
+                Text minCoordsText = new Text("Minimum Vector:");
                 TextField minCoordX = new TextField(String.valueOf(chaosGameDescription.getMinCoords().getX0()));
                 TextField minCoordY = new TextField(String.valueOf(chaosGameDescription.getMinCoords().getX1()));
 
                 HBox minCoordHBox = new HBox(minCoordX, minCoordY);
 
-                Text maxCoordsText = new Text("Write the numbers wanted for the maximum vector");
+                Text maxCoordsText = new Text("Maximum Vector");
                 TextField maxCoordX = new TextField(String.valueOf(chaosGameDescription.getMaxCoords().getX0()));
                 TextField maxCoordY = new TextField(String.valueOf(chaosGameDescription.getMaxCoords().getX1()));
 
@@ -138,7 +144,7 @@ public class CanvasController implements ChaosGameObserver {
                 coordsInputFields = new ArrayList<>();
                 JuliaTransform2D juliaTransform2D = (JuliaTransform2D) chaosGameDescription.getTransforms().get(0);
 
-                Text constantText = new Text("Write the constant C");
+                Text constantText = new Text("Constant C:");
                 TextField constantInputFieldReal = new TextField(String.valueOf(juliaTransform2D.getConstant().getX0()));
                 TextField constantInputFieldImaginary = new TextField(String.valueOf(juliaTransform2D.getConstant().getX1()));
 
@@ -146,15 +152,17 @@ public class CanvasController implements ChaosGameObserver {
                 constantInputFields.add(constantInputFieldReal);
                 constantInputFields.add(constantInputFieldImaginary);
 
+                Separator separator = new Separator();
+                separator.setOrientation(Orientation.HORIZONTAL);
+                separator.setMinHeight(40);
 
-
-                Text minCoordsText = new Text("Write the numbers wanted for the minimum vector");
+                Text minCoordsText = new Text("Minimum Vector:");
                 TextField minCoordX = new TextField(String.valueOf(chaosGameDescription.getMinCoords().getX0()));
                 TextField minCoordY = new TextField(String.valueOf(chaosGameDescription.getMinCoords().getX1()));
 
                 HBox minCoordHBox = new HBox(minCoordX, minCoordY);
 
-                Text maxCoordsText = new Text("Write the numbers wanted for the maximum vector");
+                Text maxCoordsText = new Text("Maximum Vector:");
                 TextField maxCoordX = new TextField(String.valueOf(chaosGameDescription.getMaxCoords().getX0()));
                 TextField maxCoordY = new TextField(String.valueOf(chaosGameDescription.getMaxCoords().getX1()));
 
@@ -166,7 +174,7 @@ public class CanvasController implements ChaosGameObserver {
                 coordsInputFields.add(maxCoordY);
 
                 HBox constantInputFields = new HBox(constantInputFieldReal, constantInputFieldImaginary);
-                inputFieldsVBox.getChildren().addAll(constantText, constantInputFields, minCoordsText, minCoordHBox, maxCoordsText, maxCoordHBox);
+                inputFieldsVBox.getChildren().addAll(constantText, constantInputFields, separator,minCoordsText, minCoordHBox, maxCoordsText, maxCoordHBox);
             }
         }
     }

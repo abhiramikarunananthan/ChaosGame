@@ -1,9 +1,9 @@
-package no.ntnu.idatt2003.chaosgame;
+package no.ntnu.idatt2003.chaosgame.Controller;
 
 import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.scenes.CanvasScene;
-import no.ntnu.idatt2003.chaosgame.scenes.CreateFractal;
+import no.ntnu.idatt2003.chaosgame.scenes.CreateFractalScene;
 import no.ntnu.idatt2003.chaosgame.scenes.MenuScene;
 import no.ntnu.idatt2003.chaosgame.scenes.StartScene;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
@@ -33,23 +33,24 @@ public class SceneController {
     public void switchScene(int sceneNumber){
         switch (sceneNumber){
             case MENU_SCENE -> {
-                MenuScene menuScene = new MenuScene(stage);
-                stage.setScene(menuScene.getScene());
-                break;
+                MenuController menuController = new MenuController(stage);
+                MenuScene menuScene = new MenuScene(menuController);
+                menuScene.displayScene();
             }
             case START_SCENE -> {
-                StartScene startScene = new StartScene(stage);
-                stage.setScene(startScene.getScene());
-                break;
+                StartController startController = new StartController(stage);
+                StartScene startScene = new StartScene(startController);
+                startScene.displayScene();
             }
+
             case CANVAS_SCENE -> {
-                CanvasScene canvasScene = new CanvasScene(stage, chaosGameDescription, transformations);
-                stage.setScene(canvasScene.getScene());
-                break;
+                CanvasController canvasController = new CanvasController(stage, transformations, chaosGameDescription);
+                CanvasScene canvasScene = new CanvasScene(canvasController);
+                canvasScene.displayScene();
             }
             case CREATE_FRACTAL -> {
-                CreateFractal createFractal = new CreateFractal(stage);
-                stage.setScene(createFractal.getScene());
+                CreateFractalScene createFractalScene = new CreateFractalScene(stage);
+                stage.setScene(createFractalScene.getScene());
                 break;
             }
         }

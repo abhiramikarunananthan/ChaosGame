@@ -5,8 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.data.ChaosGameFileHandler;
@@ -14,21 +12,19 @@ import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
-import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateFractal {
+public class CreateFractalScene {
 
     private Scene scene;
 
 
 
 
-    public CreateFractal(Stage stage){
+    public CreateFractalScene(Stage stage){
 
         VBox inputFieldsVBox = new VBox();
 

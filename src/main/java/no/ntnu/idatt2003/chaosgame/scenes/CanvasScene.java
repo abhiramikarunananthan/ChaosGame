@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -78,8 +79,10 @@ public class CanvasScene {
         iterationInputField.setMinWidth(50);
         runButton.setMinWidth(50);
 
+        StackPane stackPane = new StackPane(canvas);
+        stackPane.setStyle("-fx-background-color: black");
         inputFieldBox = new VBox(inputFieldsVBox, iterationText, iterationInputField, runButton, backButton);
-        HBox container = new HBox(inputFieldBox, canvas);
+        HBox container = new HBox(inputFieldBox, stackPane);
 
         root = new VBox(container);
 

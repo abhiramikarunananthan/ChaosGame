@@ -28,6 +28,7 @@ public class CanvasScene {
     private Button backButton;
     private Canvas canvas;
     private GraphicsContext graphicsContext;
+    private VBox inputFieldBox;
 
     private VBox root;
     private CanvasController canvasController;
@@ -43,6 +44,7 @@ public class CanvasScene {
         canvasController.setRunButton(runButton);
         canvasController.setIterationInputField(iterationInputField);
         canvasController.setGraphicsContext(graphicsContext);
+        canvasController.setInputFieldBox(inputFieldBox);
 
         canvasController.addButtonListeners();
     }
@@ -76,7 +78,7 @@ public class CanvasScene {
         iterationInputField.setMinWidth(50);
         runButton.setMinWidth(50);
 
-        VBox inputFieldBox = new VBox(inputFieldsVBox, iterationText, iterationInputField, runButton, backButton);
+        inputFieldBox = new VBox(inputFieldsVBox, iterationText, iterationInputField, runButton, backButton);
         HBox container = new HBox(inputFieldBox, canvas);
 
         root = new VBox(container);

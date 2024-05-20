@@ -6,6 +6,7 @@ import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.JuliaTransform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
+import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ChaosGameDescriptionFactory {
                 transform2DList.add(sierpinskiTransformationOne);
                 transform2DList.add(sierpinskiTransformationTwo);
                 transform2DList.add(sierpinskiTransformationThree);
-                return new ChaosGameDescription(transform2DList, new Vector2D(0,0), new Vector2D(1, 1) );
+                return new ChaosGameDescription(transform2DList, new Vector2D(0,0), new Vector2D(1, 1), Transformations.AFFINE2D);
             }
 
             case BARNSLEY -> {
@@ -38,7 +39,7 @@ public class ChaosGameDescriptionFactory {
                 transform2DList.add(barnsleyTransformationThree);
                 transform2DList.add(barnsleyTransformationFour);
 
-                return new ChaosGameDescription(transform2DList, new Vector2D(0,0), new Vector2D(2,2));
+                return new ChaosGameDescription(transform2DList, new Vector2D(0,0), new Vector2D(2,2), Transformations.AFFINE2D);
             }
             case JULIASET -> {
                 List<Transform2D> transform2DList = new ArrayList<>();
@@ -48,7 +49,7 @@ public class ChaosGameDescriptionFactory {
                 transform2DList.add(juliaTransformationOne);
                 transform2DList.add(juliaTransformationTwo);
 
-                return new ChaosGameDescription(transform2DList, new Vector2D(0, 0), new Vector2D(1.6,1.6));
+                return new ChaosGameDescription(transform2DList, new Vector2D(0, 0), new Vector2D(1.6,1.6), Transformations.JULIA);
             }
             default->{
                 return null;

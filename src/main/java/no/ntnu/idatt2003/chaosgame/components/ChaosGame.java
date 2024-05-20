@@ -23,7 +23,7 @@ public class ChaosGame {
     public ChaosCanvas getCanvas(){
         return canvas;
     }
-    public void runSteps(int steps){
+    public void runSteps(int steps, ChaosGameObserver chaosGameObserver){
         for (int i = 0; i < steps; i++) {
             Transform2D transform =
                     this.description
@@ -31,6 +31,10 @@ public class ChaosGame {
                             .get(this.random.nextInt(this.description.getTransforms().size()));
             this.currentPoint = transform.transform(this.currentPoint);
             this.canvas.putPixel(this.currentPoint);
+
+
+            chaosGameObserver.update(this.canvas.getPixelCoords(this.currentPoint));
+
         }
     }
 }

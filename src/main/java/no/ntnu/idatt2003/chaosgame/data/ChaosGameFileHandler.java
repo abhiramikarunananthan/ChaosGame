@@ -1,9 +1,11 @@
 package no.ntnu.idatt2003.chaosgame.data;
 
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
+import no.ntnu.idatt2003.chaosgame.tensors.Complex;
 import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
+import no.ntnu.idatt2003.chaosgame.transforms.JuliaTransform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
@@ -24,8 +26,6 @@ public class ChaosGameFileHandler {
         reader.useLocale(Locale.ENGLISH);
         List<String> stringList = new ArrayList<>();
 
-
-
         while(reader.hasNextLine()){
             String newLine = reader.nextLine();
             String[] newLineSeperated = newLine.split("#");
@@ -45,14 +45,12 @@ public class ChaosGameFileHandler {
         String[] minCoordsStringLine = minCoordsString.split(",");
         String[] maxCoordsStringLine = maxCoordsString.split(",");
 
-
-
-
-
+        boolean isAffineTransformation = transformationString.toUpperCase().equals(Transformations.AFFINE2D.toString());
+        boolean isJuliaTransformation = transformationString.toUpperCase().equals(Transformations.JULIA.toString());
         for (int i = 3; i < stringList.size(); i++) {
             String[] lineArray = stringList.get(i).split(",");
 
-            if(transformationString.toUpperCase().equals(Transformations.AFFINE2D.toString())) {
+            if(isAffineTransformation) {
                 double a00 = Double.parseDouble(lineArray[0]);
                 double a01 = Double.parseDouble(lineArray[1]);
                 double a10 = Double.parseDouble(lineArray[2]);
@@ -62,20 +60,36 @@ public class ChaosGameFileHandler {
 
                 AffineTransform2D affineTransform2D = new AffineTransform2D(new Matrix2x2(a00, a01, a10, a11), new Vector2D(b0, b1));
                 transformationsList.add(affineTransform2D);
-            } else if(transformationString.toUpperCase().equals(Transformations.JULIA.toString())) {
-                //JuliaTransform juliaTransform = new JuliaTransform(new Matrix2x2(a00, a01, a10, a11), new Vector2D(b0, b1));
-                //transformationsList.add(affineTransform2D);
-            }
+            } else if(isJuliaTransformation) {
+                double realPart = Double.parseDouble(lineArray[0]);
+                double imaginaryPart = Double.parseDouble(lineArray[1]);
 
+                JuliaTransform2D juliaTransformPositive = new JuliaTransform2D(new Complex(realPart, imaginaryPart), 1);
+                JuliaTransform2D juliaTransformNegative = new JuliaTransform2D(new Complex(realPart, imaginaryPart), -1);
+                transformationsList.add(juliaTransformPositive);
+                transformationsList.add(juliaTransformNegative);
+            }
         }
 
-        return  new ChaosGameDescription(transformationsList,
-                new Vector2D (Double.parseDouble(minCoordsStringLine[0]),
-                        Double.parseDouble(minCoordsStringLine[1])),
-                new Vector2D (Double.parseDouble(maxCoordsStringLine[0]),
-                        Double.parseDouble(maxCoordsStringLine[1])));
+        if(isAffineTransformation){
 
+            return  new ChaosGameDescription(transformationsList,
+                    new Vector2D (Double.parseDouble(minCoordsStringLine[0]),
+                            Double.parseDouble(minCoordsStringLine[1])),
+                    new Vector2D (Double.parseDouble(maxCoordsStringLine[0]),
+                            Double.parseDouble(maxCoordsStringLine[1])), Transformations.AFFINE2D);
 
+        }else if(isJuliaTransformation) {
+
+            return  new ChaosGameDescription(transformationsList,
+                    new Vector2D (Double.parseDouble(minCoordsStringLine[0]),
+                            Double.parseDouble(minCoordsStringLine[1])),
+                    new Vector2D (Double.parseDouble(maxCoordsStringLine[0]),
+                            Double.parseDouble(maxCoordsStringLine[1])), Transformations.JULIA);
+
+        } else {
+            return null;
+        }
 
     }
 
@@ -85,7 +99,13 @@ public class ChaosGameFileHandler {
         FileWriter fileWriter = new FileWriter(file);
 
         List<String> lineList = new ArrayList<>();
-        lineList.add("Affine2D");
+        if(description.getTransformation() == Transformations.AFFINE2D){
+            lineList.add("Affine2D");
+        } else if (description.getTransformation() == Transformations.JULIA) {
+            lineList.add("Julia");
+        }
+
+
         lineList.add((description.getMinCoords().getX0() + "," + description.getMinCoords().getX1()));
         lineList.add((description.getMaxCoords().getX0() + "," + description.getMaxCoords().getX1()));
 

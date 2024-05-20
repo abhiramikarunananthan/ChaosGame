@@ -47,17 +47,14 @@ public class ChaosCanvas {
         return this.canvas[i][j];
     }
 
-    public void putPixel(Vector2D point){
+    public Vector2D putPixel(Vector2D point){
         Vector2D indices = transformCoordsToIndices.transform((point));
         int i = (int) Math.round(indices.getX0());
         int j = (int) Math.round(indices.getX1());
         if(i >= 0 && i < width && j >= 0 && j < height){
         this.canvas[i][j]+=1;
         }
-    }
-
-    public Vector2D getPixelCoords(Vector2D point){
-        return transformCoordsToIndices.transform((point));
+        return indices;
     }
 
     public int[][] getCanvasArray() {

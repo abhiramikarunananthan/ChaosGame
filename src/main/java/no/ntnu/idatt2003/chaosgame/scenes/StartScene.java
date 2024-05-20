@@ -5,7 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import no.ntnu.idatt2003.chaosgame.SceneController;
+import no.ntnu.idatt2003.chaosgame.Controller.SceneController;
+import no.ntnu.idatt2003.chaosgame.Controller.StartController;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescriptionFactory;
 import no.ntnu.idatt2003.chaosgame.components.Fractals;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
@@ -13,47 +14,42 @@ import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 public class StartScene {
     private Scene scene;
 
-    public StartScene(Stage stage){
+    private Text title;
+    private Text infoBox;
+    private Button sierpinskiButton;
+    private Button barnsleyButton;
+    private Button juliaButton;
+    private Button backButton;
 
-        Text title = new Text("Games");
-        Text infoBox = new Text("Chose which fractal you want to display");
-        Button sierpinskiButton = new Button("Sierpinski triangle");
-        Button barnsleyButton = new Button("Barnsley fern");
-        Button juliaButton = new Button("Julia set");
-        Button backButton = new Button("Back");
+    private VBox root;
+    private StartController startController;
 
-        sierpinskiButton.setOnAction(actionEvent -> {
-            SceneController sceneController = new SceneController(stage);
-            sceneController.setGameDescription(new ChaosGameDescriptionFactory().createGameDescription(Fractals.SIERPINSKI));
-            sceneController.setTransformations(Transformations.AFFINE2D);
-            sceneController.switchScene(3);
-        });
-        barnsleyButton.setOnAction(actionEvent -> {
-            SceneController sceneController = new SceneController(stage);
-            sceneController.setGameDescription(new ChaosGameDescriptionFactory().createGameDescription(Fractals.BARNSLEY));
-            sceneController.setTransformations(Transformations.AFFINE2D);
-            sceneController.switchScene(3);
-        });
-        juliaButton.setOnAction(actionEvent -> {
-            SceneController sceneController = new SceneController(stage);
-            sceneController.setGameDescription(new ChaosGameDescriptionFactory().createGameDescription(Fractals.JULIASET));
-            sceneController.setTransformations(Transformations.JULIA);
-            sceneController.switchScene(3);
-        });
-        backButton.setOnAction(actionEvent -> {
-            SceneController sceneController = new SceneController(stage);
-            sceneController.switchScene(1);
-        });
+    public StartScene(StartController startController){
 
+        this.startController = startController;
+        createAndLayoutControls();
 
-        VBox root = new VBox(title, infoBox, sierpinskiButton, barnsleyButton, juliaButton, backButton);
+        startController.setSierpinskiButton(sierpinskiButton);
+        startController.setBarnsleyButton(barnsleyButton);
+        startController.setJuliaButton(juliaButton);
+        startController.setBackButton(backButton);
 
-
-        scene = new Scene(root, 600, 600);
+        startController.addButtonListeners();
 
     }
 
-    public Scene getScene() {
-        return scene;
+    public void displayScene(){
+        startController.updateScene(root);
+    }
+
+    private void createAndLayoutControls(){
+        title = new Text("Games");
+        infoBox = new Text("Chose which fractal you want to display");
+        sierpinskiButton = new Button("Sierpinski triangle");
+        barnsleyButton = new Button("Barnsley fern");
+        juliaButton = new Button("Julia set");
+        backButton = new Button("Back");
+
+        root = new VBox(title, infoBox, sierpinskiButton, barnsleyButton, juliaButton, backButton);
     }
 }

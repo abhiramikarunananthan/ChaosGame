@@ -7,66 +7,55 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import no.ntnu.idatt2003.chaosgame.SceneController;
+import no.ntnu.idatt2003.chaosgame.Controller.MenuController;
+import no.ntnu.idatt2003.chaosgame.Controller.SceneController;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.data.ChaosGameFileHandler;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class MenuScene {
 
     private Scene scene;
 
-    public MenuScene(Stage stage){
+    private Text title;
+    private Text infoBox;
+    private Button startButton;
+    private Button importButton;
+    private Button createYourOwnButton;
+    private Button quitButton;
 
-        Text title = new Text("Menu");
-        Text infoBox = new Text("Chose one of the options below");
-        Button startButton = new Button("START");
-        Button importButton = new Button("Import your own fractal");
-        Button createYourOwnButton = new Button("Create your own fractal");
-        Button quitButton = new Button("Quit");
+    private VBox root;
 
+    private MenuController menuController;
+    public MenuScene(MenuController menuController){
+        this.menuController = menuController;
 
-        startButton.setOnAction(actionEvent -> {
-                    SceneController sceneController = new SceneController(stage);
-                    sceneController.switchScene(2);
-                });
-        quitButton.setOnAction(actionEvent -> {
-            Platform.exit();
-        });
+        createAndLayoutControls();
 
-        createYourOwnButton.setOnAction(actionEvent -> {
-            SceneController sceneController = new SceneController(stage);
-            sceneController.switchScene(4);
-        });
-        importButton.setOnAction(actionEvent -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open fractal text file");
-            File file = fileChooser.showOpenDialog(stage);
-            try {
-                ChaosGameDescription chaosGameDescription = ChaosGameFileHandler.readFromFile(file.getPath());
+        menuController.setStartButton(startButton);
+        menuController.setImportButton(importButton);
+        menuController.setCreateYourOwnButton(createYourOwnButton);
+        menuController.setQuitButton(quitButton);
 
-                SceneController sceneController = new SceneController(stage);
-                sceneController.setGameDescription(chaosGameDescription);
-                sceneController.setTransformations(Transformations.AFFINE2D);
-                sceneController.switchScene(3);
-
-            } catch (FileNotFoundException fnfe){
-
-            }
-        });
-
-        VBox root = new VBox(title, infoBox, startButton, importButton, createYourOwnButton, quitButton);
-
-
-        scene = new Scene(root, 600, 600);
+        menuController.addButtonListeners();
 
     }
 
-    public Scene getScene() {
-        return scene;
+    public void displayScene(){
+        menuController.updateScene(root);
+    }
+
+    private void createAndLayoutControls(){
+        title = new Text("Menu");
+        infoBox = new Text("Chose one of the options below");
+        startButton = new Button("START");
+        importButton = new Button("Import your own fractal");
+        createYourOwnButton = new Button("Create your own fractal");
+        quitButton = new Button("Quit");
+
+        root = new VBox(title, infoBox, startButton, importButton, createYourOwnButton, quitButton);
     }
 }

@@ -11,21 +11,25 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGame;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
+import no.ntnu.idatt2003.chaosgame.components.ChaosGameObserver;
+import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
-public class CanvasController {
+public class CanvasController implements ChaosGameObserver {
 
     private Stage stage;
     private Transformations transformation;
     private ChaosGameDescription chaosGameDescription;
+    private ChaosGame chaosGame;
 
     private Button runButton;
     private Button backButton;
     private TextField iterationInputField;
     private GraphicsContext graphicsContext;
+    private VBox inputFieldBox;
     int[][] vistedPoints = new int[600][600];
 
-    public CanvasController(Stage stage, Transformations transformation, ChaosGameDescription chaosGameDescription) {
+    public CanvasController(Stage stage, Transformations transformation, ChaosGameDescription chaosGameDescription){
         this.stage = stage;
         this.transformation = transformation;
         this.chaosGameDescription = chaosGameDescription;
@@ -47,28 +51,15 @@ public class CanvasController {
         this.graphicsContext = graphicsContext;
     }
 
+    public void setInputFieldBox(VBox inputFieldBox) {
+        this.inputFieldBox = inputFieldBox;
+    }
+
     public void addButtonListeners(){
 
         runButton.setOnAction(actionEvent -> {
-            ChaosGame chaosGame = new ChaosGame(chaosGameDescription, 600,600);
-            chaosGame.runSteps(Integer.parseInt(iterationInputField.getText()));
-            int[][] canvasArray = chaosGame.getCanvas().getCanvasArray();
-            for (int i = 0; i < canvasArray.length; i++) {
-                for (int j = 0; j < canvasArray.length; j++) {
-                    if(canvasArray[i][j] >= 1){
-                        vistedPoints[i][j] += canvasArray[i][j];
-                        Color color = Color.RED;
-
-
-                        for (int k = 0; k < vistedPoints[i][j]; k++) {
-                            color = Color.hsb(color.getHue() + 30, color.getSaturation(), color.getBrightness());
-                        }
-                        graphicsContext.setStroke(color);
-                        graphicsContext.strokeLine(i,j, i, j);
-                    }
-                }
-            }
-
+            chaosGame = new ChaosGame(chaosGameDescription, 600,600);
+            chaosGame.runSteps(Integer.parseInt(iterationInputField.getText()), this);
         });
 
         backButton.setOnAction(actionEvent -> {
@@ -100,9 +91,29 @@ public class CanvasController {
     }
 
     public void updateScene(Parent root){
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(root, 600 + inputFieldBox.getWidth(), 600);
 
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void update(Vector2D point) {
+
+        int[][] canvasArray = chaosGame.getCanvas().getCanvasArray();
+        int i = (int) point.getX0();
+        int j = (int) point.getX1();
+
+        if(i < 600 && i >= 0 && j < 600 && j >= 0){
+
+            vistedPoints[i][j] += canvasArray[i][j];
+            Color color = Color.RED;
+
+            color = Color.hsb((color.getHue() + 30) * vistedPoints[i][j], color.getSaturation(), color.getBrightness());
+
+            graphicsContext.setStroke(color);
+            graphicsContext.strokeLine(i, j, i, j);
+        }
+
     }
 }

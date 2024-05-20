@@ -49,9 +49,9 @@ public class SceneController {
                 canvasScene.displayScene();
             }
             case CREATE_FRACTAL -> {
-                CreateFractalScene createFractalScene = new CreateFractalScene(stage);
-                stage.setScene(createFractalScene.getScene());
-                break;
+                CreateFractalController createFractalController = new CreateFractalController(stage);
+                CreateFractalScene createFractalScene = new CreateFractalScene(createFractalController);
+                createFractalScene.displayScene();
             }
         }
 

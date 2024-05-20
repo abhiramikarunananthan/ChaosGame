@@ -3,6 +3,7 @@ package no.ntnu.idatt2003.chaosgame.Controller;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
@@ -41,8 +42,13 @@ public class CanvasController implements ChaosGameObserver {
 
     private Button runButton;
     private Button backButton;
+    private Button canvasSizeConfirmButton;
     private TextField iterationInputField;
     private GraphicsContext graphicsContext;
+    private Canvas canvas;
+
+    private TextField canvasSizeInputFieldWidth;
+    private TextField canvasSizeInputFieldHeight;
     int[][] vistedPoints = new int[600][600];
 
     public CanvasController(Stage stage, Transformations transformation, ChaosGameDescription chaosGameDescription){
@@ -51,35 +57,29 @@ public class CanvasController implements ChaosGameObserver {
         this.chaosGameDescription = chaosGameDescription;
     }
 
-    public void setRunButton(Button runButton) {
-        this.runButton = runButton;
-    }
-
-    public void setBackButton(Button backButton) {
-        this.backButton = backButton;
-    }
-
-    public void setIterationInputField(TextField iterationInputField) {
-        this.iterationInputField = iterationInputField;
-    }
-
-    public void setGraphicsContext(GraphicsContext graphicsContext) {
-        this.graphicsContext = graphicsContext;
-    }
-
-
     public void addButtonListeners(){
 
         runButton.setOnAction(actionEvent -> {
             updateChaosGameDescription();
-            graphicsContext.clearRect(0,0,600,600);
-            chaosGame = new ChaosGame(chaosGameDescription, 600,600);
+            graphicsContext.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+            chaosGame = new ChaosGame(chaosGameDescription, (int) canvas.getWidth(), (int) canvas.getHeight());
             chaosGame.runSteps(Integer.parseInt(iterationInputField.getText()), this);
         });
 
         backButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
             sceneController.switchScene(2);
+        });
+
+        canvasSizeConfirmButton.setOnAction(actionEvent -> {
+            canvas.setWidth(Double.parseDouble(canvasSizeInputFieldWidth.getText()));
+            canvas.setHeight(Double.parseDouble(canvasSizeInputFieldHeight.getText()));
+
+            Parent root = new VBox(stage.getScene().getRoot());
+            Scene scene = new Scene(root, Double.parseDouble(canvasSizeInputFieldWidth.getText()) + 250, Double.parseDouble(canvasSizeInputFieldHeight.getText()));
+
+            stage.setScene(scene);
+            stage.show();
         });
     }
 
@@ -233,9 +233,6 @@ public class CanvasController implements ChaosGameObserver {
 
         }
 
-
-
-
     }
 
     @Override
@@ -256,5 +253,37 @@ public class CanvasController implements ChaosGameObserver {
             graphicsContext.strokeLine(i, j, i, j);
         }
 
+    }
+
+    public void setRunButton(Button runButton) {
+        this.runButton = runButton;
+    }
+
+    public void setBackButton(Button backButton) {
+        this.backButton = backButton;
+    }
+
+    public void setIterationInputField(TextField iterationInputField) {
+        this.iterationInputField = iterationInputField;
+    }
+
+    public void setGraphicsContext(GraphicsContext graphicsContext) {
+        this.graphicsContext = graphicsContext;
+    }
+
+    public void setCanvasSizeConfirmButton(Button canvasSizeConfirmButton) {
+        this.canvasSizeConfirmButton = canvasSizeConfirmButton;
+    }
+
+    public void setCanvas(Canvas canvas) {
+        this.canvas = canvas;
+    }
+
+    public void setCanvasSizeInputFieldWidth(TextField canvasSizeInputFieldWidth) {
+        this.canvasSizeInputFieldWidth = canvasSizeInputFieldWidth;
+    }
+
+    public void setCanvasSizeInputFieldHeight(TextField canvasSizeInputFieldHeight) {
+        this.canvasSizeInputFieldHeight = canvasSizeInputFieldHeight;
     }
 }

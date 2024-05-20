@@ -58,7 +58,9 @@ public class MenuController {
         });
 
         importButton.setOnAction(actionEvent -> {
+            File defaultDirectory = new File(System.getProperty("user.dir"));
             FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(defaultDirectory);
             fileChooser.setTitle("Open fractal text file");
             File file = fileChooser.showOpenDialog(stage);
             try {
@@ -66,7 +68,7 @@ public class MenuController {
 
                 SceneController sceneController = new SceneController(stage);
                 sceneController.setGameDescription(chaosGameDescription);
-                sceneController.setTransformations(Transformations.AFFINE2D);
+                sceneController.setTransformations(chaosGameDescription.getTransformation());
                 sceneController.switchScene(3);
 
             } catch (FileNotFoundException fnfe){

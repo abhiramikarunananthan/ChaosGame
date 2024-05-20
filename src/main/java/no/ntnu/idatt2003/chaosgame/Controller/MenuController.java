@@ -71,7 +71,7 @@ public class MenuController {
                 sceneController.setTransformations(chaosGameDescription.getTransformation());
                 sceneController.switchScene(3);
 
-            } catch (FileNotFoundException fnfe){
+            } catch (FileNotFoundException | NullPointerException ignored){
 
             }
         });

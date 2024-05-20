@@ -143,6 +143,7 @@ public class CreateFractalController {
 
     private void updateContents(VBox inputFieldsVBox){
         inputFieldsVBox.getChildren().clear();
+        saveButton.setVisible(true);
         this.coordsInputFields = new ArrayList<>();
         switch (currentTransformation){
             case AFFINE2D -> {

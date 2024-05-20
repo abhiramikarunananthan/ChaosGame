@@ -59,6 +59,7 @@ public class CreateFractalScene {
         affineTransform2DListView = new ListView<>();
 
         affineTransform2DListView.setVisible(false);
+        saveButton.setVisible(false);
 
         VBox leftSideVBox = new VBox(menuButton, inputFieldsVBox, saveButton, backButton);
 

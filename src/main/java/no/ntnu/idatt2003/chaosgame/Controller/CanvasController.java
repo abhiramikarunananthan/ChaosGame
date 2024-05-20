@@ -91,7 +91,7 @@ public class CanvasController implements ChaosGameObserver {
     }
 
     public void updateScene(Parent root){
-        Scene scene = new Scene(root, 600 + inputFieldBox.getWidth(), 600);
+        Scene scene = new Scene(root, 850, 600);
 
         stage.setScene(scene);
         stage.show();

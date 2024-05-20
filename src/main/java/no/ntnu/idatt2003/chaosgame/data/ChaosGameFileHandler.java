@@ -110,8 +110,16 @@ public class ChaosGameFileHandler {
         lineList.add((description.getMaxCoords().getX0() + "," + description.getMaxCoords().getX1()));
 
         for (int i = 0; i < description.getTransforms().size(); i++) {
-            AffineTransform2D affineTransform2D = (AffineTransform2D) description.getTransforms().get(i);
-            lineList.add(affineTransform2D.toString());
+
+            if(description.getTransformation() == Transformations.AFFINE2D){
+                AffineTransform2D affineTransform2D = (AffineTransform2D) description.getTransforms().get(i);
+                lineList.add(affineTransform2D.toString());
+            } else if (description.getTransformation() == Transformations.JULIA) {
+                JuliaTransform2D juliaTransform2D = (JuliaTransform2D) description.getTransforms().get(i);
+                lineList.add(juliaTransform2D.toString());
+            }
+
+
         }
         String finalString = "";
 

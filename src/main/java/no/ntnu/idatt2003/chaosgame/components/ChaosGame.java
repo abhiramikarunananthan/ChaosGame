@@ -30,10 +30,8 @@ public class ChaosGame {
                             .getTransforms()
                             .get(this.random.nextInt(this.description.getTransforms().size()));
             this.currentPoint = transform.transform(this.currentPoint);
-            this.canvas.putPixel(this.currentPoint);
 
-
-            chaosGameObserver.update(this.canvas.getPixelCoords(this.currentPoint));
+            chaosGameObserver.update(this.canvas.putPixel(this.currentPoint));
 
         }
     }

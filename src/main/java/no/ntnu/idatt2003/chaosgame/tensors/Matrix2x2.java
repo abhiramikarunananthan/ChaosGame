@@ -20,6 +20,22 @@ public class Matrix2x2 {
         return new Vector2D(newX0, newX1);
     }
 
+    public double getA00() {
+        return a00;
+    }
+
+    public double getA01() {
+        return a01;
+    }
+
+    public double getA10() {
+        return a10;
+    }
+
+    public double getA11() {
+        return a11;
+    }
+
     @Override
     public String toString() {
         return a00 + "," + a01 + "," + a10 + "," + a11;

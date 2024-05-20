@@ -56,6 +56,10 @@ public class ChaosCanvas {
         }
     }
 
+    public Vector2D getPixelCoords(Vector2D point){
+        return transformCoordsToIndices.transform((point));
+    }
+
     public int[][] getCanvasArray() {
         return canvas;
     }

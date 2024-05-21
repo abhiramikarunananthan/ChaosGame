@@ -1,5 +1,6 @@
 package no.ntnu.idatt2003.chaosgame.transforms;
 
+import no.ntnu.idatt2003.chaosgame.exceptions.IllegalSignException;
 import no.ntnu.idatt2003.chaosgame.tensors.Complex;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 import org.junit.jupiter.api.Assertions;
@@ -20,6 +21,12 @@ class JuliaTransform2DTest {
         juliaTransform2DTest1 = new JuliaTransform2D(complexTest,1);
         juliaTransform2DTest2 = new JuliaTransform2D(complexTest,-1);
 
+    }
+
+    @Test
+    void testWrongSignInInConstructor(){
+        Assertions.assertThrows(IllegalSignException.class, () -> new JuliaTransform2D(new Complex(0.4,0.2), 2));
+        Assertions.assertThrows(IllegalSignException.class, () -> new JuliaTransform2D(new Complex(0.5,0.2), -3));
     }
 
     @Test

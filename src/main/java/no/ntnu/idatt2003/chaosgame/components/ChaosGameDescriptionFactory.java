@@ -66,6 +66,23 @@ public class ChaosGameDescriptionFactory {
 
                 return new ChaosGameDescription(transform2DList, new Vector2D(0, 0), new Vector2D(1.6,1.6), Transformations.JULIA);
             }
+            case TREE -> {
+                Matrix2x2 w1 = new Matrix2x2(0.966,-0.259,0.259,0.966);
+                Matrix2x2 w2 = new Matrix2x2(0.966,0.259,-0.259,0.966);
+
+                Vector2D b1 = new Vector2D(0.05,0);
+                Vector2D b2 = new Vector2D(0,0.05);
+
+                Transform2D treeTransform1 = (v) -> w1.multiply(v).add(b1);
+                Transform2D treeTransform2 = (v) -> w2.multiply(v).add(b2);
+
+                List<Transform2D> transform2DList = new ArrayList<>();
+
+                transform2DList.add(treeTransform1);
+                transform2DList.add(treeTransform2);
+
+                return new ChaosGameDescription(transform2DList, new Vector2D(0, 0), new Vector2D(1,1));
+            }
             default->{
                 return null;
             }

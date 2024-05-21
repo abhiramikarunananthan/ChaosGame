@@ -33,8 +33,13 @@ public class ChaosGameDescription {
      * @param maxCoords The maximum vector coordinates representing the
      *                  upper right corner of the range
      * @throws MinimumBiggerThanMaximumException If the {@link #minCoords} vector values are bigger than the {@link #maxCoords} vector values
+     * @throws IllegalArgumentException If any of the parameters are null
      */
     public ChaosGameDescription(List<Transform2D> transforms, Vector2D minCoords, Vector2D maxCoords) throws MinimumBiggerThanMaximumException{
+        if(transforms == null || minCoords == null || maxCoords == null){
+            throw new IllegalArgumentException("Parameters cannot be null");
+        }
+
         if(minCoords.getX0() > maxCoords.getX0() || minCoords.getX1() > maxCoords.getX1()){
             throw new MinimumBiggerThanMaximumException("Minimum vector cannot be bigger than maximum vector");
         }
@@ -57,8 +62,13 @@ public class ChaosGameDescription {
      *                  upper right corner of the range
      * @param transformation The transformation type of the game description of the {@link Transformations} enum class
      * @throws MinimumBiggerThanMaximumException If the {@link #minCoords} vector values are bigger than the {@link #maxCoords} vector values
+     * @throws IllegalArgumentException If any of the parameters are null, except for {@link #transformation}
      */
     public ChaosGameDescription(List<Transform2D> transforms, Vector2D minCoords, Vector2D maxCoords, Transformations transformation) throws MinimumBiggerThanMaximumException{
+        if(transforms == null || minCoords == null || maxCoords == null){
+            throw new IllegalArgumentException("Parameters cannot be null");
+        }
+
         if(minCoords.getX0() > maxCoords.getX0() || minCoords.getX1() > maxCoords.getX1()){
             throw new MinimumBiggerThanMaximumException("Minimum vector cannot be bigger than maximum vector");
         }

@@ -16,8 +16,37 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * A class for handling files. The class is meant
+ * to interpret files to create objects of
+ * the {@link ChaosGameDescription} class, or translate
+ * {@link ChaosGameDescription} objects into files. The files
+ * interpreted need to follow a specific format in order to work.
+ *
+ * @author 10052
+ * @version 1.0
+ */
 public class ChaosGameFileHandler {
 
+    /**
+     * Creates an object of the {@link ChaosGameDescription} class from
+     * the file specified by the filepath. The start of the file needs to follow the following format:
+     * <p>
+     *     Transformation type<br>
+     *     minCoordX0, minCoordX1<br>
+     *     maxCoordX0, maxCoordX1<br>
+     * </p>
+     *
+     * The remaining part of the file contains the list of transformations, and
+     * has its specific format based on the transformation type.
+     *
+     * @param path The file path of the file which needs to be interpreted
+     * @return {@link ChaosGameDescription} object based on the information
+     * from the interpreted file
+     * @throws FileNotFoundException If there was an error finding the file
+     * @throws IncorrectFileFormatException If the format of the file does not fit
+     * the expected format
+     */
     public static ChaosGameDescription readFromFile(String path) throws FileNotFoundException, IncorrectFileFormatException {
         File file;
         try{
@@ -99,6 +128,15 @@ public class ChaosGameFileHandler {
 
     }
 
+    /**
+     * Translates the specified {@link ChaosGameDescription} to a file with
+     * the specified path. The format of the created file follows the format
+     * expected from the {@link #readFromFile(String)} method.
+     *
+     * @param description The {@link ChaosGameDescription} which will be translated
+     * @param path The path of the newly created file
+     * @throws IOException If is a problem with file creation
+     */
     public static void writeToFile(ChaosGameDescription description, String path) throws IOException {
         File file = new File(path);
 

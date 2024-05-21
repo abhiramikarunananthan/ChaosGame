@@ -72,8 +72,6 @@ public class CanvasScene {
         runButton = new Button("Run");
         backButton = new Button("Back");
         canvas = new Canvas(600.0f, 600.0f);
-        iterationInputField.setMinWidth(50);
-        runButton.setMinWidth(50);
 
         Text canvasSizeText = new Text("Change canvas size:");
         canvasSizeInputFieldWidth = new TextField("600");
@@ -88,7 +86,6 @@ public class CanvasScene {
         separator.setOrientation(Orientation.HORIZONTAL);
         separator.setMinHeight(40);
 
-
         StackPane stackPane = new StackPane(canvas);
         stackPane.setStyle("-fx-background-color: black");
         ScrollPane scrollPaneTop = new ScrollPane(inputFieldsVBox);
@@ -97,6 +94,7 @@ public class CanvasScene {
         ScrollPane scrollPaneBottom = new ScrollPane(bottomVBox);
 
         inputFieldBox = new VBox(scrollPaneTop, scrollPaneBottom);
+
         HBox container = new HBox(inputFieldBox, stackPane);
 
         root = new VBox(container);

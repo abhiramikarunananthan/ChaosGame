@@ -43,7 +43,7 @@ public class ChaosCanvas {
         this.maxCoords = maxCoords;
 
         if (height < 0 || width < 0) {
-            throw new NegativeArraySizeException();
+            throw new NegativeArraySizeException("Width or height cannot be negative");
         }
 
         this.canvas = new int[height][width];

@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class JuliaTransform2DTest {
     private JuliaTransform2D juliaTransform2DTest1;
     private JuliaTransform2D juliaTransform2DTest2;
@@ -24,13 +22,13 @@ class JuliaTransform2DTest {
     }
 
     @Test
-    void testWrongSignInInConstructor(){
+    void wrongSignInInConstructor(){
         Assertions.assertThrows(IllegalSignException.class, () -> new JuliaTransform2D(new Complex(0.4,0.2), 2));
         Assertions.assertThrows(IllegalSignException.class, () -> new JuliaTransform2D(new Complex(0.5,0.2), -3));
     }
 
     @Test
-    void testNullParametersInContructor(){
+    void nullParametersInConstructor(){
         Assertions.assertThrows(IllegalArgumentException.class, () -> new JuliaTransform2D(null, 1));
     }
 

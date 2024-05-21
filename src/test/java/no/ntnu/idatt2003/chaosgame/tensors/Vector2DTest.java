@@ -24,6 +24,16 @@ class Vector2DTest {
     }
 
     @Test
+    void deepCopyConstructor(){
+        Vector2D deepCopy = new Vector2D(vector2DTest1);
+
+        Assertions.assertEquals(1,deepCopy.getX0());
+        Assertions.assertEquals(7,deepCopy.getX1());
+
+        Assertions.assertNotEquals(deepCopy,vector2DTest1);
+    }
+
+    @Test
     void getX0() {
         double vector1X0 = vector2DTest1.getX0();
         double vector2X0 = vector2DTest2.getX0();

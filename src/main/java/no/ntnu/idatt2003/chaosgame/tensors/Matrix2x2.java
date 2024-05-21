@@ -32,6 +32,7 @@ public class Matrix2x2 {
         this.a11 = a11;
     }
 
+
     /**
      * Method for multiplying this {@link Matrix2x2} object
      * with the specified {@link Vector2D} object.

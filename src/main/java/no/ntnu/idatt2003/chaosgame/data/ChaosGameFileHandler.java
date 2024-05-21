@@ -1,6 +1,7 @@
 package no.ntnu.idatt2003.chaosgame.data;
 
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
+import no.ntnu.idatt2003.chaosgame.exceptions.IncorrectFileFormatException;
 import no.ntnu.idatt2003.chaosgame.tensors.Complex;
 import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
@@ -17,11 +18,13 @@ import java.util.*;
 
 public class ChaosGameFileHandler {
 
-
-
-
-    public static ChaosGameDescription readFromFile(String path) throws FileNotFoundException {
-        File file = new File(path);
+    public static ChaosGameDescription readFromFile(String path) throws FileNotFoundException, IncorrectFileFormatException {
+        File file;
+        try{
+            file = new File(path);
+        }catch (NullPointerException e){
+            throw new NullPointerException("Invalid path");
+        }
         Scanner reader = new Scanner(file);
         reader.useLocale(Locale.ENGLISH);
         List<String> stringList = new ArrayList<>();
@@ -47,6 +50,11 @@ public class ChaosGameFileHandler {
 
         boolean isAffineTransformation = transformationString.toUpperCase().equals(Transformations.AFFINE2D.toString());
         boolean isJuliaTransformation = transformationString.toUpperCase().equals(Transformations.JULIA.toString());
+
+        if(!isAffineTransformation && !isJuliaTransformation){
+            throw new IncorrectFileFormatException("Transformation type not found");
+        }
+
         for (int i = 3; i < stringList.size(); i++) {
             String[] lineArray = stringList.get(i).split(",");
 
@@ -60,7 +68,7 @@ public class ChaosGameFileHandler {
 
                 AffineTransform2D affineTransform2D = new AffineTransform2D(new Matrix2x2(a00, a01, a10, a11), new Vector2D(b0, b1));
                 transformationsList.add(affineTransform2D);
-            } else if(isJuliaTransformation) {
+            } else {
                 double realPart = Double.parseDouble(lineArray[0]);
                 double imaginaryPart = Double.parseDouble(lineArray[1]);
 
@@ -79,7 +87,7 @@ public class ChaosGameFileHandler {
                     new Vector2D (Double.parseDouble(maxCoordsStringLine[0]),
                             Double.parseDouble(maxCoordsStringLine[1])), Transformations.AFFINE2D);
 
-        }else if(isJuliaTransformation) {
+        }else {
 
             return  new ChaosGameDescription(transformationsList,
                     new Vector2D (Double.parseDouble(minCoordsStringLine[0]),
@@ -87,8 +95,6 @@ public class ChaosGameFileHandler {
                     new Vector2D (Double.parseDouble(maxCoordsStringLine[0]),
                             Double.parseDouble(maxCoordsStringLine[1])), Transformations.JULIA);
 
-        } else {
-            return null;
         }
 
     }

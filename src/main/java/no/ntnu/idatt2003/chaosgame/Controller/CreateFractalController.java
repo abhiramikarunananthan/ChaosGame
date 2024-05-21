@@ -67,18 +67,7 @@ public class CreateFractalController {
                             new Vector2D(Double.parseDouble(coordsInputFields.get(2).getText()), Double.parseDouble(coordsInputFields.get(3).getText())),
                             Transformations.AFFINE2D);
 
-                    FileChooser fileChooser = new FileChooser();
-                    fileChooser.setTitle("Save");
-                    fileChooser.getExtensionFilters().addAll(
-                            new FileChooser.ExtensionFilter("Text Files", "*txt"),
-                            new FileChooser.ExtensionFilter("CSV", "*.csv"));
-
-                    File defaultDirectory = new File(System.getProperty("user.dir"));
-                    fileChooser.setInitialDirectory(defaultDirectory);
-
-                    File selectedDirectory = fileChooser.showSaveDialog(stage);
-
-                    ChaosGameFileHandler.writeToFile(chaosGameDescription, selectedDirectory.getPath());
+                    saveDescriptionToFile(chaosGameDescription);
 
                 } else if (currentTransformation == Transformations.JULIA) {
                     List<Transform2D> transform2DList = new ArrayList<>();
@@ -92,26 +81,15 @@ public class CreateFractalController {
                             new Vector2D(Double.parseDouble(coordsInputFields.get(2).getText()), Double.parseDouble(coordsInputFields.get(3).getText())),
                             Transformations.JULIA);
 
-                    FileChooser fileChooser = new FileChooser();
-                    fileChooser.setTitle("Save");
-                    fileChooser.getExtensionFilters().addAll(
-                            new FileChooser.ExtensionFilter("Text Files", "*txt"),
-                            new FileChooser.ExtensionFilter("CSV", "*.csv"));
-
-                    File defaultDirectory = new File(System.getProperty("user.dir"));
-                    fileChooser.setInitialDirectory(defaultDirectory);
-
-                    File selectedDirectory = fileChooser.showSaveDialog(stage);
-
-                    ChaosGameFileHandler.writeToFile(chaosGameDescription, selectedDirectory.getPath());
+                    saveDescriptionToFile(chaosGameDescription);
                 }
 
-            } catch (NullPointerException | NumberFormatException e) {
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (NullPointerException | NumberFormatException | IOException e) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("Error occured");
+                errorAlert.setContentText("An unexpected error has occured:\n" + e);
+                errorAlert.showAndWait();
             }
-
 
         });
 
@@ -129,6 +107,26 @@ public class CreateFractalController {
             });
         }
 
+    }
+
+    private void saveDescriptionToFile(ChaosGameDescription chaosGameDescription) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*txt"),
+                new FileChooser.ExtensionFilter("CSV", "*.csv"));
+
+        File defaultDirectory = new File(System.getProperty("user.dir"));
+        fileChooser.setInitialDirectory(defaultDirectory);
+
+        File selectedDirectory = fileChooser.showSaveDialog(stage);
+
+        ChaosGameFileHandler.writeToFile(chaosGameDescription, selectedDirectory.getPath());
+
+        Alert successAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        successAlert.setHeaderText("File saved");
+        successAlert.setContentText("file saved to: " + selectedDirectory.getPath());
+        successAlert.showAndWait();
     }
 
     public void updateScene(Parent root) {

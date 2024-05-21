@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class AffineTransform2DTest {
 
     private AffineTransform2D affineTransform2DTest;
@@ -48,10 +50,10 @@ class AffineTransform2DTest {
     void getMatrix() {
         Matrix2x2 affineTransformMatrix = affineTransform2DTest.getMatrix();
 
-        Assertions.assertEquals(0.5, affineTransformMatrix.a00());
-        Assertions.assertEquals(1, affineTransformMatrix.a01());
-        Assertions.assertEquals(1, affineTransformMatrix.a10());
-        Assertions.assertEquals(0.5, affineTransformMatrix.a11());
+        Assertions.assertEquals(0.5, affineTransformMatrix.getA00());
+        Assertions.assertEquals(1, affineTransformMatrix.getA01());
+        Assertions.assertEquals(1, affineTransformMatrix.getA10());
+        Assertions.assertEquals(0.5, affineTransformMatrix.getA11());
 
     }
 

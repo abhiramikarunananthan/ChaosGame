@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class Matrix2x2Test {
 
     private Matrix2x2 matrix2x2Test1;
@@ -48,47 +50,47 @@ class Matrix2x2Test {
 
     @Test
     void getA00() {
-        double matrix1A00 = matrix2x2Test1.a00();
-        double matrix2A00 = matrix2x2Test2.a00();
+        double matrix1A00 = matrix2x2Test1.getA00();
+        double matrix2A00 = matrix2x2Test2.getA00();
 
         Assertions.assertEquals(1, matrix1A00);
         Assertions.assertEquals(2, matrix2A00);
 
-        Assertions.assertThrows(NullPointerException.class, () -> matrix2x2TestNull.a00());
+        Assertions.assertThrows(NullPointerException.class, () -> matrix2x2TestNull.getA00());
 
     }
 
     @Test
     void getA01() {
 
-        double matrix1A01 = matrix2x2Test1.a01();
-        double matrix2A01 = matrix2x2Test2.a01();
+        double matrix1A01 = matrix2x2Test1.getA01();
+        double matrix2A01 = matrix2x2Test2.getA01();
 
         Assertions.assertEquals(-4, matrix1A01);
         Assertions.assertEquals(3, matrix2A01);
 
-        Assertions.assertThrows(NullPointerException.class, () -> matrix2x2TestNull.a01());
+        Assertions.assertThrows(NullPointerException.class, () -> matrix2x2TestNull.getA01());
     }
 
     @Test
     void getA10() {
-        double matrix1A10 = matrix2x2Test1.a10();
-        double matrix2A10 = matrix2x2Test2.a10();
+        double matrix1A10 = matrix2x2Test1.getA10();
+        double matrix2A10 = matrix2x2Test2.getA10();
 
         Assertions.assertEquals(0, matrix1A10);
         Assertions.assertEquals(-5, matrix2A10);
 
-        Assertions.assertThrows(NullPointerException.class, () -> matrix2x2TestNull.a10());
+        Assertions.assertThrows(NullPointerException.class, () -> matrix2x2TestNull.getA10());
     }
 
     @Test
     void getA11() {
-        double matrix1A11 = matrix2x2Test1.a11();
-        double matrix2A11 = matrix2x2Test2.a11();
+        double matrix1A11 = matrix2x2Test1.getA11();
+        double matrix2A11 = matrix2x2Test2.getA11();
 
         Assertions.assertEquals(2, matrix1A11);
         Assertions.assertEquals(-2, matrix2A11);
 
-        Assertions.assertThrows(NullPointerException.class, () -> matrix2x2TestNull.a11());
+        Assertions.assertThrows(NullPointerException.class, () -> matrix2x2TestNull.getA11());
     }
 }

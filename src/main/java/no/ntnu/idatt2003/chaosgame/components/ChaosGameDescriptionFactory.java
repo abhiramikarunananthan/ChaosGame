@@ -11,8 +11,23 @@ import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A factory class for constructing predefined {@link ChaosGameDescription}
+ * objects.
+ *
+ * @author 10052
+ * @version 1.0
+ */
 public class ChaosGameDescriptionFactory {
 
+    /**
+     * The factory create method for creating predefined fractals, also
+     * defined in the {@link Fractals} enum class.
+     *
+     * @param fractals A predefined fractal in {@link Fractals}
+     * @return A predefined {@link ChaosGameDescription} according to
+     * the fractal specified.
+     */
     public ChaosGameDescription createGameDescription(Fractals fractals){
         switch (fractals){
             case SIERPINSKI -> {

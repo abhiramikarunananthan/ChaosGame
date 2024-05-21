@@ -1,5 +1,6 @@
 package no.ntnu.idatt2003.chaosgame.components;
 
+import no.ntnu.idatt2003.chaosgame.exceptions.MinimumBiggerThanMaximumException;
 import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
@@ -26,7 +27,7 @@ public class ChaosCanvas {
 
 
     /**
-     * Constructor for the {@code ChaosCanvas} class. Initializes
+     * Constructor for the {@link ChaosCanvas} class. Initializes
      * the field variable {@link #transformCoordsToIndices} according
      * to the mathematical operation of translating normal vector coordinates
      * to computer array coordinates.
@@ -38,16 +39,21 @@ public class ChaosCanvas {
      * @param maxCoords The maximum vector coordinates representing the
      *                  upper right corner of the range
      * @throws NegativeArraySizeException If either the {@link #width} or {@link #height} is negative
+     * @throws MinimumBiggerThanMaximumException If the {@link #minCoords} vector values are bigger than the {@link #maxCoords} vector values
      */
-    public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) throws NegativeArraySizeException {
-        this.width = width;
-        this.height = height;
-        this.minCoords = minCoords;
-        this.maxCoords = maxCoords;
+    public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) throws NegativeArraySizeException, MinimumBiggerThanMaximumException {
+        if(minCoords.getX0() > maxCoords.getX0() || minCoords.getX1() > maxCoords.getX1()){
+            throw new MinimumBiggerThanMaximumException("Minimum vector cannot be bigger than maximum vector");
+        }
 
         if (height < 0 || width < 0) {
             throw new NegativeArraySizeException("Width or height cannot be negative");
         }
+
+        this.width = width;
+        this.height = height;
+        this.minCoords = minCoords;
+        this.maxCoords = maxCoords;
 
         this.canvas = new int[height][width];
 

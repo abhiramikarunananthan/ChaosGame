@@ -22,6 +22,17 @@ public class ChaosGame {
     private ChaosGameDescription description;
     private Vector2D currentPoint;
 
+    /**
+     * Constructor for the {@link ChaosGame} class. Sets the
+     * starting point of {@link #currentPoint} to {@code (0,0)}.
+     * A {@link ChaosCanvas} gets initialized and is used for the game.
+     *
+     * @param description The {@link ChaosGameDescription} containing the
+     *                    different transformations
+     * @param height The value which defines the {@link #canvas} height
+     * @param width The value which defines the {@link #canvas} width
+     * @throws NegativeDimensionsException If either the height or width specified is negative
+     */
     public ChaosGame(ChaosGameDescription description, int height, int width) throws NegativeDimensionsException {
         if (height < 0 || width < 0) {
             throw new NegativeDimensionsException("Width or height cannot be negative");
@@ -32,9 +43,26 @@ public class ChaosGame {
         this.currentPoint = new Vector2D(0, 0);
     }
 
+    /**
+     * Get method for retrieving {@link #canvas}
+     *
+     * @return {@link #canvas}
+     */
     public ChaosCanvas getCanvas(){
         return canvas;
     }
+
+    /**
+     * The method for running the game. Through each iteration, it
+     * calculates new points from the previous points. Starting from
+     * {@link #currentPoint}, it uses the transformations from {@link #description}
+     * and calculates each next point. Each next point is then used as the starting point
+     * for the next iteration. For each new point, the method calls the {@code update()} method
+     * from {@link ChaosGameObserver} interface.
+     *
+     * @param steps The number of iterations that will be performed
+     * @param chaosGameObserver The observer for tracking each iteration
+     */
     public void runSteps(int steps, ChaosGameObserver chaosGameObserver){
         Queue<Vector2D> pointQueue = new LinkedList<>();
         pointQueue.add(this.currentPoint);

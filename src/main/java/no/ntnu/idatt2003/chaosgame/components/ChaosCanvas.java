@@ -81,6 +81,17 @@ public class ChaosCanvas {
     }
 
     /**
+     * Constructor for the {@link ChaosCanvas} class. Creates
+     * a deep copy of the specified {@link ChaosCanvas}
+     *
+     * @param chaosCanvas The {@link ChaosCanvas} that gets deep-copied
+     */
+    public ChaosCanvas(ChaosCanvas chaosCanvas){
+        this(chaosCanvas.width, chaosCanvas.height, chaosCanvas.minCoords,chaosCanvas.maxCoords);
+        this.canvas = chaosCanvas.canvas;
+    }
+
+    /**
      * Method for retrieving the translated coordinates of
      * specified vector. The translation is done using the
      * field variable {@link #transformCoordsToIndices}.
@@ -117,12 +128,17 @@ public class ChaosCanvas {
     }
 
     /**
-     * Get method for {@link #canvas}.
+     * Get method for retrieving {@link #canvas}.
      *
-     * @return {@link #canvas}
+     * @return An array which has been deep copied from {@link #canvas}
      */
     public int[][] getCanvasArray() {
-        return canvas;
+        int[][] canvasArray = new int[width][height];
+        for (int i = 0; i < width; i++) {
+            System.arraycopy(canvas[i], 0, canvasArray[i], 0, height);
+        }
+        return canvasArray;
+
     }
 
     /**

@@ -48,21 +48,18 @@ public class StartController {
         sierpinskiButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
             sceneController.setGameDescription(new ChaosGameDescriptionFactory().createGameDescription(Fractals.SIERPINSKI));
-            sceneController.setTransformations(Transformations.AFFINE2D);
             sceneController.switchScene(3);
         });
 
         barnsleyButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
             sceneController.setGameDescription(new ChaosGameDescriptionFactory().createGameDescription(Fractals.BARNSLEY));
-            sceneController.setTransformations(Transformations.AFFINE2D);
             sceneController.switchScene(3);
         });
 
         juliaButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
             sceneController.setGameDescription(new ChaosGameDescriptionFactory().createGameDescription(Fractals.JULIASET));
-            sceneController.setTransformations(Transformations.JULIA);
             sceneController.switchScene(3);
         });
 

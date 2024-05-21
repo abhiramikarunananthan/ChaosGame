@@ -11,7 +11,6 @@ import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 public class SceneController {
     private Stage stage;
     private ChaosGameDescription chaosGameDescription;
-    private Transformations transformations;
     private final int MENU_SCENE = 1;
     private final int START_SCENE = 2;
     private final int CANVAS_SCENE = 3;
@@ -26,10 +25,6 @@ public class SceneController {
         this.chaosGameDescription = chaosGameDescription;
     }
 
-    public void setTransformations(Transformations transformations) {
-        this.transformations = transformations;
-    }
-
     public void switchScene(int sceneNumber){
         switch (sceneNumber){
             case MENU_SCENE -> {
@@ -37,6 +32,7 @@ public class SceneController {
                 MenuScene menuScene = new MenuScene(menuController);
                 menuScene.displayScene();
             }
+
             case START_SCENE -> {
                 StartController startController = new StartController(stage);
                 StartScene startScene = new StartScene(startController);
@@ -44,10 +40,11 @@ public class SceneController {
             }
 
             case CANVAS_SCENE -> {
-                CanvasController canvasController = new CanvasController(stage, transformations, chaosGameDescription);
+                CanvasController canvasController = new CanvasController(stage, chaosGameDescription.getTransformation(), chaosGameDescription);
                 CanvasScene canvasScene = new CanvasScene(canvasController);
                 canvasScene.displayScene();
             }
+
             case CREATE_FRACTAL -> {
                 CreateFractalController createFractalController = new CreateFractalController(stage);
                 CreateFractalScene createFractalScene = new CreateFractalScene(createFractalController);

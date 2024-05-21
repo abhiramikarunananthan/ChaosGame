@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGame;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameObserver;
+import no.ntnu.idatt2003.chaosgame.exceptions.MinimumBiggerThanMaximumException;
 import no.ntnu.idatt2003.chaosgame.tensors.Complex;
 import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
@@ -75,7 +76,12 @@ public class CanvasController implements ChaosGameObserver {
                 errorAlert.setHeaderText("Input not valid");
                 errorAlert.setContentText("Canvas size cannot be negative");
                 errorAlert.showAndWait();
-            }catch (Exception e){
+            }catch (MinimumBiggerThanMaximumException e){
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("Input not valid");
+                errorAlert.setContentText("Minimum vector values cannot be bigger than maximum vector values");
+                errorAlert.showAndWait();
+            } catch (Exception e){
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Error occured");
                 errorAlert.setContentText("An unexpected error has occured:\n" + e);

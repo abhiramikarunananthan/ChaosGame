@@ -11,6 +11,7 @@ public enum Fractals {
 
     SIERPINSKI,
     BARNSLEY,
-    JULIASET
+    JULIASET,
+    TREE
 
 }

@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class AffineTransform2DTest {
 
     private AffineTransform2D affineTransform2DTest;
@@ -25,7 +23,7 @@ class AffineTransform2DTest {
     }
 
     @Test
-    void testNullParametersInContructor(){
+    void nullParametersInConstructor(){
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new AffineTransform2D(null, vector2DTest));
         Assertions.assertThrows(IllegalArgumentException.class, () -> new AffineTransform2D(matrix2x2Test, null));

@@ -33,7 +33,7 @@ public class ChaosGameDescription {
      * @param maxCoords The maximum vector coordinates representing the
      *                  upper right corner of the range
      * @throws MinimumBiggerThanMaximumException If the {@link #minCoords} vector values are bigger than the {@link #maxCoords} vector values
-     * @throws IllegalArgumentException If any of the parameters are null
+     * @throws IllegalArgumentException If any of the parameters are {@code null}
      */
     public ChaosGameDescription(List<Transform2D> transforms, Vector2D minCoords, Vector2D maxCoords) throws MinimumBiggerThanMaximumException{
         if(transforms == null || minCoords == null || maxCoords == null){

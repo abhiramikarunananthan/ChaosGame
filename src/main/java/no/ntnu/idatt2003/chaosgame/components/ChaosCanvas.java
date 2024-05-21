@@ -40,7 +40,7 @@ public class ChaosCanvas {
      *                  upper right corner of the range
      * @throws NegativeArraySizeException If either the {@link #width} or {@link #height} is negative
      * @throws MinimumBiggerThanMaximumException If the {@link #minCoords} vector values are bigger than the {@link #maxCoords} vector values
-     * @throws IllegalArgumentException If the either {@link #minCoords} or {@link #maxCoords} is null
+     * @throws IllegalArgumentException If the either {@link #minCoords} or {@link #maxCoords} is {@code null}
      */
     public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) throws NegativeArraySizeException, MinimumBiggerThanMaximumException {
         if(minCoords == null || maxCoords == null){

@@ -32,7 +32,7 @@ public class ChaosGame {
      * @param height The value which defines the {@link #canvas} height
      * @param width The value which defines the {@link #canvas} width
      * @throws NegativeDimensionsException If either the height or width specified is negative
-     * @throws IllegalArgumentException If {@link #description} is null
+     * @throws IllegalArgumentException If {@link #description} is {@code null}
      */
     public ChaosGame(ChaosGameDescription description, int height, int width) throws NegativeDimensionsException {
         if(description == null){

@@ -61,7 +61,7 @@ public class CanvasScene {
 
         graphicsContext.save();
         graphicsContext.translate(300, 300);
-        graphicsContext.rotate(90);
+        graphicsContext.rotate(180);
         graphicsContext.translate(-300,-300);
     }
 

@@ -26,6 +26,16 @@ public class Vector2D {
     }
 
     /**
+     * Constructor for the {@link Vector2D} class. Creates
+     * a deep copy of the specified {@link Vector2D}
+     *
+     * @param vector2D The {@link Vector2D} that gets deep-copied
+     */
+    public Vector2D(Vector2D vector2D){
+        this(vector2D.getX0(), vector2D.getX1());
+    }
+
+    /**
      * Get method for retrieving {@link #x0}
      *
      * @return {@link #x0}

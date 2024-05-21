@@ -51,10 +51,10 @@ public class ChaosGame {
     /**
      * Get method for retrieving {@link #canvas}
      *
-     * @return {@link #canvas}
+     * @return A deep copy of {@link #canvas}
      */
     public ChaosCanvas getCanvas(){
-        return canvas;
+        return new ChaosCanvas(canvas);
     }
 
     /**

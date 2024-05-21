@@ -50,7 +50,6 @@ public class CanvasController implements ChaosGameObserver {
 
     private TextField canvasSizeInputFieldWidth;
     private TextField canvasSizeInputFieldHeight;
-    int[][] vistedPoints;
 
     public CanvasController(Stage stage, Transformations transformation, ChaosGameDescription chaosGameDescription){
         this.stage = stage;
@@ -62,7 +61,6 @@ public class CanvasController implements ChaosGameObserver {
 
         runButton.setOnAction(actionEvent -> {
             try{
-                this.vistedPoints = new int[(int) canvas.getWidth()][(int) canvas.getHeight()];
                 updateChaosGameDescription();
                 graphicsContext.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
                 chaosGame = new ChaosGame(chaosGameDescription, (int) canvas.getHeight(), (int) canvas.getWidth());
@@ -80,7 +78,7 @@ public class CanvasController implements ChaosGameObserver {
             }catch (Exception e){
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Error occured");
-                errorAlert.setContentText("An unexpected error has occured");
+                errorAlert.setContentText("An unexpected error has occured:\n" + e);
                 errorAlert.showAndWait();
             }
 
@@ -271,7 +269,10 @@ public class CanvasController implements ChaosGameObserver {
             }
 
         }catch (NullPointerException | NumberFormatException e){
-            System.out.println(e);
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Error occured");
+            errorAlert.setContentText("An unexpected error has occured:\n" + e);
+            errorAlert.showAndWait();
         }
 
     }
@@ -279,17 +280,21 @@ public class CanvasController implements ChaosGameObserver {
     @Override
     public void update(Vector2D point) {
 
-        int[][] canvasArray = chaosGame.getCanvas().getCanvasArray();
-
         int i = (int) point.getX0();
         int j = (int) point.getX1();
 
-        if(i < canvas.getWidth() && i >= 0 && j < canvas.getHeight() && j >= 0){
+        int pointValue = 0;
 
-            vistedPoints[i][j] += canvasArray[i][j];
+        try{
+            pointValue = chaosGame.getCanvas().getPixel(point);
+        }catch (ArrayIndexOutOfBoundsException ignored){
+
+        }
+
+        if(i < canvas.getWidth() && i >= 0 && j < canvas.getHeight() && j >= 0){
             Color color = Color.RED;
 
-            color = Color.hsb((color.getHue() + 30) * vistedPoints[i][j], color.getSaturation(), color.getBrightness());
+            color = Color.hsb((color.getHue() + 30) * pointValue, color.getSaturation(), color.getBrightness());
 
             graphicsContext.setStroke(color);
             graphicsContext.strokeLine(i, j, i, j);

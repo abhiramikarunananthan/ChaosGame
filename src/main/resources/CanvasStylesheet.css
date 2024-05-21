@@ -60,6 +60,9 @@ Text{
 .back{
     -fx-background-color: linear-gradient(to bottom, #9f9f9f, #fcd6c2);
 }
+.back:hover{
+    -fx-background-color: linear-gradient(to bottom, #ff0000, #ff0000);
+}
 
 .scroll-pane{
     -fx-pref-height: 50em;

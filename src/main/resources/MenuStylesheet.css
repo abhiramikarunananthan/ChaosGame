@@ -48,3 +48,7 @@
 .quit{
     -fx-background-color: linear-gradient(to bottom, #fa2b00, #cc6c21);
 }
+
+.quit:hover{
+    -fx-background-color: linear-gradient(to bottom, #ff0000, #ff0000);
+}

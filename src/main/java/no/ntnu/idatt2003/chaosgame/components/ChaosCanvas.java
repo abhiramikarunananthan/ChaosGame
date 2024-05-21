@@ -3,6 +3,9 @@ package no.ntnu.idatt2003.chaosgame.components;
 import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
+import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
+
+import java.util.Arrays;
 
 /**
  * A class representing a canvas for different points in a
@@ -19,7 +22,7 @@ public class ChaosCanvas {
     private int height;
     private Vector2D minCoords;
     private Vector2D maxCoords;
-    private AffineTransform2D transformCoordsToIndices;
+    private Transform2D transformCoordsToIndices;
 
 
     /**
@@ -48,19 +51,22 @@ public class ChaosCanvas {
 
         this.canvas = new int[height][width];
 
-        this.transformCoordsToIndices =
-                new AffineTransform2D(
-                        new Matrix2x2(
-                                0,
-                                (double) (this.height - 1) / (this.minCoords.getX1() - this.maxCoords.getX1()),
-                                (double) (this.width - 1) / (this.maxCoords.getX0() - this.minCoords.getX0()),
-                                0),
-                        new Vector2D((this.height - 1)
-                                * this.maxCoords.getX1()
-                                / (this.maxCoords.getX1() - this.minCoords.getX1()),
-                                (this.width - 1)
-                                        * this.minCoords.getX0()
-                                        / (this.maxCoords.getX0() - this.minCoords.getX0())));
+
+        Matrix2x2 A = new Matrix2x2(
+                0,
+                (double) (this.height - 1) / (this.minCoords.getX1() - this.maxCoords.getX1()),
+                (double) (this.width - 1) / (this.maxCoords.getX0() - this.minCoords.getX0()),
+                0);
+
+        Vector2D b = new Vector2D((this.height - 1)
+                * this.maxCoords.getX1()
+                / (this.maxCoords.getX1() - this.minCoords.getX1()),
+                (this.width - 1)
+                        * this.minCoords.getX0()
+                        / (this.maxCoords.getX0() - this.minCoords.getX0()));
+
+        this.transformCoordsToIndices = (point) -> A.multiply(point).add(b);
+
     }
 
     /**
@@ -90,7 +96,7 @@ public class ChaosCanvas {
      * @return The vector coordinates of the placed point
      */
     public Vector2D putPixel(Vector2D point) {
-        Vector2D indices = transformCoordsToIndices.transform((point));
+        Vector2D indices = transformCoordsToIndices.transform(point);
         int i = (int) Math.round(indices.getX0());
         int j = (int) Math.round(indices.getX1());
         if (i >= 0 && i < width && j >= 0 && j < height) {
@@ -116,4 +122,22 @@ public class ChaosCanvas {
         this.canvas = new int[width][height];
     }
 
+    /**
+     * {@code toString()} method for retrieving a string
+     * of the {@link #canvas} array
+     *
+     * @return String containing the whole {@link #canvas} array
+     */
+    @Override
+    public String toString() {
+        StringBuilder finalString = new StringBuilder();
+        for (int i = 0; i < this.width; i++) {
+            for (int j = 0; j < this.height; j++) {
+                finalString.append(canvas[i][j]);
+                finalString.append(",");
+            }
+            finalString.append("\n");
+        }
+        return finalString.toString();
+    }
 }

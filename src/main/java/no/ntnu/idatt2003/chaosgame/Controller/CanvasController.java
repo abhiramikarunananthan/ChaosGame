@@ -124,10 +124,10 @@ public class CanvasController implements ChaosGameObserver {
                     for (Transform2D transform2D : chaosGameDescription.getTransforms()) {
                         Text matrixText = new Text("Matrix:");
                         AffineTransform2D affineTransform2D = (AffineTransform2D) transform2D;
-                        TextField matrixInputFieldA00 = new TextField(String.valueOf(affineTransform2D.getMatrix().a00()));
-                        TextField matrixInputFieldA01 = new TextField(String.valueOf(affineTransform2D.getMatrix().a01()));
-                        TextField matrixInputFieldA10 = new TextField(String.valueOf(affineTransform2D.getMatrix().a10()));
-                        TextField matrixInputFieldA11 = new TextField(String.valueOf(affineTransform2D.getMatrix().a11()));
+                        TextField matrixInputFieldA00 = new TextField(String.valueOf(affineTransform2D.getMatrix().getA00()));
+                        TextField matrixInputFieldA01 = new TextField(String.valueOf(affineTransform2D.getMatrix().getA01()));
+                        TextField matrixInputFieldA10 = new TextField(String.valueOf(affineTransform2D.getMatrix().getA10()));
+                        TextField matrixInputFieldA11 = new TextField(String.valueOf(affineTransform2D.getMatrix().getA11()));
 
                         HBox matrixTopRow = new HBox(matrixInputFieldA00, matrixInputFieldA01);
                         HBox matrixBottomRow = new HBox(matrixInputFieldA10, matrixInputFieldA11);

@@ -5,11 +5,14 @@ import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 
 public class JuliaTransform2D implements Transform2D{
 
-    private Complex constant;
-    private int sign;
+    private final Complex constant;
+    private final int sign;
 
 
     public JuliaTransform2D(Complex constant, int sign) {
+        if(constant == null){
+            throw new IllegalArgumentException("The complex constant cannot be null");
+        }
         this.constant = constant;
         this.sign = sign;
     }

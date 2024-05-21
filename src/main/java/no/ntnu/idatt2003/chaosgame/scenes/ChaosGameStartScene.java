@@ -5,6 +5,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import no.ntnu.idatt2003.chaosgame.Controller.ChaosGameStartController;
 
+/**
+ * JavaFX scene for displaying the front page
+ * of the game. This class is controlled by
+ * {@link ChaosGameStartController}
+ *
+ * @author 10052
+ * @version 1.0
+ */
 public class ChaosGameStartScene {
 
     private Button playButton;

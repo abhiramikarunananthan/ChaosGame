@@ -28,6 +28,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller class for {@link no.ntnu.idatt2003.chaosgame.scenes.CreateFractalScene}
+ *
+ * @author 10052
+ * @version 1.0
+ */
 public class CreateFractalController {
 
     private Stage stage;

@@ -13,6 +13,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import no.ntnu.idatt2003.chaosgame.Controller.CanvasController;
 
+/**
+ * JavaFX scene for displaying fractals on a canvas.
+ * This class is controlled by {@link CanvasController}.
+ *
+ * @author 10052
+ * @version 1.0
+ */
 public class CanvasScene {
     private VBox inputFieldsVBox;
     private TextField iterationInputField ;

@@ -13,6 +13,12 @@ import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * Controller class for {@link no.ntnu.idatt2003.chaosgame.scenes.MenuScene}
+ *
+ * @author 10052
+ * @version 1.0
+ */
 public class MenuController {
 
     private Stage stage;

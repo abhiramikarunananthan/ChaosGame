@@ -8,6 +8,13 @@ import no.ntnu.idatt2003.chaosgame.scenes.MenuScene;
 import no.ntnu.idatt2003.chaosgame.scenes.StartScene;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
+/**
+ * Controller class for switching between the
+ * different scenes.
+ *
+ * @author 10052
+ * @version 1.0
+ */
 public class SceneController {
     private Stage stage;
     private ChaosGameDescription chaosGameDescription;
@@ -15,6 +22,7 @@ public class SceneController {
     private final int START_SCENE = 2;
     private final int CANVAS_SCENE = 3;
     private final int CREATE_FRACTAL = 4;
+
 
 
     public SceneController(Stage stage){

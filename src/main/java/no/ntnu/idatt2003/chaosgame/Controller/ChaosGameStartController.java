@@ -5,6 +5,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+/**
+ * Controller class for {@link no.ntnu.idatt2003.chaosgame.scenes.ChaosGameStartScene}
+ *
+ * @author 10052
+ * @version 1.0
+ */
 public class ChaosGameStartController {
 
     private Stage stage;

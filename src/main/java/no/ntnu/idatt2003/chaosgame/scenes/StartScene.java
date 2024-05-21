@@ -11,6 +11,14 @@ import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescriptionFactory;
 import no.ntnu.idatt2003.chaosgame.components.Fractals;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
+/**
+ * JavaFX scene for displaying the different
+ * predefined fractals, after pressing start.
+ * This class is controlled by {@link StartController}
+ *
+ * @author 10052
+ * @version 1.0
+ */
 public class StartScene {
     private Button sierpinskiButton;
     private Button barnsleyButton;

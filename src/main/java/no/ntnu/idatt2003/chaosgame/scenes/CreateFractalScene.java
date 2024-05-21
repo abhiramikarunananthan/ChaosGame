@@ -22,6 +22,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * JavaFX scene for displaying an interface
+ * for creating your own fractals. This class
+ * is controlled by {@link CreateFractalController}
+ *
+ * @author 10052
+ * @version 1.0
+ */
 public class CreateFractalScene {
 
     private VBox inputFieldsVBox;

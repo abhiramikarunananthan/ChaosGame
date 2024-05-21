@@ -16,6 +16,14 @@ import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * JavaFX scene for the main menu of
+ * the game. This class is controlled by
+ * {@link MenuController}
+ *
+ * @author 10052
+ * @version 1.0
+ */
 public class MenuScene {
     private Button startButton;
     private Button importButton;

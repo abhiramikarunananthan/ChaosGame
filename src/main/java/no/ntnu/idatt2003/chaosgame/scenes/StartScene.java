@@ -15,7 +15,9 @@ public class StartScene {
     private Button sierpinskiButton;
     private Button barnsleyButton;
     private Button juliaButton;
+    private Button treeButton;
     private Button backButton;
+
 
     private VBox root;
     private StartController startController;
@@ -29,6 +31,7 @@ public class StartScene {
         startController.setBarnsleyButton(barnsleyButton);
         startController.setJuliaButton(juliaButton);
         startController.setBackButton(backButton);
+        startController.setTreeButton(treeButton);
 
         startController.addButtonListeners();
 
@@ -44,9 +47,10 @@ public class StartScene {
         sierpinskiButton = new Button("Sierpinski triangle");
         barnsleyButton = new Button("Barnsley fern");
         juliaButton = new Button("Julia set");
+        treeButton = new Button("Tree");;
         backButton = new Button("Back");
 
-        root = new VBox(title, infoBox, sierpinskiButton, barnsleyButton, juliaButton, backButton);
+        root = new VBox(title, infoBox, sierpinskiButton, barnsleyButton, juliaButton,treeButton, backButton);
 
         title.getStyleClass().add("title");
         infoBox.getStyleClass().add("description");

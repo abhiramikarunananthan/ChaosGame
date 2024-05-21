@@ -21,6 +21,7 @@ public class StartController {
     private Button sierpinskiButton;
     private Button barnsleyButton;
     private Button juliaButton;
+    private Button treeButton;
     private Button backButton;
 
     public StartController(Stage stage) {
@@ -43,6 +44,10 @@ public class StartController {
         this.backButton = backButton;
     }
 
+    public void setTreeButton(Button treeButton) {
+        this.treeButton = treeButton;
+    }
+
     public void addButtonListeners(){
 
         sierpinskiButton.setOnAction(actionEvent -> {
@@ -60,6 +65,12 @@ public class StartController {
         juliaButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
             sceneController.setGameDescription(new ChaosGameDescriptionFactory().createGameDescription(Fractals.JULIASET));
+            sceneController.switchScene(3);
+        });
+
+        treeButton.setOnAction(actionEvent -> {
+            SceneController sceneController = new SceneController(stage);
+            sceneController.setGameDescription(new ChaosGameDescriptionFactory().createGameDescription(Fractals.TREE));
             sceneController.switchScene(3);
         });
 

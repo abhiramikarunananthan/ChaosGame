@@ -8,7 +8,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.data.ChaosGameFileHandler;
-import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +20,7 @@ import java.io.FileNotFoundException;
  */
 public class MenuController {
 
-    private Stage stage;
+    private final Stage stage;
 
     private Button startButton;
     private Button importButton;
@@ -48,7 +47,7 @@ public class MenuController {
         this.quitButton = quitButton;
     }
 
-    public void addButtonListeners(){
+    public void addButtonListeners() {
         startButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
             sceneController.switchScene(2);
@@ -76,13 +75,13 @@ public class MenuController {
                 sceneController.setGameDescription(chaosGameDescription);
                 sceneController.switchScene(3);
 
-            } catch (FileNotFoundException | NullPointerException ignored){
+            } catch (FileNotFoundException | NullPointerException ignored) {
 
             }
         });
     }
 
-    public void updateScene(Parent root){
+    public void updateScene(Parent root) {
         Scene scene = new Scene(root, 600, 600);
 
         String css = this.getClass().getResource("/MenuStylesheet.css").toExternalForm();

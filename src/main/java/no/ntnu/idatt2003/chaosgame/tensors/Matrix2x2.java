@@ -42,9 +42,9 @@ public class Matrix2x2 {
      * @return {@link Vector2D} object representing the result of
      * the mathematical operation
      */
-    public Vector2D multiply(Vector2D vector){
-        double newX0= this.a00* vector.getX0() + this.a01* vector.getX1();
-        double newX1= this.a10* vector.getX0() + this.a11* vector.getX1();
+    public Vector2D multiply(Vector2D vector) {
+        double newX0 = this.a00 * vector.getX0() + this.a01 * vector.getX1();
+        double newX1 = this.a10 * vector.getX0() + this.a11 * vector.getX1();
         return new Vector2D(newX0, newX1);
     }
 

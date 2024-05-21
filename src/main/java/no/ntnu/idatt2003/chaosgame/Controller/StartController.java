@@ -1,19 +1,11 @@
 package no.ntnu.idatt2003.chaosgame.Controller;
 
-import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescriptionFactory;
 import no.ntnu.idatt2003.chaosgame.components.Fractals;
-import no.ntnu.idatt2003.chaosgame.data.ChaosGameFileHandler;
-import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * Controller class for {@link no.ntnu.idatt2003.chaosgame.scenes.StartScene}
@@ -23,7 +15,7 @@ import java.io.FileNotFoundException;
  */
 public class StartController {
 
-    private Stage stage;
+    private final Stage stage;
     private Button sierpinskiButton;
     private Button barnsleyButton;
     private Button juliaButton;
@@ -54,7 +46,7 @@ public class StartController {
         this.treeButton = treeButton;
     }
 
-    public void addButtonListeners(){
+    public void addButtonListeners() {
 
         sierpinskiButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
@@ -86,7 +78,7 @@ public class StartController {
         });
     }
 
-    public void updateScene(Parent root){
+    public void updateScene(Parent root) {
         Scene scene = new Scene(root, 600, 600);
 
         String css = this.getClass().getResource("/StartStylesheet.css").toExternalForm();

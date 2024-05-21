@@ -1,15 +1,9 @@
 package no.ntnu.idatt2003.chaosgame.scenes;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import no.ntnu.idatt2003.chaosgame.Controller.SceneController;
 import no.ntnu.idatt2003.chaosgame.Controller.StartController;
-import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescriptionFactory;
-import no.ntnu.idatt2003.chaosgame.components.Fractals;
-import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 /**
  * JavaFX scene for displaying the different
@@ -28,9 +22,9 @@ public class StartScene {
 
 
     private VBox root;
-    private StartController startController;
+    private final StartController startController;
 
-    public StartScene(StartController startController){
+    public StartScene(StartController startController) {
 
         this.startController = startController;
         createAndLayoutControls();
@@ -45,20 +39,20 @@ public class StartScene {
 
     }
 
-    public void displayScene(){
+    public void displayScene() {
         startController.updateScene(root);
     }
 
-    private void createAndLayoutControls(){
+    private void createAndLayoutControls() {
         Text title = new Text("Games");
         Text infoBox = new Text("Chose which fractal you want to display");
         sierpinskiButton = new Button("Sierpinski triangle");
         barnsleyButton = new Button("Barnsley fern");
         juliaButton = new Button("Julia set");
-        treeButton = new Button("Tree");;
+        treeButton = new Button("Tree");
         backButton = new Button("Back");
 
-        root = new VBox(title, infoBox, sierpinskiButton, barnsleyButton, juliaButton,treeButton, backButton);
+        root = new VBox(title, infoBox, sierpinskiButton, barnsleyButton, juliaButton, treeButton, backButton);
 
         title.getStyleClass().add("title");
         infoBox.getStyleClass().add("description");

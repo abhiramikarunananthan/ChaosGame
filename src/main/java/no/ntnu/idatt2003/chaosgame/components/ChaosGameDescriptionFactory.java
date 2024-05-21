@@ -28,8 +28,8 @@ public class ChaosGameDescriptionFactory {
      * @return A predefined {@link ChaosGameDescription} according to
      * the fractal specified.
      */
-    public ChaosGameDescription createGameDescription(Fractals fractals){
-        switch (fractals){
+    public ChaosGameDescription createGameDescription(Fractals fractals) {
+        switch (fractals) {
             case SIERPINSKI -> {
                 List<Transform2D> transform2DList = new ArrayList<>();
                 Transform2D sierpinskiTransformationOne = new AffineTransform2D(new Matrix2x2(0.5, 0, 0, 0.5), new Vector2D(0, 0));
@@ -39,22 +39,22 @@ public class ChaosGameDescriptionFactory {
                 transform2DList.add(sierpinskiTransformationOne);
                 transform2DList.add(sierpinskiTransformationTwo);
                 transform2DList.add(sierpinskiTransformationThree);
-                return new ChaosGameDescription(transform2DList, new Vector2D(0,0), new Vector2D(1, 1), Transformations.AFFINE2D);
+                return new ChaosGameDescription(transform2DList, new Vector2D(0, 0), new Vector2D(1, 1), Transformations.AFFINE2D);
             }
 
             case BARNSLEY -> {
                 List<Transform2D> transform2DList = new ArrayList<>();
-                Transform2D barnsleyTransformationOne = new AffineTransform2D(new Matrix2x2(0,0,0,0.16), new Vector2D(0,0));
-                Transform2D barnsleyTransformationTwo = new AffineTransform2D(new Matrix2x2(0.85,0.04,-0.04,0.85), new Vector2D(0,1.6));
-                Transform2D barnsleyTransformationThree = new AffineTransform2D(new Matrix2x2(0.2,-0.26,0.23,0.22), new Vector2D(0,1.6));
-                Transform2D barnsleyTransformationFour = new AffineTransform2D(new Matrix2x2(-0.15,0.28,0.26,0.24), new Vector2D(0,0.44));
+                Transform2D barnsleyTransformationOne = new AffineTransform2D(new Matrix2x2(0, 0, 0, 0.16), new Vector2D(0, 0));
+                Transform2D barnsleyTransformationTwo = new AffineTransform2D(new Matrix2x2(0.85, 0.04, -0.04, 0.85), new Vector2D(0, 1.6));
+                Transform2D barnsleyTransformationThree = new AffineTransform2D(new Matrix2x2(0.2, -0.26, 0.23, 0.22), new Vector2D(0, 1.6));
+                Transform2D barnsleyTransformationFour = new AffineTransform2D(new Matrix2x2(-0.15, 0.28, 0.26, 0.24), new Vector2D(0, 0.44));
 
                 transform2DList.add(barnsleyTransformationOne);
                 transform2DList.add(barnsleyTransformationTwo);
                 transform2DList.add(barnsleyTransformationThree);
                 transform2DList.add(barnsleyTransformationFour);
 
-                return new ChaosGameDescription(transform2DList, new Vector2D(0,0), new Vector2D(2,2), Transformations.AFFINE2D);
+                return new ChaosGameDescription(transform2DList, new Vector2D(0, 0), new Vector2D(2, 2), Transformations.AFFINE2D);
             }
             case JULIASET -> {
                 List<Transform2D> transform2DList = new ArrayList<>();
@@ -64,17 +64,17 @@ public class ChaosGameDescriptionFactory {
                 transform2DList.add(juliaTransformationOne);
                 transform2DList.add(juliaTransformationTwo);
 
-                return new ChaosGameDescription(transform2DList, new Vector2D(0, 0), new Vector2D(1.6,1.6), Transformations.JULIA);
+                return new ChaosGameDescription(transform2DList, new Vector2D(0, 0), new Vector2D(1.6, 1.6), Transformations.JULIA);
             }
             case TREE -> {
                 List<Transform2D> transform2DList = new ArrayList<>();
 
-                transform2DList.add((v) -> new Matrix2x2(0.966,-0.259,0.259,0.966).multiply(v).add(new Vector2D(0.05,0)));
-                transform2DList.add((v) -> new Matrix2x2(0.966,0.259,-0.259,0.966).multiply(v).add(new Vector2D(0,0.05)));
+                transform2DList.add((v) -> new Matrix2x2(0.966, -0.259, 0.259, 0.966).multiply(v).add(new Vector2D(0.05, 0)));
+                transform2DList.add((v) -> new Matrix2x2(0.966, 0.259, -0.259, 0.966).multiply(v).add(new Vector2D(0, 0.05)));
 
-                return new ChaosGameDescription(transform2DList, new Vector2D(0, 0), new Vector2D(1,1));
+                return new ChaosGameDescription(transform2DList, new Vector2D(0, 0), new Vector2D(1, 1));
             }
-            default->{
+            default -> {
                 return null;
             }
 

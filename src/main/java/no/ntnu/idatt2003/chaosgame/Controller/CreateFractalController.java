@@ -1,6 +1,5 @@
 package no.ntnu.idatt2003.chaosgame.Controller;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
@@ -9,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
@@ -23,7 +21,6 @@ import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,23 +33,19 @@ import java.util.List;
  */
 public class CreateFractalController {
 
-    private Stage stage;
-    private List<TextField> matrixInputFields;
-    private List<TextField> vectorInputFields;
-
+    ListView<AffineTransform2D> affineTransform2DListView;
+    private final Stage stage;
+    private final List<TextField> matrixInputFields;
+    private final List<TextField> vectorInputFields;
     private List<TextField> constantInputFields;
     private List<TextField> coordsInputFields;
-
-    ListView<AffineTransform2D> affineTransform2DListView;
-
-
     private Button saveButton;
     private MenuButton menuButton;
     private Button backButton;
     private VBox inputFieldVBox;
 
     private Transformations currentTransformation;
-    private List<Transform2D> transform2DList;
+    private final List<Transform2D> transform2DList;
 
     public CreateFractalController(Stage stage) {
         this.stage = stage;

@@ -2,11 +2,11 @@ package no.ntnu.idatt2003.chaosgame.components;
 
 import no.ntnu.idatt2003.chaosgame.exceptions.NegativeDimensionsException;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
-import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
-import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * A class representing the game object of

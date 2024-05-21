@@ -3,10 +3,7 @@ package no.ntnu.idatt2003.chaosgame.components;
 import no.ntnu.idatt2003.chaosgame.exceptions.MinimumBiggerThanMaximumException;
 import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
-import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
 import no.ntnu.idatt2003.chaosgame.transforms.Transform2D;
-
-import java.util.Arrays;
 
 /**
  * A class representing a canvas for different points in a
@@ -38,16 +35,16 @@ public class ChaosCanvas {
      *                  bottom left corner of the range
      * @param maxCoords The maximum vector coordinates representing the
      *                  upper right corner of the range
-     * @throws NegativeArraySizeException If either the {@link #width} or {@link #height} is negative
+     * @throws NegativeArraySizeException        If either the {@link #width} or {@link #height} is negative
      * @throws MinimumBiggerThanMaximumException If the {@link #minCoords} vector values are bigger than the {@link #maxCoords} vector values
-     * @throws IllegalArgumentException If the either {@link #minCoords} or {@link #maxCoords} is {@code null}
+     * @throws IllegalArgumentException          If the either {@link #minCoords} or {@link #maxCoords} is {@code null}
      */
     public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) throws NegativeArraySizeException, MinimumBiggerThanMaximumException {
-        if(minCoords == null || maxCoords == null){
+        if (minCoords == null || maxCoords == null) {
             throw new IllegalArgumentException("Vector coordinates cannot be null");
         }
 
-        if(minCoords.getX0() > maxCoords.getX0() || minCoords.getX1() > maxCoords.getX1()){
+        if (minCoords.getX0() > maxCoords.getX0() || minCoords.getX1() > maxCoords.getX1()) {
             throw new MinimumBiggerThanMaximumException("Minimum vector cannot be bigger than maximum vector");
         }
 
@@ -86,8 +83,8 @@ public class ChaosCanvas {
      *
      * @param chaosCanvas The {@link ChaosCanvas} that gets deep-copied
      */
-    public ChaosCanvas(ChaosCanvas chaosCanvas){
-        this(chaosCanvas.width, chaosCanvas.height, chaosCanvas.minCoords,chaosCanvas.maxCoords);
+    public ChaosCanvas(ChaosCanvas chaosCanvas) {
+        this(chaosCanvas.width, chaosCanvas.height, chaosCanvas.minCoords, chaosCanvas.maxCoords);
         this.canvas = chaosCanvas.canvas;
     }
 

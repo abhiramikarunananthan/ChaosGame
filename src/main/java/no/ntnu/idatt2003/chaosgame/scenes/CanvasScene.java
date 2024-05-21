@@ -22,7 +22,7 @@ import no.ntnu.idatt2003.chaosgame.Controller.CanvasController;
  */
 public class CanvasScene {
     private VBox inputFieldsVBox;
-    private TextField iterationInputField ;
+    private TextField iterationInputField;
     private Button runButton;
     private Button backButton;
     private Button canvasSizeConfirmButton;
@@ -31,11 +31,11 @@ public class CanvasScene {
     private VBox inputFieldBox;
 
     private VBox root;
-    private CanvasController canvasController;
+    private final CanvasController canvasController;
     private TextField canvasSizeInputFieldWidth;
     private TextField canvasSizeInputFieldHeight;
 
-    public CanvasScene(CanvasController canvasController){
+    public CanvasScene(CanvasController canvasController) {
         this.canvasController = canvasController;
 
         createAndLayoutControls();
@@ -54,25 +54,25 @@ public class CanvasScene {
         canvasController.addButtonListeners();
     }
 
-    public void displayScene(){
+    public void displayScene() {
         canvasController.updateScene(root);
     }
 
-    private void fillInputFieldsVBox(){
+    private void fillInputFieldsVBox() {
         canvasController.fillInputFieldsVBox(inputFieldsVBox);
     }
 
-    private void createGraphicsContext(){
+    private void createGraphicsContext() {
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setLineWidth(1.0);
 
         graphicsContext.save();
         graphicsContext.translate(300, 300);
         graphicsContext.rotate(180);
-        graphicsContext.translate(-300,-300);
+        graphicsContext.translate(-300, -300);
     }
 
-    private void createAndLayoutControls(){
+    private void createAndLayoutControls() {
         inputFieldsVBox = new VBox();
         Text iterationText = new Text("Input amount of iterations");
         iterationInputField = new TextField();
@@ -85,7 +85,7 @@ public class CanvasScene {
         canvasSizeInputFieldHeight = new TextField("600");
 
 
-        HBox canvasSizeChange = new HBox(canvasSizeInputFieldWidth,canvasSizeInputFieldHeight);
+        HBox canvasSizeChange = new HBox(canvasSizeInputFieldWidth, canvasSizeInputFieldHeight);
 
         canvasSizeConfirmButton = new Button("Confirm");
 
@@ -96,7 +96,7 @@ public class CanvasScene {
         StackPane stackPane = new StackPane(canvas);
         stackPane.setStyle("-fx-background-color: black");
         ScrollPane scrollPaneTop = new ScrollPane(inputFieldsVBox);
-        VBox bottomVBox = new VBox(iterationText, iterationInputField, runButton, canvasSizeText,canvasSizeChange,canvasSizeConfirmButton,separator,backButton);
+        VBox bottomVBox = new VBox(iterationText, iterationInputField, runButton, canvasSizeText, canvasSizeChange, canvasSizeConfirmButton, separator, backButton);
 
         ScrollPane scrollPaneBottom = new ScrollPane(bottomVBox);
 

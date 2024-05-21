@@ -1,20 +1,9 @@
 package no.ntnu.idatt2003.chaosgame.scenes;
 
-import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import no.ntnu.idatt2003.chaosgame.Controller.MenuController;
-import no.ntnu.idatt2003.chaosgame.Controller.SceneController;
-import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
-import no.ntnu.idatt2003.chaosgame.data.ChaosGameFileHandler;
-import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * JavaFX scene for the main menu of
@@ -32,8 +21,9 @@ public class MenuScene {
 
     private VBox root;
 
-    private MenuController menuController;
-    public MenuScene(MenuController menuController){
+    private final MenuController menuController;
+
+    public MenuScene(MenuController menuController) {
         this.menuController = menuController;
 
         createAndLayoutControls();
@@ -47,11 +37,11 @@ public class MenuScene {
 
     }
 
-    public void displayScene(){
+    public void displayScene() {
         menuController.updateScene(root);
     }
 
-    private void createAndLayoutControls(){
+    private void createAndLayoutControls() {
         Text title = new Text("Menu");
         Text infoBox = new Text("Chose one of the options below");
         startButton = new Button("START");

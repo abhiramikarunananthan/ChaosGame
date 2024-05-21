@@ -24,14 +24,14 @@ public class ChaosGameStartController {
         this.playButton = playButton;
     }
 
-    public void addButtonListeners(){
+    public void addButtonListeners() {
         playButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
             sceneController.switchScene(1);
         });
     }
 
-    public void updateScene(Parent root){
+    public void updateScene(Parent root) {
         Scene scene = new Scene(root, 600, 600);
 
         String css = this.getClass().getResource("/ChaosGameStartStylesheet.css").toExternalForm();

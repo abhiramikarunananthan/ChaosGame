@@ -28,10 +28,10 @@ public class AffineTransform2D implements Transform2D {
      * @throws IllegalArgumentException If any of the specified parameters are {@code null}
      */
     public AffineTransform2D(Matrix2x2 matrix, Vector2D vector) {
-        if(matrix == null){
+        if (matrix == null) {
             throw new IllegalArgumentException("Matrix cannot be null");
         }
-        if(vector == null){
+        if (vector == null) {
             throw new IllegalArgumentException("Vector cannot be null");
         }
 
@@ -45,9 +45,9 @@ public class AffineTransform2D implements Transform2D {
      * the mathematical transformation:
      *
      * <p>
-     *     x -> Ax + b
+     * x -> Ax + b
      * </p>
-     *
+     * <p>
      * where {@code x} is the specified {@link Vector2D}, {@code A}
      * is {@link #matrix} and {@code b} is {@link #vector}.
      *

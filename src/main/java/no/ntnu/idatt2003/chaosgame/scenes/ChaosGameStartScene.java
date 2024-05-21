@@ -15,11 +15,11 @@ import no.ntnu.idatt2003.chaosgame.Controller.ChaosGameStartController;
  */
 public class ChaosGameStartScene {
 
-    private Button playButton;
     VBox root;
+    private Button playButton;
+    private final ChaosGameStartController chaosGameStartController;
 
-    private ChaosGameStartController chaosGameStartController;
-    public ChaosGameStartScene(ChaosGameStartController chaosGameStartController){
+    public ChaosGameStartScene(ChaosGameStartController chaosGameStartController) {
 
         this.chaosGameStartController = chaosGameStartController;
 
@@ -29,12 +29,12 @@ public class ChaosGameStartScene {
         chaosGameStartController.addButtonListeners();
     }
 
-    public void displayScene(){
+    public void displayScene() {
         chaosGameStartController.updateScene(root);
     }
 
 
-    private void createAndLayoutControls(){
+    private void createAndLayoutControls() {
         Text title = new Text("ChaosGame");
         Text infoBox = new Text("This is ChaosGame, where you are able to create your \nown fractals, and display them at your pleasure");
         playButton = new Button("Play");

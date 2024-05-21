@@ -6,7 +6,6 @@ import no.ntnu.idatt2003.chaosgame.scenes.CanvasScene;
 import no.ntnu.idatt2003.chaosgame.scenes.CreateFractalScene;
 import no.ntnu.idatt2003.chaosgame.scenes.MenuScene;
 import no.ntnu.idatt2003.chaosgame.scenes.StartScene;
-import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
 
 /**
  * Controller class for switching between the
@@ -16,25 +15,24 @@ import no.ntnu.idatt2003.chaosgame.transforms.Transformations;
  * @version 1.0
  */
 public class SceneController {
-    private Stage stage;
-    private ChaosGameDescription chaosGameDescription;
     private final int MENU_SCENE = 1;
     private final int START_SCENE = 2;
     private final int CANVAS_SCENE = 3;
     private final int CREATE_FRACTAL = 4;
+    private final Stage stage;
+    private ChaosGameDescription chaosGameDescription;
 
 
-
-    public SceneController(Stage stage){
+    public SceneController(Stage stage) {
         this.stage = stage;
     }
 
-    public void setGameDescription(ChaosGameDescription chaosGameDescription){
+    public void setGameDescription(ChaosGameDescription chaosGameDescription) {
         this.chaosGameDescription = chaosGameDescription;
     }
 
-    public void switchScene(int sceneNumber){
-        switch (sceneNumber){
+    public void switchScene(int sceneNumber) {
+        switch (sceneNumber) {
             case MENU_SCENE -> {
                 MenuController menuController = new MenuController(stage);
                 MenuScene menuScene = new MenuScene(menuController);

@@ -11,7 +11,7 @@ import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
  * @author 10052
  * @version 1.0
  */
-public class JuliaTransform2D implements Transform2D{
+public class JuliaTransform2D implements Transform2D {
 
     private final Complex constant;
     private final int sign;
@@ -26,13 +26,13 @@ public class JuliaTransform2D implements Transform2D{
      *                 square root in a julia transformation. Must be
      *                 either {@code 1} or {@code -1}
      * @throws IllegalArgumentException If the specified {@link Complex} is {@code null}
-     * @throws IllegalSignException If the sign is not {@code 1} or {@code -1}
+     * @throws IllegalSignException     If the sign is not {@code 1} or {@code -1}
      */
     public JuliaTransform2D(Complex constant, int sign) {
-        if(constant == null){
+        if (constant == null) {
             throw new IllegalArgumentException("The complex constant cannot be null");
         }
-        if(sign != 1 && sign != -1){
+        if (sign != 1 && sign != -1) {
             throw new IllegalSignException("The sign must either be 1 or -1");
         }
         this.constant = constant;
@@ -44,9 +44,9 @@ public class JuliaTransform2D implements Transform2D{
      * specified {@link Vector2D} object. The transformation follows
      * the mathematical transformation:
      * <p>
-     *     z -> +-sqrt(z - c)
+     * z -> +-sqrt(z - c)
      * </p>
-     *
+     * <p>
      * where {@code z} is the specified {@link Vector2D}, {@code +-}
      * is {@link #sign} and {@code c} is {@link #constant}.
      *

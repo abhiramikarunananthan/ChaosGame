@@ -68,7 +68,6 @@ public class MenuController {
 
                 SceneController sceneController = new SceneController(stage);
                 sceneController.setGameDescription(chaosGameDescription);
-                sceneController.setTransformations(chaosGameDescription.getTransformation());
                 sceneController.switchScene(3);
 
             } catch (FileNotFoundException | NullPointerException ignored){

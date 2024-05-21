@@ -19,7 +19,7 @@ public class ChaosGameDescription {
     private List<Transform2D> transforms;
     private Vector2D minCoords;
     private Vector2D maxCoords;
-    private Transformations transformation;
+    private final Transformations transformation;
 
 
     /**
@@ -72,7 +72,7 @@ public class ChaosGameDescription {
     /**
      * Set method for setting {@link #transforms}
      *
-     * @param transforms
+     * @param transforms A list of {@link Transform2D} objects
      */
     public void setTransforms(List<Transform2D> transforms) {
         this.transforms = transforms;
@@ -81,7 +81,7 @@ public class ChaosGameDescription {
     /**
      * Set method for setting {@link #minCoords}
      *
-     * @param minCoords
+     * @param minCoords The new minimum vector cordinates
      */
     public void setMinCoords(Vector2D minCoords) {
         this.minCoords = minCoords;
@@ -90,7 +90,7 @@ public class ChaosGameDescription {
     /**
      * Set method for setting {@link #maxCoords}
      *
-     * @param maxCoords
+     * @param maxCoords The new maximum vector cordinates
      */
     public void setMaxCoords(Vector2D maxCoords) {
         this.maxCoords = maxCoords;

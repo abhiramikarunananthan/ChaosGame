@@ -19,11 +19,11 @@ import java.util.Arrays;
 public class ChaosCanvas {
 
     private int[][] canvas;
-    private int width;
-    private int height;
-    private Vector2D minCoords;
-    private Vector2D maxCoords;
-    private Transform2D transformCoordsToIndices;
+    private final int width;
+    private final int height;
+    private final Vector2D minCoords;
+    private final Vector2D maxCoords;
+    private final Transform2D transformCoordsToIndices;
 
 
     /**

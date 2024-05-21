@@ -1,8 +1,8 @@
 package no.ntnu.idatt2003.chaosgame.tensors;
 
 public class Vector2D {
-    private double x0;
-    private double x1;
+    private final double x0;
+    private final double x1;
 
     public Vector2D(double x0, double x1) {
         this.x0 = x0;

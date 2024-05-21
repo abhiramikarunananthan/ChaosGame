@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 public class ChaosGame {
-    private ChaosCanvas canvas;
-    private ChaosGameDescription description;
-    private Vector2D currentPoint;
+    private final ChaosCanvas canvas;
+    private final ChaosGameDescription description;
+    private final Vector2D currentPoint;
 
     /**
      * Constructor for the {@link ChaosGame} class. Sets the

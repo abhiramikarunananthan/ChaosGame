@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
@@ -60,11 +61,30 @@ public class CanvasController implements ChaosGameObserver {
     public void addButtonListeners(){
 
         runButton.setOnAction(actionEvent -> {
-            this.vistedPoints = new int[(int) canvas.getWidth()][(int) canvas.getHeight()];
-            updateChaosGameDescription();
-            graphicsContext.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-            chaosGame = new ChaosGame(chaosGameDescription, (int) canvas.getWidth(), (int) canvas.getHeight());
-            chaosGame.runSteps(Integer.parseInt(iterationInputField.getText()), this);
+            try{
+                this.vistedPoints = new int[(int) canvas.getWidth()][(int) canvas.getHeight()];
+                updateChaosGameDescription();
+                graphicsContext.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+                chaosGame = new ChaosGame(chaosGameDescription, (int) canvas.getHeight(), (int) canvas.getWidth());
+                chaosGame.runSteps(Integer.parseInt(iterationInputField.getText()), this);
+            }catch (NumberFormatException e){
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("Input not valid");
+                errorAlert.setContentText("Iteration input field can not be empty");
+                errorAlert.showAndWait();
+            }catch (NegativeArraySizeException e){
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("Input not valid");
+                errorAlert.setContentText("Canvas size cannot be negative");
+                errorAlert.showAndWait();
+            }catch (Exception e){
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("Error occured");
+                errorAlert.setContentText("An unexpected error has occured");
+                errorAlert.showAndWait();
+            }
+
+
         });
 
         backButton.setOnAction(actionEvent -> {
@@ -73,12 +93,20 @@ public class CanvasController implements ChaosGameObserver {
         });
 
         canvasSizeConfirmButton.setOnAction(actionEvent -> {
+            double oldWidth = canvas.getWidth();
+            double oldHeight = canvas.getHeight();
+
+            graphicsContext.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
             canvas.setWidth(Double.parseDouble(canvasSizeInputFieldWidth.getText()));
             canvas.setHeight(Double.parseDouble(canvasSizeInputFieldHeight.getText()));
 
             Parent root = new VBox(stage.getScene().getRoot());
 
-            updateScene(root,Double.parseDouble(canvasSizeInputFieldWidth.getText()) + 250, Double.parseDouble(canvasSizeInputFieldHeight.getText()));
+            updateScene(root,250 + canvas.getWidth(), Double.parseDouble(canvasSizeInputFieldHeight.getText()));
+
+            graphicsContext.translate((canvas.getHeight() - oldHeight) / 2, (oldWidth - canvas.getWidth()) / 2);
+
+
         });
     }
 
@@ -222,8 +250,9 @@ public class CanvasController implements ChaosGameObserver {
                 }
 
                 chaosGameDescription.setTransforms(transform2DList);
-                chaosGameDescription.setMinCoords(new Vector2D(Double.parseDouble(constantInputFields.get(0).getText()),Double.parseDouble(constantInputFields.get(1).getText())));
-                chaosGameDescription.setMaxCoords(new Vector2D(Double.parseDouble(constantInputFields.get(2).getText()),Double.parseDouble(constantInputFields.get(3).getText())));
+
+                chaosGameDescription.setMinCoords(new Vector2D(Double.parseDouble(coordsInputFields.get(0).getText()),Double.parseDouble(coordsInputFields.get(1).getText())));
+                chaosGameDescription.setMaxCoords(new Vector2D(Double.parseDouble(coordsInputFields.get(2).getText()),Double.parseDouble(coordsInputFields.get(3).getText())));
 
             }else if (transformation == Transformations.JULIA){
                 List<Transform2D> transform2DList = new ArrayList<>();
@@ -242,7 +271,7 @@ public class CanvasController implements ChaosGameObserver {
             }
 
         }catch (NullPointerException | NumberFormatException e){
-
+            System.out.println(e);
         }
 
     }

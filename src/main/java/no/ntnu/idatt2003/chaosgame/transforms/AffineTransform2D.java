@@ -5,11 +5,18 @@ import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
 
 public class AffineTransform2D implements Transform2D {
 
-    private Matrix2x2 matrix;
-    private Vector2D vector;
+    private final Matrix2x2 matrix;
+    private final Vector2D vector;
 
 
     public AffineTransform2D(Matrix2x2 matrix, Vector2D vector) {
+        if(matrix == null){
+            throw new IllegalArgumentException("Matrix cannot be null");
+        }
+        if(vector == null){
+            throw new IllegalArgumentException("Vector cannot be null");
+        }
+
         this.matrix = matrix;
         this.vector = vector;
     }

@@ -57,18 +57,21 @@ public class CreateFractalController {
         this.coordsInputFields = new ArrayList<>();
     }
 
-    public void addButtonListeners(){
+    public void addButtonListeners() {
 
-        saveButton.setOnAction(actionEvent ->{
-            try{
-                if(currentTransformation == Transformations.AFFINE2D){
+        saveButton.setOnAction(actionEvent -> {
+            try {
+                if (currentTransformation == Transformations.AFFINE2D) {
                     ChaosGameDescription chaosGameDescription = new ChaosGameDescription(transform2DList,
-                            new Vector2D(Double.parseDouble(coordsInputFields.get(0).getText()),Double.parseDouble(coordsInputFields.get(1).getText())),
-                            new Vector2D(Double.parseDouble(coordsInputFields.get(2).getText()),Double.parseDouble(coordsInputFields.get(3).getText())),
+                            new Vector2D(Double.parseDouble(coordsInputFields.get(0).getText()), Double.parseDouble(coordsInputFields.get(1).getText())),
+                            new Vector2D(Double.parseDouble(coordsInputFields.get(2).getText()), Double.parseDouble(coordsInputFields.get(3).getText())),
                             Transformations.AFFINE2D);
 
                     FileChooser fileChooser = new FileChooser();
                     fileChooser.setTitle("Save");
+                    fileChooser.getExtensionFilters().addAll(
+                            new FileChooser.ExtensionFilter("Text Files", "*txt"),
+                            new FileChooser.ExtensionFilter("CSV", "*.csv"));
 
                     File defaultDirectory = new File(System.getProperty("user.dir"));
                     fileChooser.setInitialDirectory(defaultDirectory);
@@ -77,7 +80,7 @@ public class CreateFractalController {
 
                     ChaosGameFileHandler.writeToFile(chaosGameDescription, selectedDirectory.getPath());
 
-                }else if (currentTransformation == Transformations.JULIA){
+                } else if (currentTransformation == Transformations.JULIA) {
                     List<Transform2D> transform2DList = new ArrayList<>();
 
                     transform2DList.add(new JuliaTransform2D(
@@ -85,22 +88,25 @@ public class CreateFractalController {
                                     Double.parseDouble(constantInputFields.get(1).getText())), 1));
 
                     ChaosGameDescription chaosGameDescription = new ChaosGameDescription(transform2DList,
-                            new Vector2D(Double.parseDouble(coordsInputFields.get(0).getText()),Double.parseDouble(coordsInputFields.get(1).getText())),
-                            new Vector2D(Double.parseDouble(coordsInputFields.get(2).getText()),Double.parseDouble(coordsInputFields.get(3).getText())),
+                            new Vector2D(Double.parseDouble(coordsInputFields.get(0).getText()), Double.parseDouble(coordsInputFields.get(1).getText())),
+                            new Vector2D(Double.parseDouble(coordsInputFields.get(2).getText()), Double.parseDouble(coordsInputFields.get(3).getText())),
                             Transformations.JULIA);
 
-                    DirectoryChooser directoryChooser = new DirectoryChooser();
-                    directoryChooser.setTitle("Save");
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Save");
+                    fileChooser.getExtensionFilters().addAll(
+                            new FileChooser.ExtensionFilter("Text Files", "*txt"),
+                            new FileChooser.ExtensionFilter("CSV", "*.csv"));
 
                     File defaultDirectory = new File(System.getProperty("user.dir"));
-                    directoryChooser.setInitialDirectory(defaultDirectory);
+                    fileChooser.setInitialDirectory(defaultDirectory);
 
-                    File selectedDirectory = directoryChooser.showDialog(stage);
+                    File selectedDirectory = fileChooser.showSaveDialog(stage);
 
-                    ChaosGameFileHandler.writeToFile(chaosGameDescription, selectedDirectory.getPath() + "\\test.txt");
+                    ChaosGameFileHandler.writeToFile(chaosGameDescription, selectedDirectory.getPath());
                 }
 
-            }catch (NullPointerException | NumberFormatException e){
+            } catch (NullPointerException | NumberFormatException e) {
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -114,9 +120,9 @@ public class CreateFractalController {
             sceneController.switchScene(1);
         });
 
-        for (MenuItem menuItem: menuButton.getItems()) {
+        for (MenuItem menuItem : menuButton.getItems()) {
             menuItem.setOnAction(actionEvent -> {
-                MenuItem item = (MenuItem)actionEvent.getSource();
+                MenuItem item = (MenuItem) actionEvent.getSource();
                 menuButton.setText(item.getText());
                 currentTransformation = Transformations.valueOf(item.getText());
                 updateContents(inputFieldVBox);
@@ -125,7 +131,7 @@ public class CreateFractalController {
 
     }
 
-    public void updateScene(Parent root){
+    public void updateScene(Parent root) {
         Scene scene = new Scene(root, 600, 600);
 
         String css = this.getClass().getResource("/CreateFractalStylesheet.css").toExternalForm();
@@ -135,17 +141,17 @@ public class CreateFractalController {
         stage.show();
     }
 
-    public void populateMenuButton(){
-        for (Transformations transformation: Transformations.values()) {
+    public void populateMenuButton() {
+        for (Transformations transformation : Transformations.values()) {
             menuButton.getItems().add(new MenuItem(transformation.name()));
         }
     }
 
-    private void updateContents(VBox inputFieldsVBox){
+    private void updateContents(VBox inputFieldsVBox) {
         inputFieldsVBox.getChildren().clear();
         saveButton.setVisible(true);
         this.coordsInputFields = new ArrayList<>();
-        switch (currentTransformation){
+        switch (currentTransformation) {
             case AFFINE2D -> {
                 ObservableList<AffineTransform2D> affineTransform2DObservableList = FXCollections.observableArrayList();
                 affineTransform2DListView.setVisible(true);
@@ -166,16 +172,15 @@ public class CreateFractalController {
                 addToListButton.setOnAction(actionEvent -> {
                     AffineTransform2D affineTransform2D = new AffineTransform2D(
                             new Matrix2x2(Double.parseDouble(matrixInputFieldA00.getText()), Double.parseDouble(matrixInputFieldA01.getText()), Double.parseDouble(matrixInputFieldA10.getText()), Double.parseDouble(matrixInputFieldA11.getText()))
-                            ,new Vector2D(Double.parseDouble(vectorInputFieldB0.getText()), Double.parseDouble(vectorInputFieldB1.getText())));
+                            , new Vector2D(Double.parseDouble(vectorInputFieldB0.getText()), Double.parseDouble(vectorInputFieldB1.getText())));
 
                     transform2DList.add(affineTransform2D);
                     affineTransform2DObservableList.add(affineTransform2D);
                     affineTransform2DListView.setItems(affineTransform2DObservableList);
                 });
 
-                inputFieldsVBox.getChildren().addAll(matrixText,matrixTopRow,matrixBottomRow,
-                        vectorText,vectorInputFieldB0,vectorInputFieldB1, addToListButton);
-
+                inputFieldsVBox.getChildren().addAll(matrixText, matrixTopRow, matrixBottomRow,
+                        vectorText, vectorInputFieldB0, vectorInputFieldB1, addToListButton);
 
 
             }
@@ -191,7 +196,7 @@ public class CreateFractalController {
                 constantInputFields.add(constantCInputFieldReal);
                 constantInputFields.add(constantCInputFieldImaginary);
 
-                inputFieldsVBox.getChildren().addAll(constantCText,constantCInputFieldReal,constantCInputFieldImaginary);
+                inputFieldsVBox.getChildren().addAll(constantCText, constantCInputFieldReal, constantCInputFieldImaginary);
             }
 
         }
@@ -211,9 +216,8 @@ public class CreateFractalController {
         HBox minCoordHBox = new HBox(minCoordsX, minCoordsY);
         HBox maxCoordHBox = new HBox(maxCoordsX, maxCoordsY);
 
-        inputFieldsVBox.getChildren().addAll(coordsMinText,minCoordHBox, coordsMaxText,maxCoordHBox);
+        inputFieldsVBox.getChildren().addAll(coordsMinText, minCoordHBox, coordsMaxText, maxCoordHBox);
     }
-
 
 
     public void setSaveButton(Button saveButton) {

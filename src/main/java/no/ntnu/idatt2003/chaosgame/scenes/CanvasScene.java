@@ -85,7 +85,10 @@ public class CanvasScene {
         canvasSizeInputFieldHeight = new TextField("600");
 
 
-        HBox canvasSizeChange = new HBox(canvasSizeInputFieldWidth, canvasSizeInputFieldHeight);
+        Text canvasHeightText = new Text("h:");
+        Text canvasWidthText = new Text("w:");
+
+        HBox canvasSizeChange = new HBox(canvasWidthText, canvasSizeInputFieldWidth, canvasHeightText, canvasSizeInputFieldHeight);
 
         canvasSizeConfirmButton = new Button("Confirm");
 

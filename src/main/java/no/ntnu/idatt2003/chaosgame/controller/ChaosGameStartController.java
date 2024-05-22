@@ -16,14 +16,30 @@ public class ChaosGameStartController {
     private Stage stage;
     private Button playButton;
 
+
+    /**
+     * Constructor for {@link ChaosGameStartController} with the stage.
+     *
+     * @param stage Stage to be used
+     */
     public ChaosGameStartController(Stage stage) {
         this.stage = stage;
     }
 
+    /**
+     * Sets the play button for {@link ChaosGameStartController}.
+     *
+     * @param playButton The play button to be set.
+     */
     public void setPlayButton(Button playButton) {
         this.playButton = playButton;
     }
 
+    /**
+     * Adds listener to play button in {@link ChaosGameStartController} to make it
+     * switch scene to next scene.
+     *
+     */
     public void addButtonListeners() {
         playButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
@@ -31,6 +47,16 @@ public class ChaosGameStartController {
         });
     }
 
+    /**
+     * Updates the current scene with the provided root node and default dimensions.
+     *
+     * This method creates a new Scene with the specified root node and
+     * dimensions of 600 by 600 pixels.
+     * It then applies a CSS stylesheet for styling and sets the new scene on the
+     * primary stage before displaying it.
+     *
+     * @param root The root node of the new scene to be displayed.
+     */
     public void updateScene(Parent root) {
         Scene scene = new Scene(root, 600, 600);
 

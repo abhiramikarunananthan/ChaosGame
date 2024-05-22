@@ -22,15 +22,31 @@ public class SceneController {
     private final Stage stage;
     private ChaosGameDescription chaosGameDescription;
 
-
+    /**
+     * Constructor for {@link SceneController} class.
+     *
+     * @param stage The stage of the application.
+     */
     public SceneController(Stage stage) {
         this.stage = stage;
     }
 
+
+    /**
+     * Sets the chaos game description for this scene controller.
+     *
+     * @param chaosGameDescription The chaos game description to be set.
+     */
     public void setGameDescription(ChaosGameDescription chaosGameDescription) {
         this.chaosGameDescription = chaosGameDescription;
     }
 
+    /**
+     * Switches the scene based on the provided scene number.
+     *
+     * @param sceneNumber The number representing the scene to switch to.
+     *
+     */
     public void switchScene(int sceneNumber) {
         switch (sceneNumber) {
             case MENU_SCENE -> {

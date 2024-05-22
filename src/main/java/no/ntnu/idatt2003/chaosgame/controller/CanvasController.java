@@ -72,6 +72,7 @@ public class CanvasController implements ChaosGameObserver {
                 graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 chaosGame = new ChaosGame(chaosGameDescription, (int) canvas.getHeight(), (int) canvas.getWidth());
                 chaosGame.runSteps(Integer.parseInt(iterationInputField.getText()), this);
+
             } catch (NumberFormatException e) {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");

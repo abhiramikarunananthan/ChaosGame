@@ -5,4 +5,6 @@ module no.ntnu.idatt2003.chaosgame {
 
     opens no.ntnu.idatt2003.chaosgame to javafx.fxml;
     exports no.ntnu.idatt2003.chaosgame;
+    exports no.ntnu.idatt2003.chaosgame.controller;
+    opens no.ntnu.idatt2003.chaosgame.controller to javafx.fxml;
 }

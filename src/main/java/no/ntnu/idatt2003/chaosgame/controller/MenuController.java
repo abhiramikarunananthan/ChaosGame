@@ -27,26 +27,58 @@ public class MenuController {
     private Button createYourOwnButton;
     private Button quitButton;
 
+    /**
+     * Constructor for {@link MenuController}.
+     *
+     * @param stage The primary stage of the application, which serves as the
+     * main window for the UI.
+     */
     public MenuController(Stage stage) {
         this.stage = stage;
     }
 
+    /**
+     * Sets the start button for this controller.
+     *
+     * @param startButton The start button to be set.
+     */
     public void setStartButton(Button startButton) {
         this.startButton = startButton;
     }
 
+
+    /**
+     * Sets the import button to import new ChaosGame.
+     *
+     * @param importButton The import button to be set.
+     */
     public void setImportButton(Button importButton) {
         this.importButton = importButton;
     }
 
+    /**
+     * Sets the button to create own fractal.
+     *
+     * @param createYourOwnButton The create-your-own button to be set.
+     */
     public void setCreateYourOwnButton(Button createYourOwnButton) {
         this.createYourOwnButton = createYourOwnButton;
     }
 
+    /**
+     * Sets the quit button to quit the game.
+     *
+     * @param quitButton The quit button to be set.
+     */
     public void setQuitButton(Button quitButton) {
         this.quitButton = quitButton;
     }
 
+
+    /**
+     * Adds action listeners to the buttons for handling user interactions.
+     * Specifies actions to be performed when each button is clicked.
+     */
     public void addButtonListeners() {
         startButton.setOnAction(actionEvent -> {
             SceneController sceneController = new SceneController(stage);
@@ -81,6 +113,12 @@ public class MenuController {
         });
     }
 
+
+    /**
+     * Updates the scene with the provided root node and applies the menu stylesheet.
+     *
+     * @param root The root node of the scene to be updated.
+     */
     public void updateScene(Parent root) {
         Scene scene = new Scene(root, 600, 600);
 

@@ -14,10 +14,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import no.ntnu.idatt2003.chaosgame.components.ChaosCanvas;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGame;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameDescription;
 import no.ntnu.idatt2003.chaosgame.components.ChaosGameObserver;
 import no.ntnu.idatt2003.chaosgame.exceptions.MinimumBiggerThanMaximumException;
+import no.ntnu.idatt2003.chaosgame.exceptions.NegativeDimensionsException;
 import no.ntnu.idatt2003.chaosgame.tensors.Complex;
 import no.ntnu.idatt2003.chaosgame.tensors.Matrix2x2;
 import no.ntnu.idatt2003.chaosgame.tensors.Vector2D;
@@ -58,12 +60,34 @@ public class CanvasController implements ChaosGameObserver {
     private TextField canvasSizeInputFieldWidth;
     private TextField canvasSizeInputFieldHeight;
 
+    /**
+     * Constructor for the {@link CanvasController} class.
+     * @param stage The primary stage of the application, which serves as the
+     * main window for the UI.
+     * @param transformation An instance of Transformations
+     * that defines the transformations to be applied within the canvas.
+     * @param chaosGameDescription An instance of ChaosGameDescription that contains
+     * the settings and rules for the chaos game to be visualized on the canvas.
+     *
+     */
     public CanvasController(Stage stage, Transformations transformation, ChaosGameDescription chaosGameDescription) {
         this.stage = stage;
         this.transformation = transformation;
         this.chaosGameDescription = chaosGameDescription;
     }
 
+    /**
+     * Adds event listeners to the buttons in the user interface on {@link no.ntnu.idatt2003.chaosgame.scenes.CanvasScene}
+     *
+     * This method sets up action handlers for the following buttons:
+     *
+     * runButton: Initiates the chaos game by reading input values, clearing the canvas,
+     * creating a new ChaosGame instance, and running the specified number of steps.
+     * Handles various exceptions and displays appropriate error alerts.
+     * backButton: Switches the scene to a different view using {@link SceneController}.
+     * canvasSizeConfirmButton: Updates the canvas size based on user input, clears the canvas,
+     * and adjusts the scene dimensions accordingly.
+     */
     public void addButtonListeners() {
 
         runButton.setOnAction(actionEvent -> {
@@ -121,6 +145,19 @@ public class CanvasController implements ChaosGameObserver {
         });
     }
 
+    /**
+     *  Fills the provided VBox with input fields based on the current
+     *  transformation.
+     *
+     * If the transformation is AFFINE2D, the method creates and adds text fields for the matrix and vector
+     * components of each affine transformation in the chaos game description. It also adds input fields for the
+     * minimum and maximum coordinate vectors.
+     *
+     * If the transformation is JULIA, the method creates and adds input fields for the constant vector
+     * of the Julia transformation, along with the minimum and maximum coordinate vectors.
+     *
+     * @param inputFieldsVBox The VBox container to be filled with input fields.
+     */
     public void fillInputFieldsVBox(VBox inputFieldsVBox) {
         if (transformation != null)
             switch (transformation) {
@@ -218,6 +255,15 @@ public class CanvasController implements ChaosGameObserver {
             }
     }
 
+    /**
+     * Updates the current scene with the provided root node.
+     *
+     * This method creates a new scene with the specified root node and default dimensions
+     * of 850 by 600 pixels. It then applies a CSS stylesheet for styling and sets the new scene on
+     * the primary stage before displaying it.
+     *
+     * @param root The root node of the new scene to be displayed.
+     */
     public void updateScene(Parent root) {
         Scene scene = new Scene(root, 850, 600);
 
@@ -228,6 +274,17 @@ public class CanvasController implements ChaosGameObserver {
         stage.show();
     }
 
+    /**
+     * Updates the current scene with the provided root node and specified dimensions.
+     *
+     * This method creates a new Scene with the specified root node and dimensions.
+     * It then applies a CSS stylesheet for styling and sets the new scene on the primary stage
+     * before displaying it.
+     *
+     * @param root The root node of the new scene to be displayed.
+     * @param width The width of the new scene.
+     * @param height The height of the new scene.
+     */
     public void updateScene(Parent root, double width, double height) {
         Scene scene = new Scene(root, width, height);
 
@@ -238,6 +295,21 @@ public class CanvasController implements ChaosGameObserver {
         stage.show();
     }
 
+    /**
+     *  Updates the chaosGameDescription object based on the current input fields.
+     *
+     * If the transformation is AFFINE2D, the method parses the matrix and vector input fields
+     * to create new Matrix2x2 and Vector2D objects, respectively. It then combines these
+     * into AffineTransform2D objects and updates the transforms in the chaosGameDescription.
+     * It also updates the minimum and maximum coordinate vectors.
+     *
+     * If the transformation is JULIA, it reads the constant values from the input fields to create
+     * new Complex objects for the Julia transformation and updates the transforms in the chaosGameDescription.
+     * It also updates the minimum and maximum coordinate vectors.
+     *
+     * If any parsing error occurs, NullPointerException or NumberFormatException,
+     * an error alert is shown to the user.
+     */
     private void updateChaosGameDescription() {
         try {
             if (transformation == Transformations.AFFINE2D) {
@@ -291,6 +363,13 @@ public class CanvasController implements ChaosGameObserver {
 
     }
 
+    /**
+     * This method converts the coordinates of the given point to integers,
+     * retrieves the pixel value from the canvas, and if the point is within the
+     * canvas bounds, updates the display by drawing a colored point.
+     *
+     * @param point The new point to be updated on the canvas.
+     */
     @Override
     public void update(Vector2D point) {
 
@@ -316,34 +395,75 @@ public class CanvasController implements ChaosGameObserver {
 
     }
 
+    /**
+     * Sets the run button for the {@link CanvasController}.
+     *
+     * @param runButton The button to start the chaos game.
+     */
     public void setRunButton(Button runButton) {
         this.runButton = runButton;
     }
-
+    /**
+     * Sets the back button for the {@link CanvasController}.
+     *
+     * @param backButton The button to navigate back to the previous scene.
+     */
     public void setBackButton(Button backButton) {
         this.backButton = backButton;
     }
 
+    /**
+     * Sets the iteration input field for the {@link CanvasController}.
+     *
+     * @param iterationInputField The text field to input the number of iterations.
+     */
     public void setIterationInputField(TextField iterationInputField) {
         this.iterationInputField = iterationInputField;
     }
 
+    /**
+     * Sets the graphics context for the {@link CanvasController}.
+     *
+     * @param graphicsContext The graphics context used to draw on the canvas.
+     */
     public void setGraphicsContext(GraphicsContext graphicsContext) {
         this.graphicsContext = graphicsContext;
     }
 
+    /**
+     * Sets the canvas size confirm button for the {@link CanvasController}.
+     *
+     * @param canvasSizeConfirmButton The button to confirm the new canvas size.
+     */
     public void setCanvasSizeConfirmButton(Button canvasSizeConfirmButton) {
         this.canvasSizeConfirmButton = canvasSizeConfirmButton;
     }
 
+    /**
+     * Sets the canvas for the {@link CanvasController}.
+     *
+     * @param canvas The canvas to draw on.
+     */
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
     }
 
+    /**
+     * Sets the width input field for the canvas size.
+     *
+     * @param canvasSizeInputFieldWidth The text field to input the width
+     * of the canvas.
+     */
     public void setCanvasSizeInputFieldWidth(TextField canvasSizeInputFieldWidth) {
         this.canvasSizeInputFieldWidth = canvasSizeInputFieldWidth;
     }
 
+    /**
+     * Sets the height input field for the canvas size.
+     *
+     * @param canvasSizeInputFieldHeight The text field to input the height of
+     * the canvas.
+     */
     public void setCanvasSizeInputFieldHeight(TextField canvasSizeInputFieldHeight) {
         this.canvasSizeInputFieldHeight = canvasSizeInputFieldHeight;
     }

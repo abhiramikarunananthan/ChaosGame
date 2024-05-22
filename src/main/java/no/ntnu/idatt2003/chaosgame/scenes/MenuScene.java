@@ -23,6 +23,10 @@ public class MenuScene {
 
     private final MenuController menuController;
 
+    /**
+     * Constructor for the {@link MenuScene}
+     * @param menuController The controller to be used for the {@link MenuScene}
+     */
     public MenuScene(MenuController menuController) {
         this.menuController = menuController;
 
@@ -37,10 +41,19 @@ public class MenuScene {
 
     }
 
+    /**
+     * method to update the scene to be displayed
+     */
     public void displayScene() {
         menuController.updateScene(root);
     }
 
+    /**
+     * Creates and lays out the controls for the menu scene.
+     *
+     * This method initializes the title, description, and buttons
+     * for the menu scene and sets their styles.
+     */
     private void createAndLayoutControls() {
         Text title = new Text("Menu");
         Text infoBox = new Text("Chose one of the options below");

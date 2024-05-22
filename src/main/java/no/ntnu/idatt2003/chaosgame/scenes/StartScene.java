@@ -24,6 +24,10 @@ public class StartScene {
     private VBox root;
     private final StartController startController;
 
+    /**
+     * Constructor for {@link StartScene}
+     * @param startController The controller to be used for the {@link StartScene}
+     */
     public StartScene(StartController startController) {
 
         this.startController = startController;
@@ -39,10 +43,20 @@ public class StartScene {
 
     }
 
+    /**
+     * method to update the scene to be displayed
+     */
     public void displayScene() {
         startController.updateScene(root);
     }
 
+
+    /**
+     * Creates and lays out the controls for the menu scene.
+     *
+     * This method initializes the title, description, and buttons
+     * for the menu scene and sets their styles.
+     */
     private void createAndLayoutControls() {
         Text title = new Text("Games");
         Text infoBox = new Text("Chose which fractal you want to display");

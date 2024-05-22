@@ -26,6 +26,10 @@ public class CreateFractalScene {
     private HBox root;
     private final CreateFractalController createFractalController;
 
+    /**
+     * Constructor for {@link CreateFractalScene}
+     * @param createFractalController The controller to be used for the {@link CreateFractalScene}
+     */
     public CreateFractalScene(CreateFractalController createFractalController) {
         this.createFractalController = createFractalController;
         createAndLayoutControls();
@@ -39,11 +43,18 @@ public class CreateFractalScene {
         createFractalController.addButtonListeners();
 
     }
-
+    /**
+     * method to update the scene to be displayed
+     */
     public void displayScene() {
         createFractalController.updateScene(root);
     }
-
+    /**
+     * Creates and lays out the controls for the menu scene.
+     *
+     * This method initializes the title, description, and buttons
+     * for the menu scene and sets their styles.
+     */
     private void createAndLayoutControls() {
         inputFieldsVBox = new VBox();
         menuButton = new MenuButton("Transformation");

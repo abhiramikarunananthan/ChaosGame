@@ -35,6 +35,10 @@ public class CanvasScene {
     private TextField canvasSizeInputFieldWidth;
     private TextField canvasSizeInputFieldHeight;
 
+    /**
+     * Constructor for {@link CanvasScene}
+     * @param canvasController The controller to be used for the {@link CanvasScene}
+     */
     public CanvasScene(CanvasController canvasController) {
         this.canvasController = canvasController;
 
@@ -54,14 +58,25 @@ public class CanvasScene {
         canvasController.addButtonListeners();
     }
 
+    /**
+     * method to update the scene to be displayed
+     */
     public void displayScene() {
         canvasController.updateScene(root);
     }
 
+    /**
+     * Fills the input fields VBox with input fields managed by the {@link CanvasController}.
+     */
     private void fillInputFieldsVBox() {
         canvasController.fillInputFieldsVBox(inputFieldsVBox);
     }
 
+    /**
+     * Creates the graphics context for drawing on the canvas.
+     *
+     * Sets line width and transforms for the graphics context.
+     */
     private void createGraphicsContext() {
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setLineWidth(1.0);
@@ -72,6 +87,11 @@ public class CanvasScene {
         graphicsContext.translate(-300, -300);
     }
 
+    /**
+     * Creates and lays out the controls for the canvas scene.
+     *
+     * This method initializes input fields, buttons, canvas, and their layout.
+     */
     private void createAndLayoutControls() {
         inputFieldsVBox = new VBox();
         Text iterationText = new Text("Input amount of iterations");

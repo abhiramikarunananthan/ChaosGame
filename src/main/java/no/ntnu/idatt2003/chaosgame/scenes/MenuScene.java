@@ -3,7 +3,7 @@ package no.ntnu.idatt2003.chaosgame.scenes;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import no.ntnu.idatt2003.chaosgame.Controller.MenuController;
+import no.ntnu.idatt2003.chaosgame.controller.MenuController;
 
 /**
  * JavaFX scene for the main menu of

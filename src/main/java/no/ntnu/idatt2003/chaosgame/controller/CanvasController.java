@@ -1,4 +1,4 @@
-package no.ntnu.idatt2003.chaosgame.Controller;
+package no.ntnu.idatt2003.chaosgame.controller;
 
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;

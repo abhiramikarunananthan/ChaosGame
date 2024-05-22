@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import no.ntnu.idatt2003.chaosgame.Controller.CanvasController;
+import no.ntnu.idatt2003.chaosgame.controller.CanvasController;
 
 /**
  * JavaFX scene for displaying fractals on a canvas.

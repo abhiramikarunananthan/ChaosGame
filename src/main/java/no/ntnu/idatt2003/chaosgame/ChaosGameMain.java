@@ -2,7 +2,7 @@ package no.ntnu.idatt2003.chaosgame;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import no.ntnu.idatt2003.chaosgame.Controller.ChaosGameStartController;
+import no.ntnu.idatt2003.chaosgame.controller.ChaosGameStartController;
 import no.ntnu.idatt2003.chaosgame.scenes.ChaosGameStartScene;
 
 /**

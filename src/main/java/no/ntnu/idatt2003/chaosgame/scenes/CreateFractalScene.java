@@ -5,7 +5,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import no.ntnu.idatt2003.chaosgame.Controller.CreateFractalController;
+import no.ntnu.idatt2003.chaosgame.controller.CreateFractalController;
 import no.ntnu.idatt2003.chaosgame.transforms.AffineTransform2D;
 
 /**

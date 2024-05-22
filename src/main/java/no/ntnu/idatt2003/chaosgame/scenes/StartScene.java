@@ -3,7 +3,7 @@ package no.ntnu.idatt2003.chaosgame.scenes;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import no.ntnu.idatt2003.chaosgame.Controller.StartController;
+import no.ntnu.idatt2003.chaosgame.controller.StartController;
 
 /**
  * JavaFX scene for displaying the different

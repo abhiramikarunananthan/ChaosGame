@@ -47,6 +47,11 @@ public class CreateFractalController {
     private Transformations currentTransformation;
     private final List<Transform2D> transform2DList;
 
+
+    /**
+     * Constructor for the {@link CreateFractalController} class.
+     * @param stage Primary satge for {@link CreateFractalController}.
+     */
     public CreateFractalController(Stage stage) {
         this.stage = stage;
         this.transform2DList = new ArrayList<>();
@@ -56,6 +61,20 @@ public class CreateFractalController {
         this.coordsInputFields = new ArrayList<>();
     }
 
+
+    /**
+     * Adds action listeners to buttons in {@link CreateFractalController}.
+     *
+     * saveButton: Saves fractal description to file based on transformation type.
+     * If any errors occur during the process, null values, number format exceptions,
+     * or IO exceptions, an error alert is displayed
+     *
+     * backButton: Switches the scene to a different view using {@link SceneController}.
+     *
+     * menuButton: The menu button contains menu items representing different transformations.
+     * When a menu item is clicked, it updates the text of the menu button to display
+     * the selected transformation.
+     */
     public void addButtonListeners() {
 
         saveButton.setOnAction(actionEvent -> {
@@ -108,6 +127,13 @@ public class CreateFractalController {
 
     }
 
+    /**
+     * Saves the given ChaosGameDescription to a file.
+     *
+     * @param chaosGameDescription The ChaosGameDescription to be saved.
+     * @throws IOException If an I/O error occurs while saving the file.
+     */
+
     private void saveDescriptionToFile(ChaosGameDescription chaosGameDescription) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
@@ -128,6 +154,12 @@ public class CreateFractalController {
         successAlert.showAndWait();
     }
 
+    /**
+     * Updates the current scene with the provided root node.
+     * Applies default dimensions and CSS stylesheet to the scene.
+     *
+     * @param root The root node of the new scene to be displayed.
+     */
     public void updateScene(Parent root) {
         Scene scene = new Scene(root, 600, 600);
 
@@ -138,12 +170,21 @@ public class CreateFractalController {
         stage.show();
     }
 
+    /**
+     * Populates the menu button with menu items representing different transformations.
+     */
     public void populateMenuButton() {
         for (Transformations transformation : Transformations.values()) {
             menuButton.getItems().add(new MenuItem(transformation.name()));
         }
     }
 
+    /**
+     * Updates the input fields displayed in the provided VBox based on the current transformation.
+     * Clears the existing content, sets visibility for specific UI elements, and populates input fields accordingly.
+     *
+     * @param inputFieldsVBox The VBox containing the input fields to be updated.
+     */
     private void updateContents(VBox inputFieldsVBox) {
         inputFieldsVBox.getChildren().clear();
         saveButton.setVisible(true);
@@ -216,23 +257,47 @@ public class CreateFractalController {
         inputFieldsVBox.getChildren().addAll(coordsMinText, minCoordHBox, coordsMaxText, maxCoordHBox);
     }
 
-
+    /**
+     * Sets the save button for this controller.
+     *
+     * @param saveButton The save button to be set.
+     */
     public void setSaveButton(Button saveButton) {
         this.saveButton = saveButton;
     }
 
+    /**
+     * Sets the menu button for this controller.
+     *
+     * @param menuButton The menu button to be set.
+     */
     public void setMenuButton(MenuButton menuButton) {
         this.menuButton = menuButton;
     }
 
+    /**
+     * Sets the back button for this controller.
+     *
+     * @param backButton The back button to be set.
+     */
     public void setBackButton(Button backButton) {
         this.backButton = backButton;
     }
 
+    /**
+     * Sets the input fields VBox for this controller.
+     *
+     * @param inputFieldVBox The input fields VBox to be set.
+     */
     public void setInputFieldVBox(VBox inputFieldVBox) {
         this.inputFieldVBox = inputFieldVBox;
     }
 
+    /**
+     *  Sets the list view for AffineTransform2D objects for this controller.
+     *
+     * @param affineTransform2DListView List to be set of AffineTransform2D
+     */
     public void setAffineTransform2DListView(ListView<AffineTransform2D> affineTransform2DListView) {
         this.affineTransform2DListView = affineTransform2DListView;
     }
